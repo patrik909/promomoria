@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
+
+  componentDidMount(){
+    fetch('api/fetch')
+      .then(res => res.text())
+      .then(result => {
+        console.log(result)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <div className="Promomoria">
