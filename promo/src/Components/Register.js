@@ -7,65 +7,72 @@ class Register extends Component {
     state = {
         newUsername: '',
         newPassword: '',
-        // newRepeatedPassword: '',
+        newPasswordRepeated: false,
         newLabelName: '',
         newEmail: '',
     }
 
     handleUsername = event => {
-        // console.log(event.target.value);
         this.setState({ newUsername: event.target.value });
     }
 
     handlePassword = event => {
-        // console.log(event.target.value);
         this.setState({ newPassword: event.target.value });
     }
 
-    // handleRepeatedPassword = event => {
-    //     // console.log(event.target.value);
-    //     this.setState({ newRepeatedPassword: event.target.value });
-    // }
+    handleRepeatedPassword = event => {
+        if (event.target.value === this.state.newPassword) {
+            console.log('correct');
+            this.setState({ newPasswordRepeated: true });
+        } else {
+            console.log('not correct');
+            this.setState({ newPasswordRepeated: false });
+        }
+    }
 
     handleLabelName = event => {
-        // console.log(event.target.value);
         this.setState({ newLabelName: event.target.value });
     }
 
     handleEmail = event => {
-        // console.log(event.target.value);
         this.setState({ newEmail: event.target.value });
     }
 
+    closeRegisterUser = event => {
+        this.props.handleStartPage('closeRegisterUser'); 
+    }
+
     registerUser = event => {
-        console.log(this.state.newUsername);
-        console.log(this.state.newPassword);
-        // console.log(this.state.newRepeatedPassword);
-        console.log(this.state.newLabelName);
-        console.log(this.state.newEmail);
-
-        let data = {
-            username: this.state.newUsername,
-            password: this.state.newPassword,
-            label_name: this.state.newLabelName,
-            email: this.state.newEmail
-        };
-
-        fetch('api/add_user', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          })
-        .then(res => res.json())
-        .then(result => {
-            console.log(result)
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        if (
+            this.state.newUsername !== '' &&
+            this.state.newPassword !== '' &&
+            this.state.newLabelName !== '' &&
+            this.state.newEmail !== '' &&
+            this.state.newPasswordRepeated === true    
+        ) {
+            let data = {
+                username: this.state.newUsername,
+                password: this.state.newPassword,
+                label_name: this.state.newLabelName,
+                email: this.state.newEmail
+            };
+    
+            fetch('api/add_user', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        }
     }
 
     render() {
@@ -79,10 +86,10 @@ class Register extends Component {
                     placeholder={'Password'}
                     onChange={this.handlePassword}
                 />
-                {/* <Inputfield 
+                <Inputfield 
                     placeholder={'Repeat Password'}
                     onChange={this.handleRepeatedPassword}
-                /> */}
+                />
                 <Inputfield 
                     placeholder={'Label Name'}
                     onChange={this.handleLabelName}
@@ -93,6 +100,7 @@ class Register extends Component {
                 />
                 <Button 
                     innerText={'Back'}
+                    onClick={this.closeRegisterUser}
                 />
                 <Button 
                     innerText={'Register'}

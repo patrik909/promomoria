@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.post('/add_user', (req, res) => {
   const newUser = req.body;
   connection.query(
-  "insert into users(username,password,email,label_name) values('" + newUser.username + "','" + newUser.password + "','" + newUser.email + "','" + newUser.label_name + "')", 
+  `insert into users(username,password,email,label_name) values('${newUser.username}','${newUser.password}','${newUser.email}','${newUser.label_name}')`, 
   function (error, results, fields) { 
     console.log(results);
   });

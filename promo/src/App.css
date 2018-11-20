@@ -1,5 +1,5 @@
 /* Temporary CSS */
-
+.Login,
 .Register {
     display: flex;
     flex-direction: column;
@@ -8,6 +8,8 @@
     padding: 10px;
 }
 
+.Login input,
+.Login button,
 .Register input,
 .Register button{
     padding: 10px;
