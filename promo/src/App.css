@@ -1,0 +1,17 @@
+/* Temporary CSS */
+
+.Register {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    margin: auto;
+    padding: 10px;
+}
+
+.Register input,
+.Register button{
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* End of temporary CSS */

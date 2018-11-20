@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3001;
 const mysql = require('mysql');
+const bodyParser = require('body-parser');
 
 // Database connection
 const connection = mysql.createConnection({
@@ -12,13 +13,16 @@ const connection = mysql.createConnection({
   database : 'promomoria'
 });
 
-app.get('/fetch', (req, res) => {
+app.use(bodyParser.json());
 
-  connection.query('SELECT * FROM `users`', function (error, results, fields) {
+// Create new user
+app.post('/add_user', (req, res) => {
+  const newUser = req.body;
+  connection.query(
+  "insert into users(username,password,email,label_name) values('" + newUser.username + "','" + newUser.password + "','" + newUser.email + "','" + newUser.label_name + "')", 
+  function (error, results, fields) { 
     console.log(results);
-    res.send(results)
   });
-
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
