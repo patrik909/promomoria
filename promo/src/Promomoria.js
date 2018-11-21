@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
 import './App.css';
-import Register from './Components/Register.js';
-import Login from './Components/Login.js';
+// import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Register from './Pages/Register.js';
+import Login from './Pages/Login.js';
+import AddRelease from './Pages/AddRelease.js';
+import Home from './Pages/Home.js';
 
 class Promomoria extends Component {
 
   state = {
-    loggedIn: false,
+    loggedInUser: 12,
     registerNewUser: false
+  }
+
+  componentDidMount() {
+    // SESSION TESTING
+    // fetch('api/')
+    //   .then(res => res.text())
+    //   .then(result => {
+    //       console.log(result)
+    //       console.log('success')
+    //   })
+    //   .catch((error) => {
+    //       console.log(error);
+    //   });
   }
 
   handleStartPage = value => {
@@ -18,16 +34,22 @@ class Promomoria extends Component {
     }
   }
 
+  handleLogin = userId => {
+    this.setState({loggedInUser: userId});
+  }
+
   render() {
-    let page = '';
+    let homePage = '';
     if (this.state.registerNewUser === true) {
-      page = <Register handleStartPage={this.handleStartPage} />
+      homePage = <Register handleStartPage={this.handleStartPage} />
+    } else if (this.state.loggedInUser !== false && this.state.registerNewUser === false) {
+      homePage = <Home />
     } else {
-      page = <Login handleStartPage={this.handleStartPage} />
+      homePage = <Login handleStartPage={this.handleStartPage} handleLogin={this.handleLogin} />
     }
     return (
       <div className="Promomoria">
-        {page}
+        {homePage}
       </div>
     );
   }

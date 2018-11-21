@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import Inputfield from './Parts/Inputfield.js';
-import Button from './Parts/Button.js';
+import Inputfield from '../Components/Parts/Inputfield.js';
+import Button from '../Components/Parts/Button.js';
 
 class Register extends Component {
 
     state = {
-        newUsername: '',
+        newEmail: '',
         newPassword: '',
         newPasswordRepeated: false,
         newLabelName: '',
-        newEmail: '',
     }
 
-    handleUsername = event => {
-        this.setState({ newUsername: event.target.value });
+    handleEmail = event => {
+        this.setState({ newEmail: event.target.value });
     }
 
     handlePassword = event => {
@@ -34,27 +33,21 @@ class Register extends Component {
         this.setState({ newLabelName: event.target.value });
     }
 
-    handleEmail = event => {
-        this.setState({ newEmail: event.target.value });
-    }
-
     closeRegisterUser = event => {
         this.props.handleStartPage('closeRegisterUser'); 
     }
 
     registerUser = event => {
         if (
-            this.state.newUsername !== '' &&
+            this.state.newEmail !== '' &&
             this.state.newPassword !== '' &&
             this.state.newLabelName !== '' &&
-            this.state.newEmail !== '' &&
             this.state.newPasswordRepeated === true    
         ) {
             let data = {
-                username: this.state.newUsername,
+                email: this.state.newEmail,
                 password: this.state.newPassword,
-                label_name: this.state.newLabelName,
-                email: this.state.newEmail
+                label_name: this.state.newLabelName
             };
     
             fetch('api/add_user', {
@@ -79,8 +72,8 @@ class Register extends Component {
         return (
             <div className="Register">
                 <Inputfield 
-                    placeholder={'Username'}
-                    onChange={this.handleUsername}
+                    placeholder={'Email'}
+                    onChange={this.handleEmail}
                 />
                 <Inputfield 
                     placeholder={'Password'}
@@ -93,10 +86,6 @@ class Register extends Component {
                 <Inputfield 
                     placeholder={'Label Name'}
                     onChange={this.handleLabelName}
-                />
-                <Inputfield 
-                    placeholder={'Email'}
-                    onChange={this.handleEmail}
                 />
                 <Button 
                     innerText={'Back'}

@@ -1,6 +1,7 @@
 /* Temporary CSS */
 .Login,
-.Register {
+.Register,
+.AddRelease {
     display: flex;
     flex-direction: column;
     width: 250px;
@@ -9,11 +10,34 @@
 }
 
 .Login input,
-.Login button,
 .Register input,
-.Register button{
+.AddRelease input,
+button{
+    font-size: 14px;
     padding: 10px;
     margin-bottom: 10px;
+}
+
+button {
+    border: none;
+    background: black;
+    color: white;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+input {
+    letter-spacing: 1px;
+}
+
+.Home {
+    display: flex;
+    justify-content: center;
+}
+
+.Home button {
+    margin: 5px;
 }
 
 /* End of temporary CSS */
