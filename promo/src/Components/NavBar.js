@@ -1,22 +1,17 @@
-import React, { Component } from 'react';
-import Button from './Parts/Button.js';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-class NavBar extends Component {
-
-    render() {
-        return (
-            <nav>
-                <div>
-                    <h1>Promomoria</h1> 
-                    <Button innerText={'Add'}/>
-                    <Button innerText={'View'}/>  
-                </div>
-                <div>
-                    {/* underline för nav-baren*/}
-                </div>
-            </nav>
-        );
-    }
+function NavBar() {
+    return (
+        <nav>
+            <div>
+                <h1>Promomoria</h1>
+                <Link to="/Add">Add</Link>
+                <Link to="/View">View</Link>
+            </div>
+            <div className="underline"></div>
+        </nav>
+    );
 }
 
 export default NavBar;

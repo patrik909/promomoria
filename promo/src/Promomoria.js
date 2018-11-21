@@ -1,58 +1,26 @@
-import React, { Component } from 'react';
-import './App.css';
-// import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Register from './Pages/Register.js';
-import Login from './Pages/Login.js';
-import AddRelease from './Pages/AddRelease.js';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Home from './Pages/Home.js';
+import AddRelease from './Pages/AddRelease';
+import ViewReleases from './Pages/ViewReleases.js';
+import ReleasePage from './Pages/Release.js';
 
-class Promomoria extends Component {
+import './App.css';
 
-  state = {
-    loggedInUser: 12,
-    registerNewUser: false
-  }
+const View = () => <ViewReleases />;
+const Add = () => <AddRelease />;
+const Release = ({ match }) => <ReleasePage match={match} />;
 
-  componentDidMount() {
-    // SESSION TESTING
-    // fetch('api/')
-    //   .then(res => res.text())
-    //   .then(result => {
-    //       console.log(result)
-    //       console.log('success')
-    //   })
-    //   .catch((error) => {
-    //       console.log(error);
-    //   });
-  }
-
-  handleStartPage = value => {
-    if (value === 'openRegisterUser') {
-      this.setState({registerNewUser: true});
-    } else {
-      this.setState({registerNewUser: false});
-    }
-  }
-
-  handleLogin = userId => {
-    this.setState({loggedInUser: userId});
-  }
-
-  render() {
-    let homePage = '';
-    if (this.state.registerNewUser === true) {
-      homePage = <Register handleStartPage={this.handleStartPage} />
-    } else if (this.state.loggedInUser !== false && this.state.registerNewUser === false) {
-      homePage = <Home />
-    } else {
-      homePage = <Login handleStartPage={this.handleStartPage} handleLogin={this.handleLogin} />
-    }
-    return (
-      <div className="Promomoria">
-        {homePage}
-      </div>
-    );
-  }
-}
+const Promomoria = () => (
+    <Router>
+        <div className="Promomoria">
+            <Route exact path="/" component={Home} />
+            <Route path="/Add" component={Add} />
+            <Route path="/View" component={View} />
+            <Route path="/Release/:id" component={Release} />
+        </div>
+    </Router>
+);
 
 export default Promomoria;
