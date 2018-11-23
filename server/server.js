@@ -52,6 +52,31 @@ app.post('/login', (req, res) => {
   );
 });
 
+// Add release
+app.post('/add_release', (req, res) => {
+  // New release data
+  const newRelease = req.body;
+  connection.query(
+    `insert into  releases(user_id,artist,title,cat_number,info_text,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','releaseFile','${newRelease.password}')`, 
+    function (error, results, fields) { 
+      console.log(results)
+    }
+  );
+});
+
+// Fetch release
+app.post('/fetch_release', (req, res) => {
+  const release = req.body;
+  console.log(release)
+  connection.query(
+    `SELECT * FROM releases WHERE id = '${release.id}'`,    
+    function (error, results, fields) { 
+      console.log(results)
+      res.send(results)
+    }
+  );
+});
+
 // session
 // https://www.npmjs.com/package/express-mysql-session
 // https://stackoverflow.com/questions/46760789/equivalent-of-session-start-and-session-in-node-js-express

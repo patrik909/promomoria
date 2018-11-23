@@ -7,13 +7,15 @@ import ViewReleases from './Pages/ViewReleases.js';
 import ReleasePage from './Pages/Release.js';
 
 const View = () => <ViewReleases />;
-const Add = () => <AddRelease />;
 const Release = ({ match }) => <ReleasePage match={match} />;
 
 class Promomoria extends Component {
 
   state = {
-    loggedInUser: false
+    loggedInUser: [{
+      id: 12,
+      label_name: "Arsenik Records"
+    }]
   }
 
   handleLogin = user => {
@@ -25,7 +27,7 @@ class Promomoria extends Component {
       <Router>
         <div className="Promomoria">
           <Route exact path="/" component={() => <Start user={this.state.loggedInUser} handleLogin={this.handleLogin} /> } />
-          <Route path="/Add" component={Add} />
+          <Route path="/Add" component={() => <AddRelease user={this.state.loggedInUser} /> } />
           <Route path="/View" component={View} />
           <Route path="/Release/:id" component={Release} />
         </div>
