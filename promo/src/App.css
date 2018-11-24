@@ -1,6 +1,7 @@
 /* Temporary CSS */
 .Login,
 .Register,
+.Release,
 .AddRelease {
     display: flex;
     flex-direction: column;
@@ -12,6 +13,7 @@
 .Login input,
 .Register input,
 .AddRelease input,
+.Release input,
 button{
     font-size: 14px;
     padding: 10px;
