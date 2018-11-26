@@ -27,6 +27,7 @@ class AddReleaseArtwork extends Component {
                 imageUrl: [ response.data.imageUrl, ...this.state.imageUrl ],
                 imageName: response.data.imageName
             });
+            this.props.handleArtworkName(this.state.imageName)
         });
     }
 

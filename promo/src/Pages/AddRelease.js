@@ -13,7 +13,8 @@ class AddRelease extends Component {
         releaseTitle: 'Titel EP',
         releaseCatNr: 'ABC000',
         releasePassword: 'pass',
-        releaseInfoText: 'infotext'
+        releaseInfoText: 'infotext',
+        releaseArtwork: ''
     }
 
     componentDidMount() {
@@ -28,9 +29,18 @@ class AddRelease extends Component {
             title: this.state.releaseTitle,
             cat_nr: this.state.releaseCatNr,
             password: this.state.releasePassword,
-            info_text: this.state.releaseInfoText
-        })
+            info_text: this.state.releaseInfoText,
+            artwork_name: this.state.releaseArtwork
+        }).then((result) => {
+            // handle success
+
+            console.log(result.data.insertId);
+          })
         // then get id to attach to files
+    }
+
+    handleArtworkName = artworkName => {
+        this.setState({ releaseArtwork: artworkName});
     }
 
     render() {
@@ -39,7 +49,7 @@ class AddRelease extends Component {
                 <Header labelName={this.props.user[0].label_name} />
                 <main>
                     <div className="AddReleaseFiles">
-                        <AddReleaseArtwork />
+                        <AddReleaseArtwork handleArtworkName={this.handleArtworkName}/>
                         {/*<AddTracks /> */}
                     </div>
                     {/* <AddReleaseInfo /> */}
