@@ -26,7 +26,8 @@ app.use(express.static('uploads'));
 // Fetch all releases for logged in user.
 app.post('/fetch_releases', (req, res) => {
     const userId = req.body.userId
-    connection.query(`SELECT * FROM releases WHERE user_id = '${userId}'`,    
+    connection.query(
+        `SELECT * FROM releases WHERE user_id = '${userId}'`,    
         (error, results, fields) => { 
             res.send(results)
         }
@@ -37,9 +38,9 @@ app.post('/fetch_releases', (req, res) => {
 
 // Add release
 app.post('/add_release', (req, res) => {
-  // New release data
-  const newRelease = req.body;
-  connection.query(
+    // New release data
+    const newRelease = req.body;
+    connection.query(
     `insert into  releases(user_id,artist,title,cat_number,info_text,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','releaseFile','${newRelease.password}')`, 
     function (error, results, fields) { 
       res.send(results);

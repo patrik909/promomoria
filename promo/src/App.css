@@ -33,6 +33,10 @@ main {
     text-align: center;
 }
 
+main .verticalWrapper {
+    display: flex;
+}
+
 /* End of temporary CSS */
 
 header div {
