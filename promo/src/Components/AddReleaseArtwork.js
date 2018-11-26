@@ -1,80 +1,70 @@
 import React, { Component } from 'react';
-
+import Button from '../Components/Parts/Button.js';
 import axios from 'axios';
-
-const BASE_URL = 'api/';
-// import Inputfield from '../Components/Parts/Inputfield.js';
-// // import Button from '../Components/Parts/Button.js';
 
 class AddReleaseArtwork extends Component {
 
     state = {
-        images: [],
-        imageUrls: [],
+        imageName: '',
+        imageUrl: [],
         loaded: 0
     }
 
-    selectImages = (event) => {
-        let images = []
-        for (var i = 0; i < event.target.files.length; i++) {
-            images[i] = event.target.files.item(i);
-        }
-        this.setState({ images })
+    selectImages = event => {
 
-    }
- 
-uploadImages = () => {
-    const uploaders = this.state.images.map(image => {
-    const data = new FormData();
-    data.append("image", image, image.name);
-    
-    return axios.post(BASE_URL + 'upload', data, {
-        onUploadProgress: ProgressEvent => {
-          this.setState({
-            loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
-          })
-        },
-      })
-        .then(response => {
+        let image = event.target.files[0];
+        const data = new FormData();
+        data.append('artwork', image, image.name);
+            
+        axios.post('api/upload_artwork', data, {
+            onUploadProgress: ProgressEvent => {
+                this.setState({
+                    loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
+                });
+            },
+        }).then(response => {
             this.setState({
-                imageUrls: [ response.data.imageUrl, ...this.state.imageUrls ]
+                imageUrl: [ response.data.imageUrl, ...this.state.imageUrl ],
+                imageName: response.data.imageName
             });
-        })
-    });
+        });
+    }
 
-    axios.all(uploaders).then(() => {
-    console.log('done');
-    })
-}
+    removeArtwork = () => {
+        axios.post('api/delete_artwork', {
+            imageName: this.state.imageName
+        });
+        this.setState({
+            imageUrl: '',
+            imageName: '',
+            loaded: 0
+        });
+    }
+
     render() {
         return (
-            <div>
-                <div className="ArtworkUploader">
-                    <label for="artwork">Choose a file</label>
-
-                </div>
-
-
-<input type="file" id="artwork"
-onChange={this.selectImages} />
-<div> {Math.round(this.state.loaded,2) } %</div>
-<button className="btn btn-primary" value="Submit" 
-    onClick={this.uploadImages}>Submit</button>
-{ 
-    this.state.imageUrls.map((url, i) => (
-        <div className="col-lg-2" key={i}>
-            <img src={BASE_URL + url} className="img-rounded img-responsive"
-            alt="not available"/><br/>
-        <audio controls controlsList="nodownload">
-        <source src={BASE_URL + url} type="audio/mpeg" />
-            Your browser does not support the audio element.
-            </audio>
-        </div>
-
-    ))
-}             
+            <div className="ArtworkUploader">
+                {this.state.imageUrl[0] ? (
+                    <div>
+                        <img src={this.state.imageUrl ? 'api/' + this.state.imageUrl : null} /> 
+                        <Button 
+                            innerText={'Delete'}
+                            onClick={this.removeArtwork}
+                        />
+                    </div>
+                ) : (
+                    <div>
+                        <div id="artwordProcessBar"><div className="fileProcessed" style={{width : Math.round(this.state.loaded,2) + '%'}}></div> </div>
+                        <label htmlFor="uploadArtworkInput">Choose a file</label>
+                    </div>
+                )}
+                <input 
+                    type="file" 
+                    className="hideInputFile" 
+                    id="uploadArtworkInput"
+                    onChange={this.selectImages} 
+                />
             </div>
-
         );
     }
 }

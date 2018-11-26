@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from '../Components/Header.js';
 import Button from '../Components/Parts/Button.js';
 import AddReleaseArtwork from '../Components/AddReleaseArtwork.js';
-import AddReleaseInfo from '../Components/AddReleaseInfo.js';
+// import AddReleaseInfo from '../Components/AddReleaseInfo.js';
 import axios from 'axios';
 
 class AddRelease extends Component {
@@ -29,7 +29,8 @@ class AddRelease extends Component {
             cat_nr: this.state.releaseCatNr,
             password: this.state.releasePassword,
             info_text: this.state.releaseInfoText
-        });
+        })
+        // then get id to attach to files
     }
 
     render() {
@@ -41,7 +42,7 @@ class AddRelease extends Component {
                         <AddReleaseArtwork />
                         {/*<AddTracks /> */}
                     </div>
-                    <AddReleaseInfo />
+                    {/* <AddReleaseInfo /> */}
                     <Button 
                         innerText={'Submit release'}
                         onClick={this.addRelease}

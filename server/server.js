@@ -4,6 +4,7 @@ const port = 3001;
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 
+const fs = require('fs');
 const multer = require('multer');
 const cors = require('cors');
 
@@ -58,15 +59,22 @@ var storage = multer.diskStorage({
 const upload = multer({ storage })
  
 app.use(cors());
- 
-app.post('/upload', upload.single('image'), (req, res) => {
+/* Should able to use same function for both tracks and artwork */ 
+app.post('/upload_artwork', upload.single('artwork'), (req, res) => {
     console.log(req.file)
     if (req.file)
         res.json({
-            imageUrl: `artwork/${req.file.filename}`
+            imageUrl: `artwork/${req.file.filename}`,
+            imageName: req.file.filename
         });
     else 
         res.status("409").json("No Files to Upload.");
+});
+// Delete artwork
+/* Should able to use same function for both tracks and artwork */
+app.post('/delete_artwork', (req, res) => {
+    const artworkName = req.body.imageName;
+    fs.unlink(`uploads/artwork/${artworkName}`);
 });
 
 /* ----- */
