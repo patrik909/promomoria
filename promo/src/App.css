@@ -60,3 +60,9 @@ header div {
 .AddReleaseInfo input {
     width: 100%;
 }
+
+.ArtworkUploader {
+    height: 300px;
+    width: 300px;
+    border: 1px solid black;
+}

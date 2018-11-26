@@ -4,6 +4,9 @@ const port = 3001;
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 
+const multer = require('multer');
+const cors = require('cors');
+
 // const session = require('express-session');
 // const uuid = require('uuid/v4')
 
@@ -41,6 +44,36 @@ app.post('/fetch_releases', (req, res) => {
 });
 
 /* ----- */
+
+app.use(express.static('uploads'))
+ 
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/artwork/')
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+});
+const upload = multer({ storage })
+ 
+app.use(cors());
+ 
+app.post('/upload', upload.single('image'), (req, res) => {
+    console.log(req.file)
+    if (req.file)
+        res.json({
+            imageUrl: `artwork/${req.file.filename}`
+        });
+    else 
+        res.status("409").json("No Files to Upload.");
+});
+
+/* ----- */
+
+
+
+
 
 // Create new user
 app.post('/add_user', (req, res) => {
