@@ -34,9 +34,9 @@ app.post('/add_user', (req, res) => {
     }
   );
 });
+
 // Login user
 app.post('/login', (req, res) => {
-  // Login user data
   const loginUser = req.body;
 
   connection.query(
@@ -51,7 +51,6 @@ app.post('/login', (req, res) => {
     }
   );
 });
-
 // Add release
 app.post('/add_release', (req, res) => {
   // New release data
@@ -60,6 +59,16 @@ app.post('/add_release', (req, res) => {
     `insert into  releases(user_id,artist,title,cat_number,info_text,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','releaseFile','${newRelease.password}')`, 
     function (error, results, fields) { 
       console.log(results)
+    }
+  );
+});
+// Fetch all releases for logged in user.
+app.post('/fetch_releases', (req, res) => {
+  const userId = req.body.userId
+  connection.query(
+    `SELECT * FROM releases WHERE user_id = '${userId}'`,    
+    function (error, results, fields) { 
+      res.send(results)
     }
   );
 });

@@ -5,7 +5,6 @@
 .AddRelease {
     display: flex;
     flex-direction: column;
-    width: 250px;
     margin: auto;
     padding: 10px;
 }
@@ -33,19 +32,25 @@ input {
     letter-spacing: 1px;
 }
 
+main {
+    text-align: center;
+}
+
 .Home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .Home button {
     margin: 5px;
 }
 
-/* End of temporary CSS */
-
 .underline {
     width: 100%;
     border: 1px solid black;
+}
+
+/* End of temporary CSS */
+
+header div {
+    display: flex;
+    justify-content: space-between;
 }

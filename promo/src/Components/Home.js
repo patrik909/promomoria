@@ -1,19 +1,25 @@
-import React from 'react';
-import NavBar from './NavBar.js'
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-function Home(props) {
+import Header from '../Components/Header.js';
+import ReleasesFeed from '../Components/ReleasesFeed.js';
 
-    const labelName = props.userData[0].label_name;
+class Home extends Component {
 
-    return (
-        <div className="Home">
-            <NavBar />
-            <main>
-                <h2>welcome,<br /><span>{labelName}</span>
-                </h2>
-            </main>
-        </div>
-    );
+    state = {
+    }
+
+    render() {
+        return (
+            <div className="Home">
+                <Header labelName={this.props.userData[0].label_name} />
+                <main>
+                    <Link to="/NewRelease">+ Add release</Link>
+                    <ReleasesFeed userId={this.props.userData[0].id}/>                   
+                </main>
+            </div>
+        );      
+    }
 }
 
 export default Home;
