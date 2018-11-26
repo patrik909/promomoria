@@ -13,11 +13,11 @@ const cors = require('cors');
 
 // Database connection
 const connection = mysql.createConnection({
-  host     : 'localhost',
-  port     : '8889',
-  user     : 'root',
-  password : 'root',
-  database : 'promomoria'
+    host     : 'localhost',
+    port     : '8889',
+    user     : 'root',
+    password : 'root',
+    database : 'promomoria'
 });
 
 app.use(bodyParser.json());
@@ -25,13 +25,12 @@ app.use(express.static('uploads'));
 
 // Fetch all releases for logged in user.
 app.post('/fetch_releases', (req, res) => {
-  const userId = req.body.userId
-  connection.query(
-    `SELECT * FROM releases WHERE user_id = '${userId}'`,    
-    function (error, results, fields) { 
-      res.send(results)
-    }
-  );
+    const userId = req.body.userId
+    connection.query(`SELECT * FROM releases WHERE user_id = '${userId}'`,    
+        (error, results, fields) => { 
+            res.send(results)
+        }
+    );
 });
 
 /* ----- */
@@ -93,64 +92,64 @@ app.post('/delete_artwork', (req, res) => {
 
 
 
-// Create new user
-app.post('/add_user', (req, res) => {
-  // New user data
-  const newUser = req.body;
-  // Add data to database
-  connection.query(
-    `insert into users(username,password,email,label_name) values('${newUser.username}','${newUser.password}','${newUser.email}','${newUser.label_name}')`, 
-    function (error, results, fields) { 
-      if (results) {
-        console.log('success');
-      } else if (error) {
-        console.log('error');
-      }
-    }
-  );
-});
+// // Create new user
+// app.post('/add_user', (req, res) => {
+//   // New user data
+//   const newUser = req.body;
+//   // Add data to database
+//   connection.query(
+//     `insert into users(username,password,email,label_name) values('${newUser.username}','${newUser.password}','${newUser.email}','${newUser.label_name}')`, 
+//     function (error, results, fields) { 
+//       if (results) {
+//         console.log('success');
+//       } else if (error) {
+//         console.log('error');
+//       }
+//     }
+//   );
+// });
 
-// Login user
-app.post('/login', (req, res) => {
-  const loginUser = req.body;
+// // Login user
+// app.post('/login', (req, res) => {
+//   const loginUser = req.body;
 
-  connection.query(
-    `SELECT id, label_name FROM users WHERE email = '${loginUser.email}' AND password = '${loginUser.password}'`, 
-    function (error, results, fields) { 
-      if (results.length > 0) {
-        res.send(results)
-        // loginUser(results[0].id)
-      } else if (error) {
-        console.log(error);
-      }
-    }
-  );
-});
+//   connection.query(
+//     `SELECT id, label_name FROM users WHERE email = '${loginUser.email}' AND password = '${loginUser.password}'`, 
+//     function (error, results, fields) { 
+//       if (results.length > 0) {
+//         res.send(results)
+//         // loginUser(results[0].id)
+//       } else if (error) {
+//         console.log(error);
+//       }
+//     }
+//   );
+// });
 
-// Fetch release
-app.post('/fetch_release', (req, res) => {
-  const release = req.body;
-  console.log(release)
-  connection.query(
-    `SELECT * FROM releases WHERE id = '${release.id}'`,    
-    function (error, results, fields) { 
-      console.log(results)
-      res.send(results)
-    }
-  );
-});
+// // Fetch release
+// app.post('/fetch_release', (req, res) => {
+//   const release = req.body;
+//   console.log(release)
+//   connection.query(
+//     `SELECT * FROM releases WHERE id = '${release.id}'`,    
+//     function (error, results, fields) { 
+//       console.log(results)
+//       res.send(results)
+//     }
+//   );
+// });
 
 // Add release
-app.post('/add_feedback', (req, res) => {
-  // New release data
-  const newFeedback = req.body;
-  connection.query(
-    `insert into feedback(release_id,artist_name,feedback,rating) values('${newFeedback.release_id}','${newFeedback.artist_name}','${newFeedback.feedback}','${newFeedback.rating}')`, 
-    function (error, results, fields) { 
-      console.log(results)
-    }
-  );
-});
+// app.post('/add_feedback', (req, res) => {
+//   // New release data
+//   const newFeedback = req.body;
+//   connection.query(
+//     `insert into feedback(release_id,artist_name,feedback,rating) values('${newFeedback.release_id}','${newFeedback.artist_name}','${newFeedback.feedback}','${newFeedback.rating}')`, 
+//     function (error, results, fields) { 
+//       console.log(results)
+//     }
+//   );
+// });
 
 // session
 // https://www.npmjs.com/package/express-mysql-session

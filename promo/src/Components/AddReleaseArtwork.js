@@ -10,7 +10,7 @@ class AddReleaseArtwork extends Component {
         loaded: 0
     }
 
-    selectImages = event => {
+    addArtwork = event => {
 
         let image = event.target.files[0];
         const data = new FormData();
@@ -63,7 +63,7 @@ class AddReleaseArtwork extends Component {
                     type="file" 
                     className="hideInputFile" 
                     id="uploadArtworkInput"
-                    onChange={this.selectImages} 
+                    onChange={this.addArtwork} 
                 />
             </div>
         );
