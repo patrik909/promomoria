@@ -1,98 +1,52 @@
 import React, { Component } from 'react';
-import Inputfield from '../Components/Parts/Inputfield.js';
+import Header from '../Components/Header.js';
 import Button from '../Components/Parts/Button.js';
+import AddReleaseArtwork from '../Components/AddReleaseArtwork.js';
+import AddReleaseInfo from '../Components/AddReleaseInfo.js';
+import axios from 'axios';
 
 class AddRelease extends Component {
 
     state = {
-        loggedInUser: '',
-        newReleaseArtist: '',
-        newReleaseTitle: '',
-        newReleaseCatNr: '',
-        newReleasePassword: '',
-        newReleaseInfoText: ''
+        userId: '',
+        releaseArtist: 'Artist',
+        releaseTitle: 'Titel EP',
+        releaseCatNr: 'ABC000',
+        releasePassword: 'pass',
+        releaseInfoText: 'infotext'
     }
 
     componentDidMount() {
-        const userId = this.props.user[0].id;
-        this.setState({ loggedInUser: userId });
-    }
-
-    handleNewReleaseArtist = event => {
-        this.setState({ newReleaseArtist: event.target.value });
-    }
-
-    handleNewReleaseTitle = event => {
-        this.setState({ newReleaseTitle: event.target.value });
-    }
-
-    handleNewReleaseCatNr = event => {
-        this.setState({ newReleaseCatNr: event.target.value });
-    }
-
-    handleNewReleasePassword = event => {
-        this.setState({ newReleasePassword: event.target.value });
-    }
-
-    handleNewReleaseInfoText = event => {
-        this.setState({ newReleaseInfoText: event.target.value });
+        // Adding logged in user's id to state.
+        this.setState({ userId: this.props.user[0].id });
     }
 
     addRelease = event => {
-
-        let newRelease = {
-            user_id: this.state.loggedInUser,
-            artist: this.state.newReleaseArtist,
-            title: this.state.newReleaseTitle,
-            cat_nr: this.state.newReleaseCatNr,
-            password: this.state.newReleasePassword,
-            info_text: this.state.newReleaseInfoText
-        };
-
-        fetch('api/add_release', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newRelease),
-        })
-        .then(res => res.json())
-        .then(result => {
-            console.log(result);
-        })
-        .catch((error) => {
-            console.log(error);
+        axios.post('api/add_release', {
+            user_id: this.state.userId,
+            artist: this.state.releaseArtist,
+            title: this.state.releaseTitle,
+            cat_nr: this.state.releaseCatNr,
+            password: this.state.releasePassword,
+            info_text: this.state.releaseInfoText
         });
     }
 
     render() {
         return (
             <div className="AddRelease">
-                <Inputfield 
-                    placeholder={'Artist'} 
-                    onChange={this.handleNewReleaseArtist}
-                />
-                <Inputfield 
-                    placeholder={'Title'} 
-                    onChange={this.handleNewReleaseTitle}
-                />
-                <Inputfield 
-                    placeholder={'Cat nr'} 
-                    onChange={this.handleNewReleaseCatNr}
-                />
-                <Inputfield 
-                    placeholder={'Password'} 
-                    onChange={this.handleNewReleasePassword}
-                />
-                <Inputfield 
-                    placeholder={'Info text'} 
-                    onChange={this.handleNewReleaseInfoText}
-                />
-                <Button 
-                    innerText={'Submit'}
-                    onClick={this.addRelease}
-                />
+                <Header labelName={this.props.user[0].label_name} />
+                <main>
+                    <div className="AddReleaseFiles">
+                        <AddReleaseArtwork />
+                        {/*<AddTracks /> */}
+                    </div>
+                    <AddReleaseInfo />
+                    <Button 
+                        innerText={'Submit release'}
+                        onClick={this.addRelease}
+                    />
+                </main>
             </div>
         );
     }
