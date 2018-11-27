@@ -23,10 +23,15 @@ class AddReleaseInfo extends Component {
                     placeholder={'Password'} 
                     onChange={this.props.handlePassword}
                 />
-                <Inputfield 
+                <textarea
+                    placeholder="Info text"
+                    onChange={this.props.handleInfoText}
+                    onKeyDown={this.props.handleInfoText}
+                ></textarea>
+                {/* <Inputfield 
                     placeholder={'Info text'} 
                     onChange={this.props.handleInfoText}
-                />
+                /> */}
             </div>
         );
     }

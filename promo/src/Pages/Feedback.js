@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Header from '../Components/Header.js';
 import axios from 'axios';
 import { BrowserRouter as Router, Link } from "react-router-dom";
-// import InputField from '../Components/Parts/Inputfield.js';
-// import Button from '../Components/Parts/Button.js';
 
 class Feedback extends Component {
 

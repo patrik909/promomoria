@@ -18,7 +18,8 @@ class AddRelease extends Component {
         releaseInfoText: '',
         releaseArtwork: '',
         releaseTracks: [],
-        redirect: false
+        redirect: false,
+        cancelUpload: false
     }
 
     componentDidMount() {
@@ -70,7 +71,7 @@ class AddRelease extends Component {
     }
 
     handleInfoTextInput = event => {
-        this.setState({ releaseInfoText: event.target.value });
+        this.setState({ releaseInfoText: event.target.value});
     }
 
     handleArtworkName = artworkName => {
@@ -79,6 +80,11 @@ class AddRelease extends Component {
 
     handleTrackNames = trackNames => {
         this.setState({releaseTracks: trackNames})
+    }
+
+    back = () => {
+        this.setState({ redirect: true })
+        // Remove files too.
     }
 
     render() {
@@ -104,6 +110,11 @@ class AddRelease extends Component {
                                 handleInfoText={this.handleInfoTextInput}
                             />
                         </div>
+                       <p> {this.state.releaseInfoText} </p>
+                       <Button 
+                            innerText={'Back'}
+                            onClick={this.back}
+                        />
                         <Button 
                             innerText={'Submit release'}
                             onClick={this.addRelease}

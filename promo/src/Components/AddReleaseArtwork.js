@@ -44,6 +44,7 @@ class AddReleaseArtwork extends Component {
     }
 
     render() {
+  
         return (
             <div className="ArtworkUploader">
                 {this.state.imageUrl ? (
