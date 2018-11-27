@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router} from "react-router-dom";
 import { Redirect } from 'react-router'
 import Header from '../Components/Header.js';
 import Button from '../Components/Parts/Button.js';

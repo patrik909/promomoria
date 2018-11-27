@@ -34,6 +34,20 @@ app.post('/fetch_releases', (req, res) => {
     );
 });
 
+// Fetch all feedback.
+app.post('/fetch_feedback', (req, res) => {
+    const releaseId = req.body.releaseId;
+    console.log(releaseId)
+    // res.send(releaseId);
+    connection.query(
+        `SELECT * FROM feedback WHERE release_id = '${releaseId}'`,    
+        (error, results, fields) => { 
+            console.log()
+            res.send(results)
+        }
+    );
+});
+
 /* --- CLEAN ADD RELEASE - START -- */
 
 // Add release

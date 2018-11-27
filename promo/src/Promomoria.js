@@ -3,13 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
 import Start from './Pages/Start.js';
-import AddRelease from './Pages/AddRelease';
-
-// import ViewReleases from './Pages/ViewReleases.js';
-// import ReleasePage from './Pages/Release.js';
-
-// const Feedback = ({ match }) => <ViewReleases match={match} />;
-// const Release = ({ match }) => <ReleasePage match={match} />;
+import AddRelease from './Pages/AddRelease.js';
+import Feedback from './Pages/Feedback.js'
 
 class Promomoria extends Component {
 
@@ -26,11 +21,15 @@ class Promomoria extends Component {
   // }
 
     render() {
+
+        const FeedbackPage = ({ match }) => <Feedback match={match} userData={this.state.loggedInUser}/>;
+
         return (
             <Router>
                 <div className="Promomoria">
                     <Route exact path="/" component={() => <Start user={this.state.loggedInUser} handleLogin={this.handleLogin} /> } />
                     <Route path="/AddRelease" component={() => <AddRelease user={this.state.loggedInUser} /> } />
+                    <Route path="/Feedback/:id" component={FeedbackPage}/>
                 </div>
             </Router>
         );
@@ -38,6 +37,3 @@ class Promomoria extends Component {
 }
 
 export default Promomoria;
-
-{/* <Route path="/ViewReleases/:id" component={Feedback} />
-<Route path="/Release/:id" component={Release} /> */}
