@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Inputfield from '../Components/Parts/Inputfield.js';
-// import Button from '../Components/Parts/Button.js';
 
 class AddReleaseInfo extends Component {
 
@@ -9,23 +8,24 @@ class AddReleaseInfo extends Component {
             <div className="AddReleaseInfo">
                 <Inputfield 
                     placeholder={'Artist'} 
-                    onChange={this.handleNewReleaseArtist}
+                    onChange={this.props.handleArtist}
+                    
                 />
                 <Inputfield 
                     placeholder={'Title'} 
-                    onChange={this.handleNewReleaseTitle}
+                    onChange={this.props.handleTitle}
                 />
                 <Inputfield 
                     placeholder={'Cat nr'} 
-                    onChange={this.handleNewReleaseCatNr}
+                    onChange={this.props.handleCatNr}
                 />
                 <Inputfield 
                     placeholder={'Password'} 
-                    onChange={this.handleNewReleasePassword}
+                    onChange={this.props.handlePassword}
                 />
                 <Inputfield 
                     placeholder={'Info text'} 
-                    onChange={this.handleNewReleaseInfoText}
+                    onChange={this.props.handleInfoText}
                 />
             </div>
         );

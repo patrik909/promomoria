@@ -33,6 +33,10 @@ main {
     text-align: center;
 }
 
+main .verticalWrapper {
+    display: flex;
+}
+
 /* End of temporary CSS */
 
 header div {
@@ -49,6 +53,12 @@ header div {
     display: flex;
 } */
 
+label {
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
 .AddReleaseFiles {
     width: 50%;
 }
@@ -59,4 +69,43 @@ header div {
 
 .AddReleaseInfo input {
     width: 100%;
+}
+
+.ArtworkUploader {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 400px;
+    border: 1px solid black;
+}
+
+.ArtworkUploader img {
+    width: 100%;
+}
+
+
+.ArtworkUploader button {
+    position: absolute;
+}
+
+#artwordProcessBar {
+    height: 20px;
+    border: green 1px solid;
+}
+
+.fileProcessed {
+    height: 100%;
+    background-color: green;
+}
+
+/* needs to hide the input-field */
+.hideInputFile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }

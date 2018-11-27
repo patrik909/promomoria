@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Button from './Parts/Button.js';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class Feed extends Component {
 
@@ -23,12 +24,7 @@ class Feed extends Component {
                 return ( 
                     <li key={release.id}> 
                         {release.cat_number} | {release.artist} - {release.title}
-                        <Button 
-                            innerText={'Feedback'}
-                        />
-                        <Button 
-                            innerText={'Delete'}
-                        />
+                        <Link to={'/Feedback/' + release.id}>Feedback</Link>
                     </li>
                 );
             })
