@@ -16,6 +16,14 @@ class Feed extends Component {
         });
     }
 
+    removeRelease = event => {
+        axios.post('api/delete_release', {
+            release_id: event.target.value
+        } ).then(releases => {
+            this.setState({ releases : releases.data })
+        });      
+    }
+
     render() {
         let allReleases = '';
         if (this.state.releases) {
@@ -24,6 +32,7 @@ class Feed extends Component {
                     <li key={release.id}> 
                         {release.cat_number} | {release.artist} - {release.title}
                         <Link to={'/Feedback/' + release.id}>Feedback</Link>
+                        <button value={release.id} onClick={this.removeRelease}>Delete</button>
                     </li>
                 );
             })

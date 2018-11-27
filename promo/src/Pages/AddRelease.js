@@ -51,7 +51,6 @@ class AddRelease extends Component {
                 this.setState({redirect: true})
             });
         }
-
     }
 
     handleArtistInput = event => {
