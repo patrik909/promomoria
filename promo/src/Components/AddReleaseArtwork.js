@@ -6,7 +6,7 @@ class AddReleaseArtwork extends Component {
 
     state = {
         imageName: '',
-        imageUrl: [],
+        imageUrl: '',
         loaded: 0
     }
 
@@ -24,7 +24,7 @@ class AddReleaseArtwork extends Component {
             },
         }).then(response => {
             this.setState({
-                imageUrl: [ response.data.imageUrl, ...this.state.imageUrl ],
+                imageUrl: response.data.imageUrl,
                 imageName: response.data.imageName
             });
             this.props.handleArtworkName(this.state.imageName)
@@ -45,9 +45,9 @@ class AddReleaseArtwork extends Component {
     render() {
         return (
             <div className="ArtworkUploader">
-                {this.state.imageUrl[0] ? (
+                {this.state.imageUrl ? (
                     <div>
-                        <img src={this.state.imageUrl ? 'api/' + this.state.imageUrl : null} /> 
+                        <img src={this.state.imageUrl ? 'api/' + this.state.imageUrl : null} alt="Release Artwork" /> 
                         <Button 
                             innerText={'Delete'}
                             onClick={this.removeArtwork}

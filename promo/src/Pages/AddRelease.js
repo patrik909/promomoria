@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from '../Components/Header.js';
 import Button from '../Components/Parts/Button.js';
 import AddReleaseArtwork from '../Components/AddReleaseArtwork.js';
+import AddReleaseTracks from '../Components/AddReleaseTracks.js';
 import AddReleaseInfo from '../Components/AddReleaseInfo.js';
 import axios from 'axios';
 
@@ -18,7 +19,6 @@ class AddRelease extends Component {
     }
 
     componentDidMount() {
-        // Adding logged in user's id to state.
         this.setState({ userId: this.props.user[0].id });
     }
 
@@ -35,27 +35,7 @@ class AddRelease extends Component {
     }
 
     handleArtworkName = artworkName => {
-        this.setState({ releaseArtwork: artworkName});
-    }
-
-    handleReleaseArtist = event => {
-        this.setState({ newReleaseArtist: event.target.value });
-    }
-
-    handleReleaseTitle = event => {
-        this.setState({ newReleaseTitle: event.target.value });
-    }
-
-    handleReleaseCatNr = event => {
-        this.setState({ newReleaseCatNr: event.target.value });
-    }
-
-    handleReleasePassword = event => {
-        this.setState({ newReleasePassword: event.target.value });
-    }
-
-    handleReleaseInfoText = event => {
-        this.setState({ newReleaseInfoText: event.target.value });
+        this.setState({releaseArtwork: artworkName})
     }
 
     render() {
@@ -66,7 +46,7 @@ class AddRelease extends Component {
                     <div className="verticalWrapper">
                         <div className="AddReleaseFiles">
                             <AddReleaseArtwork handleArtworkName={this.handleArtworkName}/>
-                            {/*<AddTracks /> */}
+                            <AddReleaseTracks />
                         </div>
                         
                         <AddReleaseInfo />

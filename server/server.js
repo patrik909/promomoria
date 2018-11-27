@@ -21,6 +21,7 @@ const connection = mysql.createConnection({
 });
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(express.static('uploads'));
 
 // Fetch all releases for logged in user.
@@ -67,8 +68,7 @@ var storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage })
- 
-app.use(cors());
+
 /* Should able to use same function for both tracks and artwork */ 
 app.post('/upload_artwork', upload.single('artwork'), (req, res) => {
     console.log(req.file)
@@ -85,6 +85,34 @@ app.post('/upload_artwork', upload.single('artwork'), (req, res) => {
 app.post('/delete_artwork', (req, res) => {
     const artworkName = req.body.imageName;
     fs.unlink(`uploads/artwork/${artworkName}`);
+});
+
+
+
+const trackStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/tracks/')
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+});
+const trackUpload = multer({ storage: trackStorage })
+ 
+/* Should able to use same function for both tracks and artwork */ 
+app.post('/upload_tracks', trackUpload.single('track'), (req, res) => {
+    console.log(req.file)
+    if (req.file)
+        res.json({
+            trackName: req.file.filename
+        });
+    else 
+        res.status("409").json("No Files to Upload.");
+});
+
+app.post('/delete_track', (req, res) => {
+    const trackName = req.body.trackName;
+    fs.unlink(`uploads/tracks/${trackName}`);
 });
 
 /* ----- */

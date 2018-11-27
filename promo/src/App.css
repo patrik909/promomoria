@@ -53,6 +53,12 @@ header div {
     display: flex;
 } */
 
+label {
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
 .AddReleaseFiles {
     width: 50%;
 }
