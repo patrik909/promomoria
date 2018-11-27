@@ -3,7 +3,6 @@ const app = express();
 const port = 3001;
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
-
 const fs = require('fs');
 const multer = require('multer');
 const cors = require('cors');
@@ -35,26 +34,36 @@ app.post('/fetch_releases', (req, res) => {
     );
 });
 
-/* ----- */
+/* --- CLEAN ADD RELEASE - START -- */
 
 // Add release
 app.post('/add_release', (req, res) => {
     // New release data
     const newRelease = req.body;
+    console.log(newRelease.tracks)
     connection.query(
-    `insert into  releases(user_id,artist,title,cat_number,info_text,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','releaseFile','${newRelease.password}')`, 
-    function (error, results, fields) { 
-      res.send(results);
-
-      connection.query(
-        `insert into artwork(release_id,image_file) values('${results.insertId}','${newRelease.artwork_name}')`, 
+        `insert into  releases(user_id,artist,title,cat_number,info_text,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','releaseFile','${newRelease.password}')`, 
         function (error, results, fields) { 
-          
-        }
-      );
+            res.send(results);
 
-    }
-  );
+            connection.query(
+                `insert into artwork(release_id,image_file) values('${results.insertId}','${newRelease.artwork_name}')`, 
+                function (error, results, fields) { 
+          
+                }
+            );
+
+            newRelease.tracks.map(track => {
+                connection.query(
+                    `insert into tracks(release_id,track_file) values('${results.insertId}','${track}')`, 
+                    function (error, results, fields) { 
+              
+                    }
+                );                
+            })
+
+        }
+    );
 });
 
 
@@ -101,7 +110,7 @@ const trackUpload = multer({ storage: trackStorage })
  
 /* Should able to use same function for both tracks and artwork */ 
 app.post('/upload_tracks', trackUpload.single('track'), (req, res) => {
-    console.log(req.file)
+    // console.log(req.file)
     if (req.file)
         res.json({
             trackName: req.file.filename
@@ -115,7 +124,7 @@ app.post('/delete_track', (req, res) => {
     fs.unlink(`uploads/tracks/${trackName}`);
 });
 
-/* ----- */
+/* --- CLEAN ADD RELEASE - END -- */
 
 
 

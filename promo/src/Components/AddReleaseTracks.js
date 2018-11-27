@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import Inputfield from '../Components/Parts/Inputfield.js';
-// import Button from './Parts/Button.js';
 import axios from 'axios';
 
 class AddReleaseTracks extends Component {
@@ -11,7 +9,7 @@ class AddReleaseTracks extends Component {
     }
 
     addTrack = event => {
-        this.setState({loaded: 0})
+        this.setState({ loaded: 0 })
         let track = event.target.files[0];
         const data = new FormData();
         data.append('track', track, track.name);
@@ -24,6 +22,7 @@ class AddReleaseTracks extends Component {
             },
         }).then(response => {
             this.setState({trackNames : [...this.state.trackNames, response.data.trackName]})
+            this.props.handleTrackNames(this.state.trackNames)
         });
     }
 
@@ -36,6 +35,7 @@ class AddReleaseTracks extends Component {
             return track !== event.target.value;
         });
         this.setState({ trackNames: filteredTrackNames });
+        this.props.handleTrackNames(this.state.trackNames)
     }
 
     render() {

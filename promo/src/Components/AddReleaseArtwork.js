@@ -40,6 +40,7 @@ class AddReleaseArtwork extends Component {
             imageName: '',
             loaded: 0
         });
+        this.props.handleArtworkName(this.state.imageName)
     }
 
     render() {
