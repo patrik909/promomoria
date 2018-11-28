@@ -23,15 +23,12 @@ class AddReleaseInfo extends Component {
                     placeholder={'Password'} 
                     onChange={this.props.handlePassword}
                 />
+                enable rating <input type="radio" value={1} onClick={this.props.handleRating} /> 
                 <textarea
                     placeholder="Info text"
                     onChange={this.props.handleInfoText}
                     onKeyDown={this.props.handleInfoText}
                 ></textarea>
-                {/* <Inputfield 
-                    placeholder={'Info text'} 
-                    onChange={this.props.handleInfoText}
-                /> */}
             </div>
         );
     }

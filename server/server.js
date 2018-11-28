@@ -45,6 +45,47 @@ app.post('/fetch_feedback', (req, res) => {
     );
 });
 
+// Delete release and the files related to release.
+app.post('/delete_release', (req, res) => {
+    const releaseId = req.body.release_id;
+
+    connection.query(
+        `SELECT track_file FROM tracks WHERE release_id = '${releaseId}'`, 
+        function (error, results, fields) { 
+            results.map(track => {
+                fs.unlink(`uploads/tracks/${track.track_file}`);
+            })
+        }
+    );
+    connection.query(
+        `SELECT image_file FROM artwork WHERE release_id = '${releaseId}'`, 
+        function (error, results, fields) { 
+            results.map(artwork=> {
+                fs.unlink(`uploads/artwork/${artwork.image_file}`);
+            })
+        }
+    );
+
+    connection.query(
+        `DELETE FROM releases WHERE releases.id = '${releaseId}'`,    
+        (error, results, fields) => {          
+            connection.query(
+                `DELETE FROM tracks WHERE release_id = '${releaseId}'`, 
+                function (error, results, fields) { 
+          
+                }
+            );
+            connection.query(
+                `DELETE FROM artwork WHERE release_id = '${releaseId}'`, 
+                function (error, results, fields) { 
+          
+                }
+            );
+        }
+    );
+});
+
+
 /* --- CLEAN ADD RELEASE - START -- */
 
 // Add release
@@ -53,7 +94,7 @@ app.post('/add_release', (req, res) => {
     const newRelease = req.body;
     console.log(newRelease.tracks)
     connection.query(
-        `insert into  releases(user_id,artist,title,cat_number,info_text,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','releaseFile','${newRelease.password}')`, 
+        `insert into  releases(user_id,artist,title,cat_number,info_text,rating,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.rating}','releaseFile','${newRelease.password}')`, 
         function (error, results, fields) { 
             res.send(results);
 

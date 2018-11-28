@@ -18,6 +18,7 @@ class AddRelease extends Component {
         releaseInfoText: '',
         releaseArtwork: '',
         releaseTracks: [],
+        rating: false,
         redirect: false,
         cancelUpload: false
     }
@@ -44,6 +45,7 @@ class AddRelease extends Component {
                 cat_nr: this.state.releaseCatNr,
                 password: this.state.releasePassword,
                 info_text: this.state.releaseInfoText,
+                rating: this.state.rating,
                 artwork_name: this.state.releaseArtwork,
                 tracks: this.state.releaseTracks,
                     
@@ -51,7 +53,6 @@ class AddRelease extends Component {
                 this.setState({redirect: true})
             });
         }
-
     }
 
     handleArtistInput = event => {
@@ -72,6 +73,10 @@ class AddRelease extends Component {
 
     handleInfoTextInput = event => {
         this.setState({ releaseInfoText: event.target.value});
+    }
+
+    handleRatingInput = event => {
+        this.setState({ rating: event.target.value});
     }
 
     handleArtworkName = artworkName => {
@@ -108,6 +113,7 @@ class AddRelease extends Component {
                                 handleCatNr={this.handleCatNrInput}
                                 handlePassword={this.handlePasswordInput} 
                                 handleInfoText={this.handleInfoTextInput}
+                                handleRating={this.handleRatingInput}
                             />
                         </div>
                        <p> {this.state.releaseInfoText} </p>
