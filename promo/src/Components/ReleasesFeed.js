@@ -9,19 +9,21 @@ class Feed extends Component {
     }
 
     componentDidMount() {
+        this.fetchAllReleases();
+    }
+
+    fetchAllReleases = () => {
         axios.post('api/fetch_releases', {
             userId: this.props.userId
         } ).then(releases => {
             this.setState({ releases : releases.data })
-        });
+        });      
     }
 
-    removeRelease = event => {
+    removeRelease = event => {  
         axios.post('api/delete_release', {
             release_id: event.target.value
-        } ).then(releases => {
-            this.setState({ releases : releases.data })
-        });      
+        }).then(this.fetchAllReleases());      
     }
 
     render() {

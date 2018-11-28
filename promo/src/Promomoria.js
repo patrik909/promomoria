@@ -5,6 +5,7 @@ import './App.css';
 import Start from './Pages/Start.js';
 import AddRelease from './Pages/AddRelease.js';
 import Feedback from './Pages/Feedback.js'
+import Release from './Pages/Release.js'
 
 class Promomoria extends Component {
 
@@ -22,7 +23,8 @@ class Promomoria extends Component {
 
     render() {
 
-        const FeedbackPage = ({ match }) => <Feedback match={match} userData={this.state.loggedInUser}/>;
+        const FeedbackPage = ({ match }) => <Feedback match={match} userData={this.state.loggedInUser} />;
+        const ReleasePage = ({ match }) => <Release match={match} />;
 
         return (
             <Router>
@@ -30,6 +32,7 @@ class Promomoria extends Component {
                     <Route exact path="/" component={() => <Start user={this.state.loggedInUser} handleLogin={this.handleLogin} /> } />
                     <Route path="/AddRelease" component={() => <AddRelease user={this.state.loggedInUser} /> } />
                     <Route path="/Feedback/:id" component={FeedbackPage}/>
+                    <Route path="/Release/:id" component={ReleasePage}/>
                 </div>
             </Router>
         );
