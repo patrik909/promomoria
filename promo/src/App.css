@@ -40,7 +40,7 @@ main {
     text-align: center;
 }
 
-main .verticalWrapper {
+.verticalWrapper {
     display: flex;
 }
 
@@ -55,10 +55,6 @@ header div {
     width: 100%;
     border: 1px solid black;
 }
-
-/* .AddRelease main {
-    display: flex;
-} */
 
 label {
     background: black;

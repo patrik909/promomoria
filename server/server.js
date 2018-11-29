@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const multer = require('multer');
 const cors = require('cors');
+const JSZip = require("jszip");
 
 // const session = require('express-session');
 // const uuid = require('uuid/v4')
@@ -85,6 +86,67 @@ app.post('/delete_release', (req, res) => {
     );
 });
 
+// Fetch release
+app.post('/fetch_release', (req, res) => {
+  const releaseId = req.body.release_id;
+  connection.query(
+    `SELECT 
+        * FROM releases 
+    JOIN
+        artwork ON release_id =
+        '${releaseId}'
+    WHERE id = '${releaseId}'`,    
+    function (error, results, fields) { 
+        res.send(results)
+    }
+  );
+});
+
+// Fetch tracks
+/* Merge this with function above */
+app.post('/fetch_release_tracks', (req, res) => {
+    const releaseId = req.body.release_id;
+    connection.query(`SELECT * FROM tracks WHERE release_id = '${releaseId}'`,    
+        function (error, results, fields) { 
+            res.send(results)
+        }
+    );
+});
+
+// Add feedback
+app.post('/add_feedback', (req, res) => {
+    const feedbackData = req.body;
+    connection.query(
+        `insert into feedback(release_id,artist_name,feedback,rating) values('${feedbackData.release_id}','${feedbackData.artist}','${feedbackData.feedback}','${feedbackData.rating}')`, 
+        function (error, results, fields) { 
+            res.send('done');
+        }
+    );
+});
+
+// Download release
+app.post('/download_release', (req, res) => {
+    // res.send("hej")
+//     let zip = new JSZip();
+//     // const feedbackData = req.body;
+//     // connection.query(
+//     //     `insert into feedback(release_id,artist_name,feedback,rating) values('${feedbackData.release_id}','${feedbackData.artist}','${feedbackData.feedback}','${feedbackData.rating}')`, 
+//     //     function (error, results, fields) { 
+//     //         res.send('done');
+//     //     }
+//     // );
+
+// zip.file("Hello.txt", "Hello World\n");
+// var img = zip.folder("uploads/artwork/");
+// img.file("smile.gif", imgData, {base64: true});
+// zip.generateAsync({type:"blob"})
+// .then(function(content) {
+//     // see FileSaver.js
+//     saveAs(content, "example.zip");
+// });
+
+
+});
 
 /* --- CLEAN ADD RELEASE - START -- */
 
@@ -118,8 +180,6 @@ app.post('/add_release', (req, res) => {
     );
 });
 
-
- 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/artwork/')
@@ -176,6 +236,10 @@ app.post('/delete_track', (req, res) => {
     fs.unlink(`uploads/tracks/${trackName}`);
 });
 
+
+
+
+
 /* --- CLEAN ADD RELEASE - END -- */
 
 
@@ -216,30 +280,6 @@ app.post('/delete_track', (req, res) => {
 //   );
 // });
 
-// // Fetch release
-// app.post('/fetch_release', (req, res) => {
-//   const release = req.body;
-//   console.log(release)
-//   connection.query(
-//     `SELECT * FROM releases WHERE id = '${release.id}'`,    
-//     function (error, results, fields) { 
-//       console.log(results)
-//       res.send(results)
-//     }
-//   );
-// });
-
-// Add release
-// app.post('/add_feedback', (req, res) => {
-//   // New release data
-//   const newFeedback = req.body;
-//   connection.query(
-//     `insert into feedback(release_id,artist_name,feedback,rating) values('${newFeedback.release_id}','${newFeedback.artist_name}','${newFeedback.feedback}','${newFeedback.rating}')`, 
-//     function (error, results, fields) { 
-//       console.log(results)
-//     }
-//   );
-// });
 
 // session
 // https://www.npmjs.com/package/express-mysql-session
