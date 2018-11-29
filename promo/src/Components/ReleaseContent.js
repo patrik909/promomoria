@@ -3,13 +3,15 @@ import Inputfield from './Parts/Inputfield.js';
 import Button from './Parts/Button.js';
 import axios from 'axios';
 
+const JSZip = require("jszip");
+
 class ReleaseContent extends Component {
 
     state = {
         artist: '',
         feedback: '',
         rating: '',
-        feedbackAdded: true
+        feedbackAdded: false
     }
 
     componentDidMount(){
@@ -48,11 +50,18 @@ class ReleaseContent extends Component {
     }
 
     downloadRelease = () => {
-        axios.post(window.location.origin + '/api/download_release', {
-            release_id: this.props.releaseData.id,
-        }).then(res => {
-            console.log(res.data)
-        });         
+    var zip = new JSZip();
+
+
+    // create a file and a folder
+    zip.file("nested/hello.txt", "Hello World\n");
+
+    var promise = null;
+if (JSZip.support.uint8array) {
+  promise = zip.generateAsync({type : "blob"});
+} else {
+  promise = zip.generateAsync({type : "blob"});
+}
     }
 
     render(){

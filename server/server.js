@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const multer = require('multer');
 const cors = require('cors');
-const JSZip = require("jszip");
+// const JSZip = require("jszip");
 
 // const session = require('express-session');
 // const uuid = require('uuid/v4')
@@ -126,25 +126,19 @@ app.post('/add_feedback', (req, res) => {
 
 // Download release
 app.post('/download_release', (req, res) => {
-    // res.send("hej")
-//     let zip = new JSZip();
-//     // const feedbackData = req.body;
-//     // connection.query(
-//     //     `insert into feedback(release_id,artist_name,feedback,rating) values('${feedbackData.release_id}','${feedbackData.artist}','${feedbackData.feedback}','${feedbackData.rating}')`, 
-//     //     function (error, results, fields) { 
-//     //         res.send('done');
-//     //     }
-//     // );
 
-// zip.file("Hello.txt", "Hello World\n");
-// var img = zip.folder("uploads/artwork/");
-// img.file("smile.gif", imgData, {base64: true});
-// zip.generateAsync({type:"blob"})
-// .then(function(content) {
-//     // see FileSaver.js
-//     saveAs(content, "example.zip");
-// });
+    // var zip = new JSZip();
 
+    // zip.file("Hello.txt", "Hello World\n");
+    
+    // // var img = zip.folder("images");
+    // // img.file("smile.gif", imgData, {base64: true});
+    
+    // zip.generateAsync({type:"blob"}).then(function(content) {
+    //     // see FileSaver.js
+    //     saveAs(content, "example.zip");
+    // });
+    
 
 });
 
