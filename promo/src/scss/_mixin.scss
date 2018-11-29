@@ -1,0 +1,9 @@
+$main-color: rgb(214, 214, 214);
+$accent-color: rgb(213, 32, 32);
+$main-font: 'Inconsolata', monospace;
+
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

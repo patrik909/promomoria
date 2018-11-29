@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import './App.css';
+import './css/main.css';
 
 import Start from './Pages/Start.js';
 import AddRelease from './Pages/AddRelease.js';
