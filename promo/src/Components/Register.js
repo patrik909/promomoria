@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Inputfield from '../Components/Parts/Inputfield.js';
 import Button from '../Components/Parts/Button.js';
+import axios from 'axios';
 
 class Register extends Component {
 
@@ -9,10 +10,15 @@ class Register extends Component {
         newPassword: '',
         newPasswordRepeated: false,
         newLabelName: '',
+        message: '',
+        redirect: false
     }
 
     handleEmail = event => {
-        this.setState({ newEmail: event.target.value });
+        if ( event.target.value.includes('@') && event.target.value.includes('.') ) {
+            this.setState({ newEmail: event.target.value });
+            console.log(event.target.value) 
+        }
     }
 
     handlePassword = event => {
@@ -32,7 +38,7 @@ class Register extends Component {
     }
 
     closeRegisterUser = event => {
-        this.props.handleStartPage('login'); 
+        this.props.handleStartPage('login', ''); 
     }
 
     registerUser = event => {
@@ -42,27 +48,19 @@ class Register extends Component {
             this.state.newLabelName !== '' &&
             this.state.newPasswordRepeated === true    
         ) {
-            let data = {
+            axios.post('api/add_user', {
                 email: this.state.newEmail,
                 password: this.state.newPassword,
-                label_name: this.state.newLabelName
-            };
-    
-            fetch('api/add_user', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then(res => res.json())
-            .then(result => {
-                console.log(result)
-            })
-            .catch((error) => {
-                console.log(error);
+                label_name: this.state.newLabelName          
+            }).then((res) => {
+                if ( res.data.success === true) {
+                    this.props.handleStartPage('login', 'Thank you for registering an account, you will get an e-mail from us in the next days.');
+                } else {
+                    this.setState({ message: res.data.message});
+                }
             });
+        } else {
+            this.setState({ message: 'You have to fill in all the fields correct' });
         }
     }
 
@@ -75,16 +73,19 @@ class Register extends Component {
                 />
                 <Inputfield 
                     placeholder={'Password'}
+                    type={'password'}
                     onChange={this.handlePassword}
                 />
                 <Inputfield 
                     placeholder={'Repeat Password'}
+                    type={'password'}
                     onChange={this.handleRepeatedPassword}
                 />
                 <Inputfield 
                     placeholder={'Label Name'}
                     onChange={this.handleLabelName}
                 />
+                {this.state.message}
                 <Button 
                     innerText={'Back'}
                     onClick={this.closeRegisterUser}

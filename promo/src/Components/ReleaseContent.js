@@ -49,20 +49,6 @@ class ReleaseContent extends Component {
         }
     }
 
-    downloadRelease = () => {
-    var zip = new JSZip();
-
-
-    // create a file and a folder
-    zip.file("nested/hello.txt", "Hello World\n");
-
-    var promise = null;
-if (JSZip.support.uint8array) {
-  promise = zip.generateAsync({type : "blob"});
-} else {
-  promise = zip.generateAsync({type : "blob"});
-}
-    }
 
     render(){
         console.log(this.state.feedbackAdded)
