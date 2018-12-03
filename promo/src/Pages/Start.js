@@ -6,15 +6,20 @@ import Register from '../Components/Register.js';
 class Start extends Component {
 
     state = {
-        page: 'login'
+        page: 'login',
+        message: ''
     }
 
     handleLogin = user => {
         this.props.handleLogin(user);
     }
 
-    handleStartPage = pageValue => {
-        this.setState({page: pageValue});
+    handleStartPage = (pageValue, message) => {
+        this.setState({
+            page: pageValue,
+            message
+        });
+
     }
 
     render() {
@@ -25,7 +30,7 @@ class Start extends Component {
         } else if (this.state.page === 'register') {
             startPage = <Register handleStartPage={this.handleStartPage} />;
         } else {
-            startPage = <Login handleStartPage={this.handleStartPage} handleLogin={this.handleLogin} />;
+            startPage = <Login handleStartPage={this.handleStartPage} handleLogin={this.handleLogin} message={this.state.message}/>;
         }
 
         return (

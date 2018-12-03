@@ -11,10 +11,10 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <Header labelName={this.props.userData[0].label_name} />
+                <Header labelName={this.props.userData.label_name} />
                 <main className="Home">
                     <Link to="/AddRelease" className="AddReleaseLink">+ Add release</Link>
-                    <ReleasesFeed userId={this.props.userData[0].id}/>                   
+                    <ReleasesFeed userId={this.props.userData.id}/>                   
                 </main>
             </div>
         );      

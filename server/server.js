@@ -3,15 +3,12 @@ const app = express();
 const port = 3001;
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+
 const fs = require('fs');
 const multer = require('multer');
 const cors = require('cors');
-// const JSZip = require("jszip");
 
-// const session = require('express-session');
-// const uuid = require('uuid/v4')
-
-// Database connection
 const connection = mysql.createConnection({
     host     : 'localhost',
     port     : '8889',
@@ -23,6 +20,88 @@ const connection = mysql.createConnection({
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('uploads'));
+
+// Create new user.
+app.post('/add_user', (req, res) => {
+    // New user data.
+    const password = req.body.password;
+    const email = req.body.email;
+    const labelName = req.body.label_name;
+    // Hashing the password. 
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    // Check if e-mail already is registered.
+    connection.query(
+        `SELECT * FROM users WHERE email = '${email}'`,
+        function (error, results) { 
+            if (!results.length) {
+                // If email doesnt exist, add user to database.
+                connection.query(
+                    `insert into users(password,email,label_name) values('${hashedPassword}','${email}','${labelName}')`, 
+                    function (error, results) { 
+                        if (results) {
+                            res.send({
+                                success: true,
+                                message: ''
+                            });
+                        } else if (error) {
+                            res.send({
+                                success: false,
+                                message: 'Something went wrong, please try again!'
+                            });
+                        }
+                    }
+                );             
+            } else if (results.length > 0) {
+                // If email already exists.
+                res.send({
+                    success: false,
+                    message: 'This e-mail address is already existing!'
+                });
+            } else if (error) {
+                // General errors.
+                res.send({
+                    success: false,
+                    message: 'Something went wrong, please try again!'
+                });
+            }
+        }
+    );
+});
+
+
+
+// Login user.
+app.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    connection.query(
+        `SELECT id, label_name, password FROM users WHERE email = '${email}'`, 
+        function (error, results, fields) { 
+            if (results) {
+                bcrypt.compare(password, results[0].password, function (err, result) {
+                    if (result === true) {
+                        res.send({
+                            success: true,
+                            user_id: results[0].id,
+                            label_name: results[0].label_name
+                        });
+                    } else {
+                        res.send({
+                            success: false,
+                            message: 'Your password is not correct'
+                        });
+                    }
+                });              
+            } else {
+                res.send({
+                    success: false,
+                    message: 'Your e-mail or password is not correct'
+                });
+            }
+        }
+    );
+});
 
 // Fetch all releases for logged in user.
 app.post('/fetch_releases', (req, res) => {
@@ -257,22 +336,6 @@ app.post('/delete_track', (req, res) => {
 //   );
 // });
 
-// // Login user
-// app.post('/login', (req, res) => {
-//   const loginUser = req.body;
-
-//   connection.query(
-//     `SELECT id, label_name FROM users WHERE email = '${loginUser.email}' AND password = '${loginUser.password}'`, 
-//     function (error, results, fields) { 
-//       if (results.length > 0) {
-//         res.send(results)
-//         // loginUser(results[0].id)
-//       } else if (error) {
-//         console.log(error);
-//       }
-//     }
-//   );
-// });
 
 
 // session

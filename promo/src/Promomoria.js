@@ -11,16 +11,18 @@ import Release from './Pages/Release.js'
 class Promomoria extends Component {
 
     state = {
-      loggedInUser: [{
-          // this is a placeholder
-          id: 12,
-          label_name: "Arsenik Records"
-      }]
+      loggedInUser: false
     }
 
-  // handleLogin = user => {
-  //   this.setState({loggedInUser: user})
-  // }
+    // [{
+    //     // this is a placeholder
+    //     id: 12,
+    //     label_name: "Arsenik Records"
+    // }]
+
+  handleLogin = user => {
+    this.setState({loggedInUser: user})
+  }
 
     render() {
 
