@@ -48,7 +48,7 @@ class AddReleaseArtwork extends Component {
         return (
             <div className="ArtworkUploader">
                 {this.state.imageUrl ? (
-                    <div>
+                    <div className="ArtworkHolder">
                         <img src={this.state.imageUrl ? 'api/' + this.state.imageUrl : null} alt="Release Artwork" /> 
                         <Button 
                             innerText={'Delete'}
@@ -56,9 +56,9 @@ class AddReleaseArtwork extends Component {
                         />
                     </div>
                 ) : (
-                    <div>
-                        <div id="artwordProcessBar"><div className="fileProcessed" style={{width : Math.round(this.state.loaded,2) + '%'}}></div> </div>
+                    <div className="center column">
                         <label htmlFor="uploadArtworkInput">Choose a file</label>
+                        <div id="artworkProcessBar"><div className="fileProcessed" style={{width : Math.round(this.state.loaded,2) + '%'}}></div> </div>
                     </div>
                 )}
                 <input 

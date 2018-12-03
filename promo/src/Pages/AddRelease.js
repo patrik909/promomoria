@@ -98,9 +98,9 @@ class AddRelease extends Component {
             return <Redirect to="/"/>;
         } else {
             return (
-                <div className="AddRelease">
+                <div>
                     <Header labelName={this.props.user[0].label_name} />
-                    <main>
+                    <main className="AddRelease">
                         <div className="verticalWrapper">
                             <div className="AddReleaseFiles">
                                 <AddReleaseArtwork handleArtworkName={this.handleArtworkName} />
@@ -114,9 +114,9 @@ class AddRelease extends Component {
                                 handlePassword={this.handlePasswordInput} 
                                 handleInfoText={this.handleInfoTextInput}
                                 handleRating={this.handleRatingInput}
+                                infoTextLength={this.state.releaseInfoText.length}
                             />
                         </div>
-                       <p> {this.state.releaseInfoText} </p>
                        <Button 
                             innerText={'Back'}
                             onClick={this.back}

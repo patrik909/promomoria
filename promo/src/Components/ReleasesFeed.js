@@ -21,6 +21,7 @@ class Feed extends Component {
     }
 
     removeRelease = event => {  
+        event.preventDefault();
         axios.post('api/delete_release', {
             release_id: event.target.value
         }).then(this.fetchAllReleases());      
@@ -31,17 +32,21 @@ class Feed extends Component {
         if (this.state.releases) {
             allReleases = this.state.releases.map(release => {
                 return ( 
-                    <li key={release.id}> 
-                        {release.cat_number} | {release.artist} - {release.title}
+                    <li key={release.id}>
+                        <div className="ReleaseFeedInfo">
+                            {release.cat_number}: {release.artist} - {release.title}
+                        </div> 
+                        <div className="ReleaseFeedInfo">
+                        </div> 
                         <Link to={'/Feedback/' + release.id}>Feedback</Link>
-                        <button value={release.id} onClick={this.removeRelease}>Delete</button>
+                        <a value={release.id} onClick={this.removeRelease} href="#">Delete</a>
                     </li>
                 );
             })
         }
 
         return (
-            <ul>
+            <ul className="ReleasesFeed">
                 {allReleases}
             </ul>
         );

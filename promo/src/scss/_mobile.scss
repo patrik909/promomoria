@@ -5,6 +5,9 @@ body {
   font-family: $main-font;
 
   header {
+    margin: 3rem 0;
+    padding: 0 2rem;
+
     div { 
       display: flex;
       justify-content: space-between;
@@ -14,17 +17,155 @@ body {
         text-transform: lowercase;
         margin: 0;
       }
+      h1 {
+        font-size: 3.2rem;
+        margin-bottom: -0.3rem;
+      }
       h2 {
         @include center-content;
-        height: 1.8rem;
-        padding: 0 0.5rem;
+        height: 1em;
+        padding: 0 0.5em;
         background-color: $accent-color;
         color: $main-color;
+        font-size: 2.3rem;
+        font-weight: 700;
       }
     }
     .underline {
+      margin-left: 0.8rem;
       border: 0.1rem solid $accent-color;
-      width: 100%;
     }
   }
+ 
+ 
+main.Home {
+  width: 60%;
+  font-size: 2rem;
+  margin: auto;
+
+  a {
+    display: block;
+    margin-bottom: 2rem;
+    text-transform: lowercase;
+    color: $accent-color;
+  }
+  /* Release feed styling */
+  .ReleasesFeed {  
+    padding: 0;
+    margin: 0;
+    li {
+      padding: 1.5rem 2rem;
+      color: $main-color;
+      background-color: $accent-color;
+      list-style: none;
+      a {
+        display: inline;
+        margin-right: 1em;
+        font-size: 1rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: $main-color;
+      }
+    }
+  } /* End tag for Release feed styling */
+}
+
+main.Feedback {
+    width: 60%;
+    font-size: 2rem;
+    margin: auto;
+  
+    a {
+      display: block;
+      margin-bottom: 2rem;
+      text-transform: lowercase;
+      font-style: italic;
+      text-align: center;
+      color: $accent-color;
+    }
+    p {
+        text-align: center;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+    ul {  
+        padding: 0;
+        margin: 0;
+
+      li {
+        font-size: 1rem;
+        
+        padding: 1.5rem 2rem;
+        color: $main-color;
+        background-color: $accent-color;
+        list-style: none;
+        margin-bottom: 1rem;
+
+        .top {
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+
+          p {
+            font-size: 1.2rem;
+            letter-spacing: 0.1rem;
+            text-transform: uppercase;
+            margin: 0;
+          }
+
+          .LineSeperator {
+            border-bottom: 2px solid $main-color;
+            margin: 0 1rem;
+            width: 100%
+          }           
+        }
+        a {
+        //   display: inline;
+        //   margin-right: 1em;
+        //   font-size: 1rem;
+        //   letter-spacing: 0.1em;
+        //   text-transform: uppercase;
+        //   color: $main-color;
+        }
+      }
+    } /* End tag for Release feed styling */
+  }
+
+main.AddRelease {
+  background: $accent-color;
+  color: $main-color;
+  padding: 2rem;
+  width: 80%;
+  margin: auto;
+
+  .ArtworkUploader {
+    background: black;
+    height: 25rem;
+    img {
+      width: 100%;
+      position: absolute;
+    }
+    #artworkProcessBar{
+      display: flex;
+      border: 1px solid $main-color;
+      width: 60% !important;
+      margin: 1rem auto;
+      height: 10px;
+    }
+
+    .ArtworkHolder {
+      overflow: hidden;
+      position: relative;
+    }
+    label {
+      cursor: pointer;
+      color: $main-color;
+      &:hover {
+        color:white;
+    }
+    }
+
+  }
+}
+
 }

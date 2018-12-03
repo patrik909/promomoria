@@ -29,6 +29,7 @@ class AddReleaseInfo extends Component {
                     onChange={this.props.handleInfoText}
                     onKeyDown={this.props.handleInfoText}
                 ></textarea>
+                <p>used characters: {this.props.infoTextLength} / 500</p>
             </div>
         );
     }
