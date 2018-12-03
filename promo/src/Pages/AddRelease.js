@@ -24,7 +24,7 @@ class AddRelease extends Component {
     }
 
     componentDidMount() {
-        this.setState({ userId: this.props.user[0].id });
+        this.setState({ userId: this.props.user.id });
     }
 
     addRelease = event => {
@@ -99,7 +99,7 @@ class AddRelease extends Component {
         } else {
             return (
                 <div>
-                    <Header labelName={this.props.user[0].label_name} />
+                    <Header labelName={this.props.user.label_name} />
                     <main className="AddRelease">
                         <div className="verticalWrapper">
                             <div className="AddReleaseFiles">

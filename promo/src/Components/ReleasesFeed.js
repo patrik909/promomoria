@@ -23,8 +23,25 @@ class Feed extends Component {
     removeRelease = event => {  
         event.preventDefault();
         axios.post('api/delete_release', {
-            release_id: event.target.value
+            release_id: event.target.id
         }).then(this.fetchAllReleases());      
+    }
+
+    statusRelease = event => {
+        event.preventDefault();
+        let status = ''
+        if (event.target.value === '0') {
+            status = 1
+        } else {
+            status = 0
+        }
+        console.log(event.target.value)
+console.log(status)
+        // funkargör en if sats så att den sätter motsat värde
+        axios.post('api/status_release', {
+            release_id: event.target.id,
+            release_status: status
+        }).then(this.fetchAllReleases());  
     }
 
     render() {
@@ -39,7 +56,8 @@ class Feed extends Component {
                         <div className="ReleaseFeedInfo">
                         </div> 
                         <Link to={'/Feedback/' + release.id}>Feedback</Link>
-                        <a value={release.id} onClick={this.removeRelease} href="#">Delete</a>
+                        <button id={release.id} value={release.activated} onClick={this.statusRelease}>{release.activated === 1 ? ( 'Deactivate' ) : ( 'Activate' ) }</button>
+                        <a id={release.id} onClick={this.removeRelease} href="#">Delete</a>
                     </li>
                 );
             })
