@@ -133,8 +133,7 @@ app.post('/status_release', (req, res) => {
     connection.query(
         `UPDATE releases SET activated = '${status}' WHERE releases . id = '${releaseId}'`,    
         (error, results, fields) => { 
-            console.log(results)
-            console.log(error)
+
         }
     );
 });
@@ -328,28 +327,6 @@ app.post('/delete_track', (req, res) => {
 
 
 /* --- CLEAN ADD RELEASE - END -- */
-
-
-
-
-
-// // Create new user
-// app.post('/add_user', (req, res) => {
-//   // New user data
-//   const newUser = req.body;
-//   // Add data to database
-//   connection.query(
-//     `insert into users(username,password,email,label_name) values('${newUser.username}','${newUser.password}','${newUser.email}','${newUser.label_name}')`, 
-//     function (error, results, fields) { 
-//       if (results) {
-//         console.log('success');
-//       } else if (error) {
-//         console.log('error');
-//       }
-//     }
-//   );
-// });
-
 
 
 // session

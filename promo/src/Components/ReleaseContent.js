@@ -3,19 +3,34 @@ import Inputfield from './Parts/Inputfield.js';
 import Button from './Parts/Button.js';
 import axios from 'axios';
 
-const JSZip = require("jszip");
-
 class ReleaseContent extends Component {
 
     state = {
         artist: '',
         feedback: '',
         rating: '',
-        feedbackAdded: false
+        feedbackAdded: false,
+        trackplaying: ''
     }
 
     componentDidMount(){
     }
+
+    handlePlayer = event => {
+        const audio = document.getElementsByClassName('releaseTrack')[0]
+        // console.log(audio)
+        audio.addEventListener('timeupdate', function(){
+            console.log(this.currentTime);
+        })
+    }
+
+    handleTrack = event => {
+        console.log(event.target.value)
+    }
+
+    // handlePlayer2 = event => {
+    //     console.log(event.currentTime)
+    // }
 
     handleRating = event => {
     	this.setState({rating: event.target.value})
@@ -62,13 +77,24 @@ class ReleaseContent extends Component {
                         {
                             this.props.tracks.map(track => {
                                 return (
-                                    <audio controls preload="auto" key={track.track_file}>
+                                    <audio controls preload="auto" key={track.track_file} onClick={this.handlePlayer} className="releaseTrack">
                                         <source src={window.location.origin +  '/api/tracks/' + track.track_file} type="audio/mpeg" />
                                     </audio>
                                 );
                             })
                         }
                     </div>
+                    <ul>
+                    {
+                            this.props.tracks.map(track => {
+                                return (
+                                    <li>
+                                        <button value={track.track_file} onClick={this.handleTrack}>{track.track_file}</button>
+                                    </li>
+                                );
+                            })
+                        }                      
+                    </ul>
                 </div>
                 <div>
                     artist: {this.props.releaseData.artist} <br/>

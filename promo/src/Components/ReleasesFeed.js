@@ -35,9 +35,6 @@ class Feed extends Component {
         } else {
             status = 0
         }
-        console.log(event.target.value)
-console.log(status)
-        // funkargör en if sats så att den sätter motsat värde
         axios.post('api/status_release', {
             release_id: event.target.id,
             release_status: status
