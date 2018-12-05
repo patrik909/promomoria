@@ -19,11 +19,11 @@ class AddReleaseArtwork extends Component {
             reader.onload = (e) => {
               var img = new Image;
               img.onload = () => {
-                  if ( img.width > 1399 && img.height > 1399 ) {
+                  if ( img.width > 1399 && img.height > 1399 && img.width === img.height ) {
                     this.addArtwork(image);
                     this.setState({ message: '' })
                   } else {
-                    this.setState({ message: 'Artwork is to small!' })
+                    this.setState({ message: 'Invalid artwork!' })
                   }
                 console.log(img.width);
                 console.log(img.height);
@@ -70,7 +70,7 @@ class AddReleaseArtwork extends Component {
   
         return (
             <div className="ArtworkUploader">
-                <p className="helper">Image have to be 1400x1400px or larger</p>
+                <p className="helper">artwork have to be square & 1400x1400px or larger</p>
                 <div className="ArtworkHolder">
                     {
                         !this.state.imageUrl ? (
