@@ -242,7 +242,7 @@ app.post('/add_release', (req, res) => {
     const newRelease = req.body;
     console.log(newRelease.tracks)
     connection.query(
-        `insert into  releases(user_id,artist,title,cat_number,info_text,rating,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.rating}','releaseFile','${newRelease.password}')`, 
+        `insert into  releases(user_id,artist,title,cat_number,info_text,release_date,rating,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.release_date}','${newRelease.rating}','releaseFile','${newRelease.password}')`, 
         function (error, results, fields) { 
             res.send(results);
 

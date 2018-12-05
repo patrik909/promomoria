@@ -9,8 +9,32 @@ $main-font: 'Inconsolata', monospace;
   width: 100%;
 }
 
-.verticalWrapper > div {
+.flex {
+  display: flex;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
   width: 50%;
+}
+
+input,
+textarea {
+  box-sizing:border-box;
+  border: none;
+  outline: none;
+  font-family: $main-font;
+}
+
+p {
+  text-transform: lowercase;
+}
+
+.hide {
+  display: none;
 }
 
 .center {

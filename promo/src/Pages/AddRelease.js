@@ -14,11 +14,12 @@ class AddRelease extends Component {
         releaseArtist: '',
         releaseTitle: '',
         releaseCatNr: '',
+        rating: false,
+        releaseDate: '',
         releasePassword: '',
         releaseInfoText: '',
         releaseArtwork: '',
         releaseTracks: [],
-        rating: false,
         redirect: false,
         cancelUpload: false
     }
@@ -27,7 +28,7 @@ class AddRelease extends Component {
         this.setState({ userId: this.props.user.id });
     }
 
-    addRelease = event => {
+    addRelease = event => { 
         if(
             this.state.userId !== '' &&
             this.state.releaseArtist !== '' &&
@@ -36,7 +37,7 @@ class AddRelease extends Component {
             this.state.releasePassword !== '' &&
             this.state.releaseInfoText !== '' &&
             this.state.releaseArtwork !== '' &&
-            this.state.releaseTracks !== ''
+            this.state.releaseTracks !== '' 
         ) {
             axios.post('api/add_release', {
                 user_id: this.state.userId,
@@ -46,6 +47,7 @@ class AddRelease extends Component {
                 password: this.state.releasePassword,
                 info_text: this.state.releaseInfoText,
                 rating: this.state.rating,
+                release_date: this.state.releaseDate,
                 artwork_name: this.state.releaseArtwork,
                 tracks: this.state.releaseTracks,
                     
@@ -75,8 +77,16 @@ class AddRelease extends Component {
         this.setState({ releaseInfoText: event.target.value});
     }
 
+    handleReleaseDateInput = event => {
+        this.setState({ releaseDate: event.target.value});
+    }
+
     handleRatingInput = event => {
-        this.setState({ rating: event.target.value});
+        if (this.state.rating === false) {
+            this.setState({ rating: event.target.value });
+        } else {
+            this.setState({ rating: false });
+        }
     }
 
     handleArtworkName = artworkName => {
@@ -113,8 +123,10 @@ class AddRelease extends Component {
                                 handleCatNr={this.handleCatNrInput}
                                 handlePassword={this.handlePasswordInput} 
                                 handleInfoText={this.handleInfoTextInput}
+                                handleReleaseDate={this.handleReleaseDateInput}
                                 handleRating={this.handleRatingInput}
                                 infoTextLength={this.state.releaseInfoText.length}
+                                ratingEnabled={this.state.rating}
                             />
                         </div>
                        <Button 
