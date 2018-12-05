@@ -3,6 +3,7 @@
 $main-color: rgb(214, 214, 214);
 $accent-color: rgb(213, 32, 32);
 $main-font: 'Inconsolata', monospace;
+$fast-transition: 200ms;
 
 .verticalWrapper {
   display: flex;
@@ -35,6 +36,16 @@ p {
 
 .hide {
   display: none;
+}
+
+.helper {
+  margin: 0;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+button {
+  border: none;
 }
 
 .center {
