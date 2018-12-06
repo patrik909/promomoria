@@ -43,7 +43,7 @@ function AddReleaseInfo(props) {
             
             <textarea
                 className="full-width"
-                placeholder="Info text*"
+                placeholder="Info text *"
                 rows="12"
                 maxLength="500"
                 onChange={props.handleInfoText}

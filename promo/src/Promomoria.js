@@ -4,7 +4,7 @@ import Header from './Components/Header.js';
 import Footer from './Components/Footer.js';
 import './css/main.css';
 
-import FrontPage from './Pages/FrontPage.js';
+import Start from './Pages/Start.js';
 import AddRelease from './Pages/AddRelease.js';
 import Feedback from './Pages/Feedback.js'
 import Release from './Pages/Release.js'
@@ -34,7 +34,7 @@ class Promomoria extends Component {
             <Router>
                 <div className="Promomoria">
                     <Header labelName={this.state.loggedInUser.label_name || 'Welcome'} />
-                    <Route exact path="/" component={() => <FrontPage user={this.state.loggedInUser} handleLogin={this.handleLogin} /> } />
+                    <Route exact path="/" component={() => <Start user={this.state.loggedInUser} handleLogin={this.handleLogin} /> } />
                     <Route path="/Release/:id" component={ReleasePage}/>  
                     {this.state.loggedInUser ? ( <Route path="/AddRelease" component={() => <AddRelease user={this.state.loggedInUser} /> } /> ) : ( null )}
                     {this.state.loggedInUser ? ( <Route path="/Feedback/:id" component={FeedbackPage}/> ) : ( null )}

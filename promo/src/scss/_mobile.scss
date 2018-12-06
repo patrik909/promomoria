@@ -117,15 +117,244 @@ html {
           }
 
           button {
+            @include uppercase;
             margin-right: 1.2em;
             padding: 0;
             color: $main-color;
             font-size: 0.6em;
-            letter-spacing: 0.1em;
             text-decoration: underline;
-            text-transform: uppercase;
           }
         }
+      }
+    }
+
+    main.Feedback {
+      .FeedbackInfo {
+        margin: 2rem 0 3rem 0;
+        text-align: center;
+
+        p {
+          margin: 0;
+          font-size: 1.2em;
+          font-weight: 700;
+        }
+      }
+
+      ul {
+        li {
+          display: flex;
+          flex-direction: column;
+
+          p {
+            margin: 0;
+            font-size: 0.7em;
+          }
+
+          .FeedbackArtistDate {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8em;
+            font-size: 0.8em;
+            white-space: nowrap;
+
+            p {
+              @include uppercase;
+              font-size: 1.1em;
+              font-weight: 700;
+            }
+
+            .LineSeperator {
+              border-bottom: 0.1em solid $main-color;
+              margin: 0 0.7em;
+              width: 100%
+            }  
+          }
+          
+          .FeedbackContent {
+            margin-bottom: 0.8em;
+            font-size: 0.7em;
+          }
+
+          .FeedbackRating {
+            font-weight: 700;
+            text-align: right;
+          }
+        }
+      }    
+    }
+    
+    main.AddRelease {
+      max-width: 90rem;
+      margin: auto;
+      padding-top: 1.4em;
+      font-size: 1.4rem;
+
+      .AddReleaseFiles {
+        width: 100%;
+
+        .helper {
+          margin-bottom: -0.1em;
+        }
+
+        .ArtworkHolder {
+          @include center-content;
+          margin-top: 0.7em;
+          height: 15em;
+          width: 100%;
+          background:rgb(71, 71, 71);
+
+          img {
+            margin-top: -10%; 
+          }
+
+          .ArtworkFileInput {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .ArtworkPlaceholderIcon {
+              @include center-content;
+              height: 5em;
+              width: 5em;
+              background: $main-color;
+              border-radius: 50%;
+              transition: $fast-transition;
+
+              .CenterHole {
+                height: 0.5em;
+                width: 0.5em;
+                background:rgb(71, 71, 71);
+                border-radius: 50%;
+              }
+            }   
+
+            p {
+              color: $main-color;
+              font-size: 0.8rem;
+              transition: $fast-transition;
+            }
+            &:hover div{
+              background: white;
+            }
+            &:hover p {
+              color: white;
+            } 
+          }
+
+          .ArtworkProcessBar {
+            height: 0.5em;
+            border: 1px solid $main-color;
+    
+            .FileProcessed {
+              height: 100%;
+              background: $main-color;
+            }
+          }
+          
+          .InvalidArtwork {
+            margin: 0 0 1em 0;
+            padding: 0.4em;
+            background: $accent-color;
+            color: $main-color;
+            font-weight: 700;
+          }
+
+          .DeleteArtwork {
+            padding: 0.2em 0.5em;
+            background: $main-color;
+            z-index: 100;
+            position: absolute;
+            right: 0.5em;
+            top: 0.5em;
+            font-weight: 700;
+            font-size: 1em;
+            transition: $fast-transition;
+            &:hover {
+              background: white;
+            }
+          }
+        }
+      }
+
+      .AddReleaseInfo {
+        width: 100%;
+
+        .helper {
+          margin-bottom: 0.2em;
+        }
+
+        .half-width:nth-child(1) {
+          margin-right: 0.4rem;
+        }
+    
+        .half-width:nth-child(2) {
+          margin-left: 0.4rem;
+        }
+
+        input,
+        textarea {
+          font-size: 1em;
+        }
+
+        .EnableRating {
+          align-items: center;
+    
+          p {
+            margin: 0;
+            margin-left: 0.8em;
+            font-size: rem;
+            text-transform: none;
+          }
+    
+          label {
+            display: block;
+            height: 1em;
+            width: 1em;
+            margin-left: 1em;
+            border-radius: 50%;
+            border: 2px solid $accent-color;
+          }
+        }
+
+        textarea {
+          margin-bottom: -0.4em;
+          font-size: 0.8em;
+          line-height: 1em;
+        }
+
+        .UsedCharacters {
+          padding: 0.7em 0.8em; 
+          margin: 0;
+          background: white;
+          text-align: right;
+          font-style: normal;
+          font-weight: 700;
+        }
+      }
+
+      .AddReleaseButtons {
+        margin: auto;
+        margin-top: 1em;
+        max-width: 10em;
+        font-size: 2rem;
+        button {
+          @include uppercase;
+          font-size: 1em;
+          padding: 0.5em;
+  
+          &:nth-child(1) {
+            color: $accent-color;
+  
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+  
+          &:nth-child(2) {
+            background: $accent-color;
+            color: $main-color;
+          }
+        }   
       }
     }
   
@@ -133,7 +362,7 @@ html {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      height: 15vh;
+      height: 20vh;
       
       p {
         font-size: 1.5rem;

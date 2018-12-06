@@ -1,52 +1,20 @@
 html {
   font-size: 16px;
+
+  body {
+
+    main.AddRelease {
+
+      .AddReleaseFiles {
+
+        .ArtworkHolder {
+          height: 20em;
+
+          img {
+            margin-top: -15%;
+          }
+        }
+      }
+    }
+  }
 }
-
-// body {
-//   font-size: 3000px;
-  // margin: 0;
-  // padding: 0 1rem;
-  // background: $main-color;
-  // color: $accent-color;
-  // font-size: 300px;
-  // font-family: $main-font;
-
-  // header {
-  //   display: flex;
-  //   flex-direction: column;
-  //   justify-content: flex-end;
-  //   height: 10vh;
-  //   font-size: 2rem;
-
-  //   div {
-  //     display: flex;
-  //     justify-content: space-between;
-  //     align-items: flex-end;
-
-  //     h1,
-  //     h2 {
-  //       margin: 0;
-  //       text-transform: lowercase;
-  //     }
-
-  //     h1 {
-  //       font-size: 1em;
-  //       margin-bottom: -0.09em;
-  //     }
-
-  //     h2 {
-  //       @include center-content;
-  //       height: 1em;
-  //       padding: 0 0.5em;
-  //       background-color: $accent-color;
-  //       color: $main-color;
-  //       font-size: 0.8em;
-  //     }
-  //   }
-
-  //   .underline {
-  //     margin-left: 0.25em;
-  //     border-bottom: 0.06em solid $accent-color;
-  //   }
-  // }
-// }

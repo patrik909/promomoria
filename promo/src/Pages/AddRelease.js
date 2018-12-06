@@ -108,37 +108,38 @@ class AddRelease extends Component {
             return <Redirect to="/"/>;
         } else {
             return (
-                <div>
-                    <Header labelName={this.props.user.label_name} />
-                    <main className="AddRelease">
-                        <div className="verticalWrapper">
-                            <div className="AddReleaseFiles">
-                                <AddReleaseArtwork handleArtworkName={this.handleArtworkName} />
-                                <AddReleaseTracks handleTrackNames={this.handleTrackNames} />
-                            </div>
-                            
-                            <AddReleaseInfo 
-                                handleArtist={this.handleArtistInput}
-                                handleTitle={this.handleTitleInput}
-                                handleCatNr={this.handleCatNrInput}
-                                handlePassword={this.handlePasswordInput} 
-                                handleInfoText={this.handleInfoTextInput}
-                                handleReleaseDate={this.handleReleaseDateInput}
-                                handleRating={this.handleRatingInput}
-                                infoTextLength={this.state.releaseInfoText.length}
-                                ratingEnabled={this.state.rating}
-                            />
+                <main className="AddRelease">
+                    <div className="verticalWrapper">
+                        <div className="AddReleaseFiles">
+                            <AddReleaseArtwork handleArtworkName={this.handleArtworkName} />
+                            <AddReleaseTracks handleTrackNames={this.handleTrackNames} />
                         </div>
-                       <Button 
+                        
+                        <AddReleaseInfo 
+                            handleArtist={this.handleArtistInput}
+                            handleTitle={this.handleTitleInput}
+                            handleCatNr={this.handleCatNrInput}
+                            handlePassword={this.handlePasswordInput} 
+                            handleInfoText={this.handleInfoTextInput}
+                            handleReleaseDate={this.handleReleaseDateInput}
+                            handleRating={this.handleRatingInput}
+                            infoTextLength={this.state.releaseInfoText.length}
+                            ratingEnabled={this.state.rating}
+                        />
+                    </div>
+                    <div className="AddReleaseButtons">
+                        <Button 
+                            className={'half-width'}
                             innerText={'Back'}
                             onClick={this.back}
                         />
                         <Button 
-                            innerText={'Submit release'}
+                            className={'half-width'}
+                            innerText={'Submit'}
                             onClick={this.addRelease}
                         />
-                    </main>
-                </div>
+                    </div>
+                </main>
             );
         }
     }

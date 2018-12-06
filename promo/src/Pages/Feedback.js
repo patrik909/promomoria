@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Header from '../Components/Header.js';
 import axios from 'axios';
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import FeedbackFeed from '../Components/FeedbackFeed.js';
 
 class Feedback extends Component {
 
@@ -30,33 +30,14 @@ class Feedback extends Component {
     render() {
 
         return (
-            <div>
-                <main className="Feedback">
-                    <Link to="/"> {'< Back'} </Link>
-                    <div>
-                        <p>amount of feedback: {this.state.amountOfFeedback}</p>
-                        <p>average rating: {this.state.averageRating}</p>
-                    </div>
-                    <ul className="FeedbackFeed">
-                        {
-                            this.state.feedbackData.map(feedback => {
-                                return (
-                                    <li key={feedback.date}>
-                                        <div className="top">
-                                            <p>{feedback.artist_name}</p>
-                                            <div className="LineSeperator"></div>
-                                            <p>{feedback.date.replace(/-/g, '/').substring(0,9)}</p>
-                                        </div> <br/>
-                                        {feedback.feedback} <br/> <br/>
-                                        rating: {feedback.rating} <br/> <br/>
-                                      
-                                    </li>
-                                );
-                            })
-                        }
-                    </ul>
-                </main>
-            </div>
+            <main className="Feedback Feed">
+                <h3><Link to="/"> {'< Back'} </Link></h3>
+                <div className="FeedbackInfo">
+                    <p>amount of feedback: {this.state.amountOfFeedback || '-'}</p>
+                    <p>average rating: {this.state.averageRating || '-'}</p>
+                </div>
+                <FeedbackFeed feedbackData={this.state.feedbackData}/>
+            </main>
         );
     }
 }

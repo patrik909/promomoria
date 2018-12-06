@@ -1,6 +1,11 @@
 html {
   font-size: 12px;
 
+  .verticalWrapper {
+    display: flex;
+    width: 100%;
+  }
+
   body {
 
     main.Login,
@@ -14,6 +19,18 @@ html {
           padding: 1em 0.8em;
           font-size: 1.5em;
         }
+      }
+    }
+
+    main.AddRelease {
+
+      .AddReleaseFiles {
+        margin-right: 0.5em;
+        width: 50%;
+      }
+      .AddReleaseInfo {
+        margin-left: 0.5em;
+        width: 50%;
       }
     }
   }

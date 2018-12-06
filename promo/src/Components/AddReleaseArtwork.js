@@ -72,39 +72,37 @@ class AddReleaseArtwork extends Component {
             <div className="ArtworkUploader">
                 <p className="helper">artwork have to be square & 1400x1400px or larger</p>
                 <div className="ArtworkHolder">
-                    {
-                        !this.state.imageUrl ? (
-                            <div>
-                                <label htmlFor="uploadArtworkInput" className="ArtworkFileInput">
-                                    <div className="ArtworkPlaceholderIcon"><div className="CenterHole"></div></div>
-                                    <p>Choose artwork file</p>
-                                    {
-                                        this.state.message ? (
-                                            <p className="ToSmallImage">{this.state.message}</p>
-                                        ) : ( null )
-                                    }
-                                </label>
-                                <input 
-                                    type="file" 
-                                    className="hideInputFile" 
-                                    id="uploadArtworkInput"
-                                    onChange={this.checkArtwork} 
-                                />
-                                <div className="ArtworkProcessBar">
-                                    <div className="FileProcessed" style={{ width : Math.round(this.state.loaded, 2) + '%' }}></div> 
-                                </div>
+                    {!this.state.imageUrl ? (
+                        <div>
+                            <label htmlFor="uploadArtworkInput" className="ArtworkFileInput">
+                                <div className="ArtworkPlaceholderIcon"><div className="CenterHole"></div></div>
+                                <p>Choose artwork file</p>
+                                {this.state.message ? (
+                                    <p className="InvalidArtwork">{this.state.message}</p>
+                                ) : ( 
+                                    null 
+                                )}
+                            </label>
+                            <input 
+                                type="file" 
+                                className="hideInputFile" 
+                                id="uploadArtworkInput"
+                                onChange={this.checkArtwork} 
+                            />
+                            <div className="ArtworkProcessBar">
+                                <div className="FileProcessed" style={{ width : Math.round(this.state.loaded, 2) + '%' }}></div> 
                             </div>
-                        ) : (
-                            <div className="ArtworkImage" style={{width: '100%', height: '100%', overflow:'hidden', position:'relative'}}>
-                                <img src={this.state.imageUrl ? 'api/' + this.state.imageUrl : null} alt="Release Artwork" style={{width: '100%', position: ' absolute'}}/>
-                                <Button 
-                                    className={'DeleteArtwork'}
-                                    innerText={'X'}
-                                    onClick={this.removeArtwork}
-                                /> 
-                            </div>
-                        )
-                    }
+                        </div>
+                    ) : (
+                        <div className="ArtworkImage" style={{width: '100%', height: '100%', overflow:'hidden', position:'relative'}}>
+                            <img src={this.state.imageUrl ? 'api/' + this.state.imageUrl : null} alt="Release Artwork" style={{width: '100%', position: ' absolute'}}/>
+                            <Button 
+                                className={'DeleteArtwork'}
+                                innerText={'x'}
+                                onClick={this.removeArtwork}
+                            /> 
+                        </div>
+                    )}
                 </div>
             </div>
         );
