@@ -130,10 +130,12 @@ app.post('/status_release', (req, res) => {
     const releaseId = req.body.release_id;
     const status = req.body.release_status;
     console.log(status)
+    console.log(releaseId)
     connection.query(
         `UPDATE releases SET activated = '${status}' WHERE releases . id = '${releaseId}'`,    
         (error, results, fields) => { 
-
+            console.log(results)
+            console.log(error)
         }
     );
 });

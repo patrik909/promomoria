@@ -66,35 +66,45 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="Register">
-                <Inputfield 
-                    placeholder={'Email'}
-                    onChange={this.handleEmail}
-                />
-                <Inputfield 
-                    placeholder={'Password'}
-                    type={'password'}
-                    onChange={this.handlePassword}
-                />
-                <Inputfield 
-                    placeholder={'Repeat Password'}
-                    type={'password'}
-                    onChange={this.handleRepeatedPassword}
-                />
-                <Inputfield 
-                    placeholder={'Label Name'}
-                    onChange={this.handleLabelName}
-                />
-                {this.state.message}
-                <Button 
-                    innerText={'Back'}
-                    onClick={this.closeRegisterUser}
-                />
-                <Button 
-                    innerText={'Register'}
-                    onClick={this.registerUser}
-                />
-            </div>
+            <main className="Register">
+                <div className="RegisterForm">
+                    <Inputfield 
+                        className={'full-width'}
+                        placeholder={'Email'}
+                        onChange={this.handleEmail}
+                    />
+                    <Inputfield 
+                        className={'full-width'}
+                        placeholder={'Password'}
+                        type={'password'}
+                        onChange={this.handlePassword}
+                    />
+                    <Inputfield 
+                        className={'full-width'}
+                        placeholder={'Repeat Password'}
+                        type={'password'}
+                        onChange={this.handleRepeatedPassword}
+                    />
+                    <Inputfield 
+                        className={'full-width'}
+                        placeholder={'Label Name'}
+                        onChange={this.handleLabelName}
+                    />
+                    <p className="helper">{this.state.message}</p>
+                    <div>
+                        <Button 
+                            className={'half-width'}
+                            innerText={'Back'}
+                            onClick={this.closeRegisterUser}
+                        />
+                        <Button 
+                            className={'half-width'}
+                            innerText={'Register'}
+                            onClick={this.registerUser}
+                        />
+                    </div>
+                </div>
+            </main>
         );
     }
 }

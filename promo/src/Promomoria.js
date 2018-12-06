@@ -8,17 +8,17 @@ import FrontPage from './Pages/FrontPage.js';
 import AddRelease from './Pages/AddRelease.js';
 import Feedback from './Pages/Feedback.js'
 import Release from './Pages/Release.js'
-import PageNotFound from './Pages/PageNotFound.js'
+// import PageNotFound from './Pages/PageNotFound.js'
 
 class Promomoria extends Component {
 
     state = {
-      loggedInUser: false
-    // loggedInUser: {
-    //         // this is a placeholder
-    //         id: 12,
-    //         label_name: "Arsenik Records"
-    //     }
+    //   loggedInUser: false
+        loggedInUser: {
+            // this is a placeholder
+            id: 12,
+            label_name: "Arsenik Records"
+        }
     }
 
     handleLogin = user => {

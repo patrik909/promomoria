@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router'
 import Button from './Parts/Button.js';
 import axios from 'axios';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 class Feed extends Component {
 

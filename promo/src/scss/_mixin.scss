@@ -23,7 +23,8 @@ $fast-transition: 200ms;
 }
 
 input,
-textarea {
+textarea,
+button {
   box-sizing:border-box;
   border: none;
   outline: none;
@@ -36,8 +37,6 @@ input,
 textarea {
   padding: 0.7em 0.8em;
   margin: 0.4em 0;
-  font-size: 1em;
-  resize: none;
 }
 
 p {
@@ -56,7 +55,7 @@ p {
 }
 
 button {
-  border: none;
+  background: none;
 }
 
 .center {
@@ -81,9 +80,22 @@ button {
 	z-index: -1;
 }
 
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
 
 @mixin center-content {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }

@@ -5,6 +5,7 @@ function Button(props) {
     <button
       className={props.className}
       onClick={props.onClick}
+      id={props.id}
       value={props.value}
     >
       {props.innerText}

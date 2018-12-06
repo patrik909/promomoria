@@ -48,7 +48,6 @@ class Register extends Component {
         return (
             <main className="Login">
                 <div className="LoginForm">
-                    <h1>Login</h1>
                     <Inputfield 
                         className={'full-width'}
                         placeholder={'Email'}
@@ -60,7 +59,19 @@ class Register extends Component {
                         type={'password'}
                         onChange={this.handlePassword}
                     />
-                    <p>{this.props.message || this.state.message}</p>
+                    <p className="helper">{this.props.message || this.state.message}</p>
+                    <div>
+                        <Button 
+                            className={'half-width'}
+                            innerText={'New user'}
+                            onClick={this.openRegisterUser}
+                        />
+                        <Button 
+                            className={'half-width'}
+                            innerText={'Login'}
+                            onClick={this.loginUser}
+                        />
+                    </div>
                 </div>
             </main>
         );

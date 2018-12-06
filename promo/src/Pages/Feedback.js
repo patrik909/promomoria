@@ -31,7 +31,6 @@ class Feedback extends Component {
 
         return (
             <div>
-                <Header labelName={this.props.userData[0].label_name} />
                 <main className="Feedback">
                     <Link to="/"> {'< Back'} </Link>
                     <div>
