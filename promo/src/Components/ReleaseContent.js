@@ -18,7 +18,6 @@ class ReleaseContent extends Component {
 
     handlePlayer = event => {
         const audio = document.getElementsByClassName('releaseTrack')[0]
-        // console.log(audio)
         audio.addEventListener('timeupdate', function(){
             console.log(this.currentTime);
         })
@@ -28,12 +27,9 @@ class ReleaseContent extends Component {
         console.log(event.target.value)
     }
 
-    // handlePlayer2 = event => {
-    //     console.log(event.currentTime)
-    // }
-
     handleRating = event => {
-    	this.setState({rating: event.target.value})
+        this.setState({rating: event.target.value})
+        console.log(event.target.value)
     }
 
     handleArtist = event => {
@@ -58,95 +54,84 @@ class ReleaseContent extends Component {
                 if (res.data === 'done') {
                     this.setState({ feedbackAdded: true });
                 }
-                // this.setState.({})
-                console.log(res.data)
             }); 
         }
     }
 
 
     render(){
-        console.log(this.state.feedbackAdded)
         return (
-            <div className="ReleaseContent verticalWrapper">
-                <div>
-                    <div>
-                        <img src={window.location.origin +  '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'} />
+            <main className="Release verticalWrapper">
+                <div className="ReleaseFiles">
+                    <div className="ArtworkHolder">
+                        <img src={window.location.origin +  '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
                     </div>
-                    <div>
-                        {
-                            this.props.tracks.map(track => {
-                                return (
-                                    <audio controls preload="auto" key={track.track_file} onClick={this.handlePlayer} className="releaseTrack">
-                                        <source src={window.location.origin +  '/api/tracks/' + track.track_file} type="audio/mpeg" />
-                                    </audio>
-                                );
-                            })
-                        }
-                    </div>
-                    <ul>
-                    {
-                            this.props.tracks.map(track => {
-                                return (
-                                    <li>
-                                        <button value={track.track_file} onClick={this.handleTrack}>{track.track_file}</button>
-                                    </li>
-                                );
-                            })
-                        }                      
-                    </ul>
                 </div>
-                <div>
-                    artist: {this.props.releaseData.artist} <br/>
-                    title: {this.props.releaseData.title} <br/>
-                    cat nr: {this.props.releaseData.cat_number} <br/>
-                    text: <br/> 
-                    {this.props.releaseData.info_text.split('\n').map((item, key) => {
-                        return <span key={key}>{item}<br/></span>
-                    })} 
-                    <br/>
-                    {
-                        this.state.feedbackAdded === true ? (
-                            <div>
-                                THANK YOU!!
-                                <Button 
-                                    innerText={'download'}
-                                    onClick={this.downloadRelease}
+                <div className="ReleaseInfoFeedback">
+                    <div className="ReleaseInfo">
+                        <h2 className="ArtistName">{this.props.releaseData.artist}</h2>
+                        <h3 className="RecordTitle">{this.props.releaseData.title}</h3>
+                        {this.props.releaseData.release_date ? ( <h4>Release date: {this.props.releaseData.release_date}</h4>) : (  null )}
+                        <div className="ReleaseInfoText">
+                            <p>
+                                {this.props.releaseData.info_text.split('\n').map((text, key) => {
+                                    return <span key={key}>{text}<br/></span>
+                                })}  
+                            </p>              
+                        </div>
+                    </div>
+                    <div className="ReleaseFeedback">
+                        {this.state.feedbackAdded ? (
+                            <div className="ThankYou">
+                                <p>Thank you for your feedback!</p>
+                                <Button
+                                    innerText={'Download'}
+                                    onClick={this.addFeedback}
                                 />
                             </div>
                         ) : (
-                            <div>
-
-                            {
-                                this.props.releaseData.rating === 1 ? (
-                                    <div>
-                                        <input type="radio" value="1" onClick={this.handleRating} />1
-                                        <input type="radio" value="2" onClick={this.handleRating} />2
-                                        <input type="radio" value="3" onClick={this.handleRating} />3
-                                        <input type="radio" value="4" onClick={this.handleRating} />4
-                                        <input type="radio" value="5" onClick={this.handleRating} />5 
-                                    </div>                    
-                                ) : (
-                                    null
-                                )
-                            }
-                            <Inputfield 
-                                placeholder={'artist'}
-                                onChange={this.handleArtist}
-                            />
-                            <Inputfield 
-                                placeholder={'feedback'}
-                                onChange={this.handleFeedback}
-                            />
-                            <Button 
-                                innerText={'OK'}
-                                onClick={this.addFeedback}
-                            />
+                            null
+                        )}
+                        <Inputfield 
+                            className={'full-width'}
+                            placeholder={'Artist *'}
+                            onChange={this.handleArtist}
+                        />
+                        <textarea
+                            className="full-width"
+                            placeholder="Feedback *"
+                            rows="6"
+                            maxLength="250"
+                            onChange={this.handleFeedback}
+                        ></textarea>
+                        <div className="ReleaseFeedbackBottom">
+                            {this.props.releaseData.rating === 1 ? (
+                                <div className="Rating half-width">
+                                    Rating:
+                                    <input className="hide" type="radio" value="1" id="rating1" onClick={this.handleRating} />
+                                    <label htmlFor="rating1" className="RatingCircle"></label>
+                                    <input className="hide" type="radio" value="2" id="rating2" onClick={this.handleRating} />
+                                    <label htmlFor="rating2" className="RatingCircle"></label>
+                                    <input className="hide" type="radio" value="3" id="rating3" onClick={this.handleRating} />
+                                    <label htmlFor="rating3" className="RatingCircle"></label>
+                                    <input className="hide" type="radio" value="4" id="rating4" onClick={this.handleRating} />
+                                    <label htmlFor="rating4" className="RatingCircle"></label>
+                                    <input className="hide" type="radio" value="5" id="rating5" onClick={this.handleRating} />
+                                    <label htmlFor="rating5" className="RatingCircle"></label>
+                                </div>                    
+                            ) : (
+                                <div className="half-width">{/*Leave empty if there is no rating opt */}</div>
+                            )}
+                            <div className="half-width"> 
+                                <Button 
+                                    innerText={'Submit'}
+                                    onClick={this.addFeedback}
+                                />
+                            </div>
                         </div>
-                        )
-                    }
-            </div>    
-            </div>
+                    </div>
+                </div>
+            </main>
         );
     }
 }

@@ -68,8 +68,6 @@ app.post('/add_user', (req, res) => {
     );
 });
 
-
-
 // Login user.
 app.post('/login', (req, res) => {
     const email = req.body.email;
@@ -81,6 +79,7 @@ app.post('/login', (req, res) => {
             if (results) {
                 bcrypt.compare(password, results[0].password, function (err, result) {
                     if (result === true) {
+                        // Set session here??
                         res.send({
                             success: true,
                             user_id: results[0].id,
@@ -106,24 +105,39 @@ app.post('/login', (req, res) => {
 // Fetch all releases for logged in user.
 app.post('/fetch_releases', (req, res) => {
     const userId = req.body.userId
-    connection.query(
-        `SELECT * FROM releases WHERE user_id = '${userId}'`,    
-        (error, results, fields) => { 
-            res.send(results)
-        }
-    );
+    // connection.query(
+    //     `SELECT * FROM releases WHERE user_id = '${userId}'`,    
+    //     (error, results, fields) => { 
+    //         res.send(results)
+    //     }
+    // );
 });
 
 // Fetch all feedback.
 app.post('/fetch_feedback', (req, res) => {
     const releaseId = req.body.release_id;
+
+    makeMySQLRequest('feedback', 'release_id', releaseId)
+    // connection.query(
+    //     `SELECT * FROM feedback WHERE release_id = '${releaseId}'`,    
+    //     (error, results, fields) => { 
+    //         res.send(results)
+    //     }
+    // );
+});
+
+function makeMySQLRequest(table, column, value) {
     connection.query(
-        `SELECT * FROM feedback WHERE release_id = '${releaseId}'`,    
-        (error, results, fields) => { 
-            res.send(results)
+        `SELECT * FROM ${table} WHERE ${column} = '${value}'`,    
+        (error, results) => { 
+            if (results) {
+                return results
+            } else {
+                return error
+            }
         }
     );
-});
+}
 
 // Update status release.
 app.post('/status_release', (req, res) => {

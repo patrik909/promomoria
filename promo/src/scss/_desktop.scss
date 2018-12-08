@@ -8,6 +8,16 @@ html {
 
   body {
 
+    header {
+      height: 17vh;
+    }
+
+    main {
+      height: 70vh;
+      max-width: 95rem;
+      margin: auto;
+    }
+
     main.Login,
     main.Register {
       font-size: 1.8rem;
@@ -33,5 +43,52 @@ html {
         width: 50%;
       }
     }
+
+    main.ReleaseLogin {
+      max-width: 50em;
+
+      .ReleaseLoginTopContent {
+        margin-bottom: 2em;
+      }
+
+      .ReleaseLoginBottomContent {
+        margin-bottom: 2em;
+      }
+    }
+
+    main.Release {
+      font-size: 1.2rem;
+
+      .ReleaseFiles {
+        width: 50%;
+        margin-right: 1.5rem;
+
+        .ArtworkHolder {
+          height: 21em;
+        }
+      }
+
+      .ReleaseInfoFeedback {
+        width: 50%;
+        margin-left: 1.5rem;
+
+        .ReleaseInfo {
+          height: 22em;
+          h2 {
+            margin: 0;
+          }
+        }
+        .ReleaseFeedback {
+          .ReleaseFeedbackBottom {
+            font-size: 1.4rem;
+          }         
+        }
+      }
+    }
+    
+  }
+
+  footer {
+    height: 15vh;
   }
 }

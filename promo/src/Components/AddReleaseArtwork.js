@@ -98,7 +98,7 @@ class AddReleaseArtwork extends Component {
                             <img src={this.state.imageUrl ? 'api/' + this.state.imageUrl : null} alt="Release Artwork" style={{width: '100%', position: ' absolute'}}/>
                             <Button 
                                 className={'DeleteArtwork'}
-                                innerText={'x'}
+                                innerText={'X'}
                                 onClick={this.removeArtwork}
                             /> 
                         </div>

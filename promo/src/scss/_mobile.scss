@@ -199,7 +199,7 @@ html {
         .ArtworkHolder {
           @include center-content;
           margin-top: 0.7em;
-          height: 15em;
+          height: 20em;
           width: 100%;
           background:rgb(71, 71, 71);
 
@@ -334,7 +334,7 @@ html {
 
       .AddReleaseButtons {
         margin: auto;
-        margin-top: 1em;
+        margin-top: 1.6em;
         max-width: 10em;
         font-size: 2rem;
         button {
@@ -357,6 +357,204 @@ html {
         }   
       }
     }
+
+    main.ReleaseLogin {
+      @include center-content;
+      max-width: 35em;
+      margin: auto;
+ 
+      .ReleaseLoginForm {
+        width: 100%;
+        padding: 1em;
+        font-size: 1.8rem;
+
+        h3 {
+          margin: 0;
+          font-size: 1.8em;
+        }
+
+        h4 {
+          margin: 0;
+          font-size: 1em;
+          font-style: italic;
+        }
+
+        .ReleaseLoginTopContent {
+          margin-bottom: 1.4em;
+        }
+
+        .ReleaseLoginInputs {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          
+          input, 
+          button {
+            max-width: 12em;
+            font-size: 1em;
+          }
+
+          input {
+            padding: 1em;
+          }
+
+          button {
+            width: 100%;
+            @include uppercase;
+            padding: 0.4em;
+            background: $accent-color;
+            color: $main-color;
+            font-weight: 700;
+          }
+        }
+        
+        .ReleaseLoginBottomContent {
+          margin-top: 1.4em;
+          text-align: right;
+        }
+      }
+    }
+
+    main.Release {  
+      font-size: 1.4rem;
+
+      .ReleaseFiles {
+        .ArtworkHolder {
+          @include center-content;
+          margin-top: 0.7em;
+          height: 20em;
+          width: 100%;
+          position: relative;
+          overflow: hidden;
+          background:rgb(71, 71, 71);
+
+          img {
+            width: 100%;
+            position: absolute;
+            margin-top: -10%; 
+          }
+        }
+      }
+
+      .ReleaseInfo {
+        text-transform: lowercase;
+
+        h2 {
+          margin: 0;
+          margin-top: 0.4em;
+          font-size: 3em;
+        }
+
+        h3 {
+          margin: 0;
+          margin-bottom: 0.6em;
+          font-size: 2em;
+          font-style: italic;
+        }
+
+        h4 {
+          margin: 0;
+          font-size: 1.2em;
+          font-weight: 700;
+        }
+
+        p {
+          line-height: 1.4em;
+          margin-bottom: 2em;
+          min-height: 12em;
+        }
+      }
+
+      .ReleaseFeedback {
+        position: relative;
+
+        .ThankYou {
+          display: flex;
+          flex-direction: column;
+          @include center-content;
+          height: 98%;
+          width: 100%;
+          margin: 0.4em 0 0.8em 0;
+          position: absolute;
+          background: rgba(0, 0, 0, 0.8);
+
+          p {
+            margin-bottom: 2em;
+            color: white;
+            text-transform: lowercase;
+            font-size: 1.2em;
+            font-style: italic;
+            font-weight: 700;
+          }
+
+          button {
+            @include uppercase;
+            padding: 1em 1.5em;
+            color: white;
+            font-size: 1.2em;
+            font-weight: 700;
+            border: 2px solid white;
+            transition: $fast-transition;
+          }
+
+          button:hover {
+            background: white;
+            color: black;
+          } 
+          
+        }
+        input,
+        textarea {
+          font-size: 1.2em;
+        }
+
+        .ReleaseFeedbackBottom {
+          display: flex;
+          align-items: center;
+          font-size: 1.2rem;
+
+          button {
+            @include uppercase;
+            height: 2.5em;
+            width: 100%;
+            padding: 0.1em;
+            color: white;
+            background:$accent-color;
+            font-size: 1em;
+            font-weight: 700;
+          }
+  
+          .Rating {
+            display: flex;
+            align-items: center;
+            margin-left: 0.8em;
+            font-size: 1em;
+            font-weight: 700;
+  
+            .RatingCircle {
+              margin-left: 0.5em;
+              height: 1rem;
+              width: 1rem;
+              border: 2px solid $accent-color;
+              background: $main-color;
+              border-radius: 50%;
+              
+              &:hover {
+                background: $accent-color;
+              }
+            }
+    
+            input[type="radio"]:not(:checked) +label { 
+              background: $main-color;
+            }
+            input[type="radio"]:checked+label { 
+              background: $accent-color; 
+            }
+    
+          }
+        }
+      }
+    }
   
     footer {
       display: flex;
@@ -374,6 +572,7 @@ html {
         text-decoration: none;
         font-style: normal;
         font-weight: 700;
+
         &:hover {
           text-decoration: underline;
         }

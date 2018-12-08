@@ -40,14 +40,17 @@ class Feed extends Component {
     }
 
     feedbackRelease = event => {
-        this.setState({redirectTo: event.target.value});
-        console.log(event.target.value)
+        this.setState({redirectTo: '/Feedback/' + event.target.value});
+    }
+
+    viewRelease = event => {
+        this.setState({redirectTo: '/Release/' + event.target.value});
     }
 
     render() {
 
         if (this.state.redirectTo) {
-            return <Redirect to={'/Feedback/' + this.state.redirectTo} />;
+            return <Redirect to={this.state.redirectTo} />;
         } else {
             return (
                 <ul className="ReleasesFeed">
@@ -59,6 +62,11 @@ class Feed extends Component {
                                         {release.cat_number}: {release.artist} - {release.title}
                                     </div>   
                                     <div className="ReleaseFeedButton">
+                                        <Button 
+                                            innerText={'View'}
+                                            value={release.id}
+                                            onClick={this.viewRelease}
+                                        />
                                         <Button 
                                             innerText={'Feedback'}
                                             value={release.id}

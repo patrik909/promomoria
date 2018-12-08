@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router'
-import Header from '../Components/Header.js';
 import Button from '../Components/Parts/Button.js';
 import AddReleaseArtwork from '../Components/AddReleaseArtwork.js';
 import AddReleaseTracks from '../Components/AddReleaseTracks.js';

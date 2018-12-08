@@ -16,5 +16,20 @@ html {
         }
       }
     }
+
+    main.Release {
+      .ReleaseInfoFeedback {
+
+        .ReleaseFeedback {
+          .ReleaseFeedbackBottom {
+            font-size: 1.8rem;
+
+            .Rating {
+              font-size: 1.2em;
+            }
+          }         
+        }
+      }
+    }
   }
 }
