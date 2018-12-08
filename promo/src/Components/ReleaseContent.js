@@ -66,6 +66,28 @@ class ReleaseContent extends Component {
                     <div className="ArtworkHolder">
                         <img src={window.location.origin +  '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
                     </div>
+                    <div>
+                                            {
+                            this.props.tracks.map(track => {
+                                return (
+                                    <audio controls preload="auto" key={track.track_file} onClick={this.handlePlayer} className="releaseTrack">
+                                        <source src={window.location.origin +  '/api/tracks/' + track.track_file} type="audio/mpeg" />
+                                    </audio>
+                                );
+                            })
+                        }
+                    </div>
+                    <ul>
+                    {
+                            this.props.tracks.map(track => {
+                                return (
+                                    <li>
+                                        <button value={track.track_file} onClick={this.handleTrack}>{track.track_file}</button>
+                                    </li>
+                                );
+                            })
+                        }                      
+                    </ul>
                 </div>
                 <div className="ReleaseInfoFeedback">
                     <div className="ReleaseInfo">
