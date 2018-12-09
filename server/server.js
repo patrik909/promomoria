@@ -305,7 +305,6 @@ const trackUpload = multer({ storage: trackStorage })
  
 /* Should able to use same function for both tracks and artwork */ 
 app.post('/upload_tracks', trackUpload.single('track'), (req, res) => {
-    // console.log(req.file)
     if (req.file)
         res.json({
             trackName: req.file.filename

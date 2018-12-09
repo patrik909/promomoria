@@ -16,25 +16,27 @@ class AddReleaseArtwork extends Component {
         let image = event.target.files[0];
 
         if (event.target.files && event.target.files[0]) {
+    
             var reader = new FileReader();
             reader.onload = (e) => {
-              var img = new Image;
-              img.onload = () => {
-                  if ( img.width > 1399 && img.height > 1399 && img.width === img.height ) {
+                var img = new Image;
+                img.onload = () => {
+                    if ( img.width > 1399 && img.height > 1399 && img.width === img.height ) {
                     this.addArtwork(image);
                     this.setState({ message: '' })
-                  } else {
+                    } else {
                     this.setState({ message: 'Invalid artwork!' })
-                  }
-              };
-              img.src = reader.result;
+                    }
+                };
+                img.src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);
-          }
-        
+            }
+            
     }
 
     addArtwork = image => {
+
         const data = new FormData();
         data.append('artwork', image, image.name);
 
