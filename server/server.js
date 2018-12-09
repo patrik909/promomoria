@@ -105,12 +105,12 @@ app.post('/login', (req, res) => {
 // Fetch all releases for logged in user.
 app.post('/fetch_releases', (req, res) => {
     const userId = req.body.userId
-    // connection.query(
-    //     `SELECT * FROM releases WHERE user_id = '${userId}'`,    
-    //     (error, results, fields) => { 
-    //         res.send(results)
-    //     }
-    // );
+    connection.query(
+        `SELECT * FROM releases WHERE user_id = '${userId}'`,    
+        (error, results, fields) => { 
+            res.send(results)
+        }
+    );
 });
 
 // Fetch all feedback.

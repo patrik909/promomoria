@@ -421,11 +421,11 @@ html {
 
     main.Release {  
       font-size: 1.4rem;
-      min-height: 100vh;
 
       .ReleaseFiles {
         padding: 1.5em;
         background: white;
+
         .ArtworkHolder {
           @include center-content;
           margin-top: 0.7em;
@@ -441,38 +441,6 @@ html {
             margin-top: -10%; 
           }
         }
-
-      //   .Audioplayer {}
-
-      //   audio::-webkit-media-controls-play-button {
-      //     display: none;
-      //     -webkit-appearance: none;
-      //   }
-
-      //   audio {
-      //     background-color:white;
-      //     input {
-      //       background: white;
-      //     }
-      // }
-
-      // audio::-webkit-media-controls-timeline-container {
-      //   height: 10px;
-      // }
-      // audio::-webkit-media-controls-timeline {
-      //   height: 30px;
-      // }
-
-      //   audio::-webkit-media-controls-current-time-display,
-      //   audio::-webkit-media-controls-time-remaining-display,
-      //   audio::-webkit-media-controls-volume-slider-container,
-      //   audio::-webkit-media-controls-mute-button {
-      //     display: none;
-      //     -webkit-appearance: none;
-      //   }
-      //   audio {
-      //     width: 100%;
-      //   }
 
         .Audioplayer {
           padding: 1em;
@@ -517,12 +485,13 @@ html {
               display: flex;
               flex-direction: column;
               justify-content: space-between;
-              padding: 0.1em 0;
+              padding: 0.2em 0;
               width: 100%;
 
               .Time {
                 color: black;
-              //   font-weight: 700;
+                font-size: 0.8em;
+                font-weight: 700;
               }
 
               .ProcessBar {
@@ -537,25 +506,26 @@ html {
             }
           }
 
-          // .processBar{
-          //   height: 20px;
-          //   width: 100%;
-          //   border: 1px solid black;
-          //   .process{
-          //     height: 100%;
-          //     background: black;
-          //   }
-          // }
-          audio {
-            background: white;
-          }
           .Playlist {
             padding: 0;
             li {
               padding: 0.5rem 0;
+              transition: $fast-transition;
               &:hover {
-                border-bottom: 1px solid black;
-                margin-bottom: -1px;
+                background:#e3e3e3;
+              }
+
+              button {
+                font-size: 0.8em;
+              }
+            }
+
+            .trackIsPlaying {
+              background: black;
+              
+              button {
+                color: white;
+                font-weight: 700;
               }
             }
           }
@@ -683,7 +653,8 @@ html {
     }
   
     footer {
-      display: flex;
+      display: none;
+      // display: flex;
       align-items: center;
       justify-content: flex-end;
       height: 20vh;
