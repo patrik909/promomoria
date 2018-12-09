@@ -252,9 +252,9 @@ app.post('/add_release', (req, res) => {
                 }
             );
 
-            newRelease.tracks.map(track => {
+            newRelease.tracks.map((track, index) => {
                 connection.query(
-                    `insert into tracks(release_id,track_file) values('${results.insertId}','${track}')`, 
+                    `insert into tracks(release_id,track_file,track_index) values('${results.insertId}','${track}','${index + 1}')`, 
                     function (error, results, fields) { 
               
                     }
@@ -293,8 +293,6 @@ app.post('/delete_artwork', (req, res) => {
     fs.unlink(`uploads/artwork/${artworkName}`);
 });
 
-
-
 const trackStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/tracks/')
@@ -319,6 +317,14 @@ app.post('/upload_tracks', trackUpload.single('track'), (req, res) => {
 app.post('/delete_track', (req, res) => {
     const trackName = req.body.trackName;
     fs.unlink(`uploads/tracks/${trackName}`);
+});
+
+app.post('/delete_tracks', (req, res) => {
+    const trackNames = req.body.track_names;
+
+    trackNames.map(trackName => {
+        fs.unlink(`uploads/tracks/${trackName}`)
+    });
 });
 
 
