@@ -97,8 +97,19 @@ class AddRelease extends Component {
     }
 
     back = () => {
-        this.setState({ redirect: true })
-        // Remove files too.
+        this.setState({ redirect: true });
+
+        if (this.state.releaseTracks.length) {
+            axios.post('api/delete_tracks', {
+                track_names: this.state.releaseTracks
+            });          
+        }
+
+        if (this.state.releaseArtwork) {
+            axios.post('api/delete_artwork', {
+                imageName: this.state.releaseArtwork
+            });
+        }
     }
 
     render() {

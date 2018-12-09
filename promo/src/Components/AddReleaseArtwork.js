@@ -12,6 +12,7 @@ class AddReleaseArtwork extends Component {
     }
 
     checkArtwork = event => {
+        
         let image = event.target.files[0];
 
         if (event.target.files && event.target.files[0]) {
@@ -25,8 +26,6 @@ class AddReleaseArtwork extends Component {
                   } else {
                     this.setState({ message: 'Invalid artwork!' })
                   }
-                console.log(img.width);
-                console.log(img.height);
               };
               img.src = reader.result;
             };
