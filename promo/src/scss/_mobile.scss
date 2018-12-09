@@ -204,7 +204,10 @@ html {
           background:rgb(71, 71, 71);
 
           img {
-            margin-top: -10%; 
+            left: 50%;
+            margin-left: -50%;
+            top: 50%;
+            margin-top: -50%;
           }
 
           .ArtworkFileInput {
@@ -457,7 +460,10 @@ html {
           img {
             width: 100%;
             position: absolute;
-            margin-top: -10%; 
+            left: 50%;
+            margin-left: -50%;
+            top: 50%;
+            margin-top: -50%;
           }
         }
 
