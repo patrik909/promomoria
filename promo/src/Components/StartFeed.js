@@ -18,7 +18,7 @@ class Feed extends Component {
         axios.post('api/fetch_releases', {
             userId: this.props.userId
         } ).then(releases => {
-            this.setState({ releases : releases.data })
+            this.setState({ releases : releases.data});
         });      
     }
 

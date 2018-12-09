@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Inputfield from './Parts/Inputfield.js';
+import Audioplayer from './ReleasesAudioplayer.js';
 import Button from './Parts/Button.js';
 import axios from 'axios';
 
@@ -66,6 +67,7 @@ class ReleaseContent extends Component {
                     <div className="ArtworkHolder">
                         <img src={window.location.origin +  '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
                     </div>
+                    <Audioplayer tracks={this.props.tracks} />
                 </div>
                 <div className="ReleaseInfoFeedback">
                     <div className="ReleaseInfo">

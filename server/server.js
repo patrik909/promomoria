@@ -105,46 +105,29 @@ app.post('/login', (req, res) => {
 // Fetch all releases for logged in user.
 app.post('/fetch_releases', (req, res) => {
     const userId = req.body.userId
-    // connection.query(
-    //     `SELECT * FROM releases WHERE user_id = '${userId}'`,    
-    //     (error, results, fields) => { 
-    //         res.send(results)
-    //     }
-    // );
+    connection.query(
+        `SELECT * FROM releases WHERE user_id = '${userId}'`,    
+        (error, results, fields) => { 
+            res.send(results)
+        }
+    );
 });
 
 // Fetch all feedback.
 app.post('/fetch_feedback', (req, res) => {
     const releaseId = req.body.release_id;
-
-    makeMySQLRequest('feedback', 'release_id', releaseId)
-    // connection.query(
-    //     `SELECT * FROM feedback WHERE release_id = '${releaseId}'`,    
-    //     (error, results, fields) => { 
-    //         res.send(results)
-    //     }
-    // );
-});
-
-function makeMySQLRequest(table, column, value) {
     connection.query(
-        `SELECT * FROM ${table} WHERE ${column} = '${value}'`,    
-        (error, results) => { 
-            if (results) {
-                return results
-            } else {
-                return error
-            }
+        `SELECT * FROM feedback WHERE release_id = '${releaseId}'`,    
+        (error, results, fields) => { 
+            res.send(results)
         }
     );
-}
+});
 
 // Update status release.
 app.post('/status_release', (req, res) => {
     const releaseId = req.body.release_id;
     const status = req.body.release_status;
-    console.log(status)
-    console.log(releaseId)
     connection.query(
         `UPDATE releases SET activated = '${status}' WHERE releases . id = '${releaseId}'`,    
         (error, results, fields) => { 
