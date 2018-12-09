@@ -421,8 +421,11 @@ html {
 
     main.Release {  
       font-size: 1.4rem;
+      min-height: 100vh;
 
       .ReleaseFiles {
+        padding: 1.5em;
+        background: white;
         .ArtworkHolder {
           @include center-content;
           margin-top: 0.7em;
@@ -439,47 +442,110 @@ html {
           }
         }
 
-        audio::-webkit-media-controls-play-button {
-          display: none;
-          -webkit-appearance: none;
-        }
+      //   .Audioplayer {}
 
-        audio {
-          background-color:white;
-          input {
-            background: white;
-          }
-      }
+      //   audio::-webkit-media-controls-play-button {
+      //     display: none;
+      //     -webkit-appearance: none;
+      //   }
 
-      audio::-webkit-media-controls-timeline-container {
-        height: 10px;
-      }
-      audio::-webkit-media-controls-timeline {
-        height: 30px;
-      }
+      //   audio {
+      //     background-color:white;
+      //     input {
+      //       background: white;
+      //     }
+      // }
 
-        audio::-webkit-media-controls-current-time-display,
-        audio::-webkit-media-controls-time-remaining-display,
-        audio::-webkit-media-controls-volume-slider-container,
-        audio::-webkit-media-controls-mute-button {
-          display: none;
-          -webkit-appearance: none;
-        }
-        audio {
-          width: 100%;
-        }
+      // audio::-webkit-media-controls-timeline-container {
+      //   height: 10px;
+      // }
+      // audio::-webkit-media-controls-timeline {
+      //   height: 30px;
+      // }
+
+      //   audio::-webkit-media-controls-current-time-display,
+      //   audio::-webkit-media-controls-time-remaining-display,
+      //   audio::-webkit-media-controls-volume-slider-container,
+      //   audio::-webkit-media-controls-mute-button {
+      //     display: none;
+      //     -webkit-appearance: none;
+      //   }
+      //   audio {
+      //     width: 100%;
+      //   }
 
         .Audioplayer {
+          padding: 1em;
           background-color: white;
-          .processBar{
-            height: 20px;
-            width: 100%;
-            border: 1px solid black;
-            .process{
-              height: 100%;
-              background: black;
+          font-size: 1.5rem;
+
+          .Player {
+            display: flex;
+
+            .PlayerButtons {
+              display: flex;
+
+              button {
+                @include center-content;
+                position: relative;
+                margin-right: 1em;
+                width: 3.5em;
+                height: 3.5em;
+                background:black;
+                border-radius: 50%;
+
+                img {
+                  position: absolute;
+                  height: 1.8em;
+                  width: 1.8em;                 
+                }
+
+                .PlayIcon {
+                  left: 1em;
+                }
+
+                .StopIcon {
+                  margin-left: 0.05em;
+                  height: 1em;
+                  width: 1em;
+                  background: white
+                }
+              }
+            }
+
+            .PlayerTimeline {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              padding: 0.1em 0;
+              width: 100%;
+
+              .Time {
+                color: black;
+              //   font-weight: 700;
+              }
+
+              .ProcessBar {
+                height: 0.8em;
+                border: 1px solid black;
+
+                .Processed {
+                  height: 100%;
+                  background: black;
+                }
+              }
             }
           }
+
+          // .processBar{
+          //   height: 20px;
+          //   width: 100%;
+          //   border: 1px solid black;
+          //   .process{
+          //     height: 100%;
+          //     background: black;
+          //   }
+          // }
           audio {
             background: white;
           }
