@@ -17,10 +17,17 @@ class Feed extends Component {
             tracks: this.props.tracks,
             playTrack: this.props.tracks[0].track_file
         });
+        this.playTrack(this.props.tracks[0].track_file);
+    }
+
+    playTrack = track => {
+        console.log(track)
+
     }
 
     handleTrack = (event) => {
-        this.setState({playTrack: event.target.value});
+
+            this.setState({playTrack: event.target.value});
         // const audio = document.getElementById('audio');
         this.audio.load();
         const audio = this.audio
@@ -36,22 +43,15 @@ class Feed extends Component {
                     currentTime: this.formatTime(this.audio.currentTime.toFixed(0)),
                     current: this.audio.currentTime
                 })
+                console.log("inne i timeupdate")
               });
  
       
         audio.onloadedmetadata = () => {
-            // console.log(audio.duration)
             this.setState({
                 trackDuration: this.formatTime(audio.duration.toFixed(0)),
                 duration: audio.duration
-                // percent: this.audio.currentTime / audio.duration
             })
-            // console.log(this.state.current)
-            // console.log(duration)
-            // console.log(this.audio.currentTime / audio.duration)
-
-            // console.log(this.audio.currentTime / audio.duration * 100 + '%')
-            // console.log(audio.duration)
         }
     }
 
@@ -65,11 +65,18 @@ class Feed extends Component {
     }
 
     handleSeek = event => {
+        const processBarWidth = document.getElementById('processBar').offsetWidth;
         const x = this.state.duration / 100
-        console.log(x)
-        const y = event.nativeEvent.offsetX / event.target.offsetWidth * 100 * x
-        console.log(y)
-        console.log(this.state.duration)
+        // console.log(x)
+        const y = event.nativeEvent.offsetX / processBarWidth * 100 * x
+        console.log(event.nativeEvent.offsetX)
+        console.log(processBarWidth)
+        // console.log(event.nativeEvent.offsetX)
+        // console.log(y)
+        this.setState({
+            current: y
+        })
+        // console.log(this.state.duration)
         this.audio.currentTime = y
 }
 
@@ -82,18 +89,18 @@ class Feed extends Component {
     }
 
     render() {
-        console.log(this.state.current / this.state.duration * 100)
+        // console.log(this.state.current / this.state.duration * 100)
         return ( 
             <div className="Audioplayer">
-            <iframe width="100%" height="20" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/494981874&color=%23ff5500&inverse=false&auto_play=false&show_user=true"></iframe>
+            {/* <iframe width="100%" height="20" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/494981874&color=%23ff5500&inverse=false&auto_play=false&show_user=true"></iframe> */}
                 <div className="Player">
                     <button onClick={this.playAudio}>PLAY</button>
                     <button onClick={this.pauseAudio}>PAUSE</button>
                     <div>{this.state.currentTime} / {this.state.trackDuration}</div>
                     {/* check buffered too? */}
-                    <div className="processBar" onClick={this.handleSeek}><div className="process" style={{width : this.state.current / this.state.duration * 100 + '%'}}></div></div>
+                    <div id="processBar" className="processBar" onClick={this.handleSeek}><div className="process" style={{width : this.state.current / this.state.duration * 100 + '%'}}></div></div>
                 </div>
-                <audio  ref={audio => { this.audio = audio }} controls preload="auto" controlsList="nodownload" >           
+                <audio className="hide" ref={audio => { this.audio = audio }} controls preload="auto" controlsList="nodownload" >           
                         <source src={window.location.origin +  '/api/tracks/' + this.state.playTrack} type="audio/mpeg" />              
                     </audio>
                 <ul className="Playlist">
