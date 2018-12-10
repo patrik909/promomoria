@@ -3,7 +3,7 @@ import Inputfield from '../Components/Parts/Inputfield.js';
 import Button from '../Components/Parts/Button.js';
 import axios from 'axios';
 
-class Register extends Component {
+class StartRegister extends Component {
 
     state = {
         newEmail: '',
@@ -109,4 +109,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default StartRegister;

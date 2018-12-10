@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router'
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import Modal from '../Modal';
 import ModalChild from './ModalChild';
 import Button from './Parts/Button.js';
@@ -85,6 +86,8 @@ class Feed extends Component {
             return <Redirect to={this.state.redirectTo} />;
         } else {
             return (
+                <main className="Start Feed">
+                <h3><Link to="/AddRelease" className="AddReleaseLink">+ Add release</Link></h3>
                 <ul className="ReleasesFeed">
                 
                     {this.state.releases ? ( 
@@ -147,6 +150,7 @@ class Feed extends Component {
                     </div>
                 </Modal>
                 </ul>
+                </main>
             );
         }
     }

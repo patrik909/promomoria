@@ -3,7 +3,7 @@ import Inputfield from './Parts/Inputfield.js';
 import Button from './Parts/Button.js';
 import axios from 'axios';
 
-class Register extends Component {
+class StartLogin extends Component {
 
     state = {
         loginEmail: '',
@@ -78,4 +78,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default StartLogin;

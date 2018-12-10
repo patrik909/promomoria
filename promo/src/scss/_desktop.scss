@@ -8,88 +8,90 @@ html {
   }
 
   body {
+    max-width: 100rem;
+    margin: auto;
 
     header {
       height: 17vh;
+      font-size: 2.4rem;
     }
 
     main {
-      min-eight: 70vh;
-      max-width: 95rem;
-      margin: auto;
+      min-height: 68vh;
     }
 
     main.Login,
     main.Register {
-      font-size: 1.8rem;
+      font-size: 1.7rem;
     }
 
-    main.Feed {
-      ul {
-        li {
-          padding: 1em 0.8em;
-          font-size: 1.5em;
-        }
-      }
-    }
+  //   main.Feed {
+  //     ul {
+  //       li {
+  //         padding: 1em 0.8em;
+  //         font-size: 1.5em;
+  //       }
+  //     }
+  //   }
 
-    main.AddRelease {
+  //   main.AddRelease {
 
-      .AddReleaseFiles {
-        margin-right: 0.5em;
-        width: 50%;
-      }
-      .AddReleaseInfo {
-        margin-left: 0.5em;
-        width: 50%;
-      }
-    }
+  //     .AddReleaseFiles {
+  //       margin-right: 0.5em;
+  //       width: 50%;
+  //     }
+  //     .AddReleaseInfo {
+  //       margin-left: 0.5em;
+  //       width: 50%;
+  //     }
+  //   }
 
-    main.ReleaseLogin {
-      max-width: 50em;
+  //   main.ReleaseLogin {
+  //     max-width: 50em;
 
-      .ReleaseLoginTopContent {
-        margin-bottom: 2em;
-      }
+  //     .ReleaseLoginTopContent {
+  //       margin-bottom: 2em;
+  //     }
 
-      .ReleaseLoginBottomContent {
-        margin-bottom: 2em;
-      }
-    }
+  //     .ReleaseLoginBottomContent {
+  //       margin-bottom: 2em;
+  //     }
+  //   }
 
-    main.Release {
-      font-size: 1.2rem;
+  //   main.Release {
+  //     font-size: 1.2rem;
 
-      .ReleaseFiles {
-        width: 50%;
-        margin-right: 1.5rem;
+  //     .ReleaseFiles {
+  //       width: 50%;
+  //       margin-right: 1.5rem;
 
-        .ArtworkHolder {
-          height: 21em;
-        }
-      }
+  //       .ArtworkHolder {
+  //         height: 21em;
+  //       }
+  //     }
 
-      .ReleaseInfoFeedback {
-        width: 50%;
-        margin-left: 1.5rem;
+  //     .ReleaseInfoFeedback {
+  //       width: 50%;
+  //       margin-left: 1.5rem;
 
-        .ReleaseInfo {
-          height: 22em;
-          h2 {
-            margin: 0;
-          }
-        }
-        .ReleaseFeedback {
-          .ReleaseFeedbackBottom {
-            font-size: 1.4rem;
-          }         
-        }
-      }
-    }
+  //       .ReleaseInfo {
+  //         height: 22em;
+  //         h2 {
+  //           margin: 0;
+  //         }
+  //       }
+  //       .ReleaseFeedback {
+  //         .ReleaseFeedbackBottom {
+  //           font-size: 1.4rem;
+  //         }         
+  //       }
+  //     }
+  //   }
     
-  }
+  // }
 
-  footer {
-    height: 15vh;
+  // footer {
+  //   height: 15vh;
+  // }
   }
 }

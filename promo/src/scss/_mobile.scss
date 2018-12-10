@@ -9,11 +9,11 @@ html {
     font-family: $main-font;
   
     header {
+      height: 15vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      height: 15vh;
-      font-size: 3.4em;
+      font-size: 3.4rem;
   
       div {
         display: flex;
@@ -42,12 +42,12 @@ html {
   
     main {
       min-height: 70vh;
+      font-size: 2.4rem;
     }
   
     main.Login,
     main.Register {
       @include center-content;
-      font-size: 2.4rem;
   
       .LoginForm,
       .RegisterForm {
@@ -682,9 +682,9 @@ html {
     }
   
     footer {
+      height: 15vh;
       display: flex;
       justify-content: flex-end;
-      height: 15vh;
       
       p {
         margin-right: 0.2em;
@@ -705,7 +705,8 @@ html {
     }
   }
 
-  
+  /* not cleaned */
+
   #modal {
 
     .Modal.close {

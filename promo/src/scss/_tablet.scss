@@ -4,7 +4,30 @@ html {
   body {
 
     header {
+      height: 14vh;
+      font-size: 2em;
+  
+      div {
+        position: relative;
 
+        h2 {
+          @include center-content;
+          position: absolute;
+          right: 0;
+          bottom: -0.07em;
+          height: 1em;
+          padding: 0 0.5em;
+          background: $accent-color;
+          color: $main-color;
+          font-size: 1.6em;
+          font-style: italic;
+        }
+      }
+    }
+
+    main {
+      min-height: 71vh;
+      font-size: 2rem;
     }
 
     // main.AddRelease {
