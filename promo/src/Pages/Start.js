@@ -24,25 +24,22 @@ class Start extends Component {
     }
 
     render() {
-        // let startPage = '';
-        // if (this.props.user !== false) {
-        //     startPage = <Home userData={this.props.user} />;
-        // } else if (this.state.page === 'register') {
-        //     startPage = <Register handleStartPage={this.handleStartPage} />;
-        // } else {
-        //     startPage = <Login handleStartPage={this.handleStartPage} handleLogin={this.handleLogin} message={this.state.message}/>;
-        // }
-
         return (
             <div>
-                {this.props.user !== false ? (
-                    <main className="Start Feed">
-                        <h3><Link to="/AddRelease" className="AddReleaseLink">+ Add release</Link></h3>
-                        <StartFeed userId={this.props.user.id}/>                   
-                    </main>               
-                ) : (
-                    null
-                )}
+                {
+                    this.props.user !== false ? (
+                        <main className="Start Feed">
+                            <h3><Link to="/AddRelease" className="AddReleaseLink">+ Add release</Link></h3>
+                            <StartFeed userId={this.props.user.id}/>                   
+                        </main>               
+                    ) : (
+                        this.state.page === 'register' ? (
+                            <Register handleStartPage={this.handleStartPage} />
+                        ) : (
+                            <Login handleStartPage={this.handleStartPage} handleLogin={this.handleLogin} message={this.state.message}/>
+                        )
+                    )
+                }
             </div>
         );
     }

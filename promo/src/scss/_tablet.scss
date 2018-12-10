@@ -3,33 +3,37 @@ html {
 
   body {
 
-    main.AddRelease {
+    header {
 
-      .AddReleaseFiles {
-
-        .ArtworkHolder {
-          height: 20em;
-
-          img {
-            margin-top: -15%;
-          }
-        }
-      }
     }
 
-    main.Release {
-      .ReleaseInfoFeedback {
+    // main.AddRelease {
 
-        .ReleaseFeedback {
-          .ReleaseFeedbackBottom {
-            font-size: 1.8rem;
+    //   .AddReleaseFiles {
 
-            .Rating {
-              font-size: 1.2em;
-            }
-          }         
-        }
-      }
-    }
+    //     .ArtworkHolder {
+    //       height: 20em;
+
+    //       img {
+    //         margin-top: -15%;
+    //       }
+    //     }
+    //   }
+    // }
+
+    // main.Release {
+    //   .ReleaseInfoFeedback {
+
+    //     .ReleaseFeedback {
+    //       .ReleaseFeedbackBottom {
+    //         font-size: 1.8rem;
+
+    //         .Rating {
+    //           font-size: 1.2em;
+    //         }
+    //       }         
+    //     }
+    //   }
+    // }
   }
 }

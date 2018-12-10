@@ -46,38 +46,7 @@ class Feed extends Component {
             })
         }
 
-        this.playAudio();
     }
-
-    // handleTrack = (event) => {
-
-            // this.setState({playTrack: event.target.value});
-        // const audio = document.getElementById('audio');
-        // this.audio.load();
-        // const audio = this.audio
-
-        // this.audio.play();
-
-
-        //     this.audio.addEventListener("timeupdate", () => {
-        //         // console.log(this.audio.currentTime)
-        //         // add code here to update the handle position
-        //         //  duration = this.audio.currentTime
-        //         this.setState({
-        //             currentTime: this.formatTime(this.audio.currentTime.toFixed(0)),
-        //             current: this.audio.currentTime
-        //         })
-        //         console.log("inne i timeupdate")
-        //       });
- 
-      
-        // audio.onloadedmetadata = () => {
-        //     this.setState({
-        //         trackDuration: this.formatTime(audio.duration.toFixed(0)),
-        //         duration: audio.duration
-        //     })
-        // }
-    // }
 
     formatTime(seconds) {
         const h = Math.floor(seconds / 3600)
@@ -91,16 +60,12 @@ class Feed extends Component {
     handleSeek = event => {
         const processBarWidth = document.getElementById('ProcessBar').offsetWidth;
         const x = this.state.duration / 100
-        // console.log(x)
         const y = event.nativeEvent.offsetX / processBarWidth * 100 * x
         console.log(event.nativeEvent.offsetX)
         console.log(processBarWidth)
-        // console.log(event.nativeEvent.offsetX)
-        // console.log(y)
         this.setState({
             current: y
         })
-        // console.log(this.state.duration)
         this.audio.currentTime = y
 }
 
@@ -121,8 +86,6 @@ class Feed extends Component {
     }
 
     render() {
-        console.log(this.state.playTrack)
-        // console.log(this.state.current / this.state.duration * 100)
         return ( 
             <div className="Audioplayer">
             {/* <iframe width="100%" height="20" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/494981874&color=%23ff5500&inverse=false&auto_play=false&show_user=true"></iframe> */}

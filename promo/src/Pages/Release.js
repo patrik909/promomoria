@@ -6,13 +6,14 @@ import ReleaseContent from '../Components/ReleaseContent.js'
 class Release extends Component {
 
     state = {
-        access: true,
+        access: false,
         password: '',
         release: [],
         relesaeTracks : []
     }
 
     componentDidMount(){
+
         axios.post(window.location.origin + '/api/fetch_release', {
             release_id: parseInt(this.props.match.params.id, 10)
         }).then(release => {
@@ -24,7 +25,13 @@ class Release extends Component {
         }).then(tracks => {
             this.setState({ relesaeTracks : tracks.data })
             console.log(tracks.data)
-        });   
+        });     
+
+        const alreadyGotAccess = JSON.parse(localStorage.getItem(`AccessTo:${parseInt(this.props.match.params.id, 10)}`));
+        
+        if (alreadyGotAccess === true) {
+            this.setState({access: true});
+        }
     }
 
     handlePassword = event => {
@@ -33,7 +40,8 @@ class Release extends Component {
 
     handleAccess = event => {
         if (this.state.password === this.state.release[0].password) {
-            this.setState({ access: true });
+            this.setState({access: true});
+            localStorage.setItem(`AccessTo:${parseInt(this.props.match.params.id, 10)}`, true);
         }
     }
 

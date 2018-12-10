@@ -9,6 +9,8 @@ const fs = require('fs');
 const multer = require('multer');
 const cors = require('cors');
 
+app.get('/express', (req, res) => res.send('Hello World!'));
+
 const connection = mysql.createConnection({
     host     : 'localhost',
     port     : '8889',

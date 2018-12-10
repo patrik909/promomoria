@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
 
 $main-color: rgb(214, 214, 214);
-// $main-color: rgb(242, 242, 242);
-$accent-color: rgb(213, 32, 32);
+$accent-color: rgb(230, 32, 32);
+$accent-color-hover:  rgb(210, 32, 32);
 $main-font: 'Inconsolata', monospace;
 $fast-transition: 200ms;
 
@@ -24,7 +24,7 @@ button {
   box-sizing:border-box;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: 1em;
   font-family: $main-font;
   resize: none;
 }
