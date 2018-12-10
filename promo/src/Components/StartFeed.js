@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router'
+import Modal from '../Modal';
+import ModalChild from './ModalChild';
 import Button from './Parts/Button.js';
 import axios from 'axios';
 
@@ -7,7 +9,9 @@ class Feed extends Component {
 
     state = {
         releases: [],
-        redirectTo: false
+        redirectTo: false,
+        releaseToDelete: {},
+        modal: 'close'
     }
 
     componentDidMount() {
@@ -25,7 +29,19 @@ class Feed extends Component {
     removeRelease = event => { 
         axios.post('api/delete_release', {
             release_id: event.target.value
-        }).then(this.fetchAllReleases());      
+        }).then(this.fetchAllReleases());
+            this.setState({
+                releaseToDelete: {},
+                modal: 'close'               
+            });     
+    }
+
+    closeModal = event => { 
+
+            this.setState({
+                releaseToDelete: {},
+                modal: 'close'               
+            })    
     }
 
     statusRelease = event => {
@@ -47,13 +63,30 @@ class Feed extends Component {
         this.setState({redirectTo: '/Release/' + event.target.value});
     }
 
+    openRemoveReleaseModal = event => {
+        axios.post('/api/fetch_release', {
+            release_id: event.target.value
+        }).then(release => {
+            this.setState({
+                releaseToDelete: {
+                    id: release.data[0].id,
+                    title: release.data[0].title,
+                    artist: release.data[0].artist
+                },
+                modal: 'open'     
+            })
+        }); 
+    }
+
     render() {
+        console.log(this.state.releaseToDelete)
 
         if (this.state.redirectTo) {
             return <Redirect to={this.state.redirectTo} />;
         } else {
             return (
                 <ul className="ReleasesFeed">
+                
                     {this.state.releases ? ( 
                         this.state.releases.map(release => {
                             return ( 
@@ -81,7 +114,7 @@ class Feed extends Component {
                                         <Button 
                                             innerText={'Delete'}
                                             value={release.id}
-                                            onClick={this.removeRelease}
+                                            onClick={this.openRemoveReleaseModal}
                                         />
                                     </div>                                 
                                 </li>
@@ -90,6 +123,29 @@ class Feed extends Component {
                     ) : (
                         null
                     )}
+                    <Modal 
+                   element={
+                        document.getElementById('modal')
+                    }
+                >
+                    <div className={"Modal " + this.state.modal}>
+                        <div className="ModalContainer">
+                            <p>Are you sure that you want to delete;</p>
+                            <p><span>{this.state.releaseToDelete.title} by {this.state.releaseToDelete.artist}</span></p>
+                            <div>
+                                <Button 
+                                    innerText={'No'}
+                                    onClick={this.closeModal}
+                                />
+                                <Button 
+                                    innerText={'Yes'}
+                                    value={this.state.releaseToDelete.id}
+                                    onClick={this.removeRelease}
+                                />                            
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
                 </ul>
             );
         }
