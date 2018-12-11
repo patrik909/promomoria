@@ -227,7 +227,7 @@ html {
 
     .ArtworkHolder {
       @include center-content;
-      height: 20em;
+      height: 24em;
       width: 100%;
       position: relative;
       overflow: hidden;
@@ -509,7 +509,8 @@ html {
       flex-direction: column;
       max-width: 68em;
       margin: auto;
-      margin-top: 3em;
+      margin-top: 3.5em;
+      margin-bottom: 3em;
       font-size: 1.4rem;
 
       .ReleaseFiles {
@@ -590,7 +591,6 @@ html {
 
           ul.Playlist { 
             margin: 1em 0.2em 0.4em 0.2em;
-            // background: $main-color;
 
             li {
               padding: 0.5em;
@@ -629,125 +629,160 @@ html {
           }
         }
       }
-    }
 
-    main.Release {  
-
-      .ReleaseInfo {
+      .ReleaseInfoFeedback {
+        color: #393939;
         text-transform: lowercase;
 
-        h2 {
-          margin: 0;
-          margin-top: 0.4em;
-          font-size: 3em;
-        }
-
-        h3 {
-          margin: 0;
-          margin-bottom: 0.6em;
-          font-size: 2em;
-          font-style: italic;
-        }
-
-        h4 {
-          margin: 0;
-          font-size: 1.2em;
-          font-weight: 700;
-        }
-
-        p {
-          line-height: 1.4em;
-          margin-bottom: 2em;
-          min-height: 12em;
-        }
-      }
-
-      .ReleaseFeedback {
-        position: relative;
-
-        .ThankYou {
-          display: flex;
-          flex-direction: column;
-          @include center-content;
-          height: 98%;
-          width: 100%;
-          margin: 0.4em 0 0.8em 0;
-          position: absolute;
-          background: rgba(0, 0, 0, 0.8);
-
-          p {
-            margin-bottom: 2em;
-            color: white;
-            text-transform: lowercase;
-            font-size: 1.2em;
-            font-style: italic;
-            font-weight: 700;
-          }
-
-          button {
-            @include uppercase;
-            padding: 1em 1.5em;
-            color: white;
-            font-size: 1.2em;
-            font-weight: 700;
-            border: 2px solid white;
-            transition: $fast-transition;
-          }
-
-          button:hover {
-            background: white;
-            color: black;
-          } 
-          
-        }
-        input,
-        textarea {
-          font-size: 1.2em;
-        }
-
-        .ReleaseFeedbackBottom {
-          display: flex;
-          align-items: center;
-          font-size: 1.2rem;
-
-          button {
-            @include uppercase;
-            height: 2.5em;
-            width: 100%;
-            padding: 0.1em;
-            color: white;
-            background:$accent-color;
-            font-size: 1em;
-            font-weight: 700;
-          }
-  
-          .Rating {
+        .ReleaseInfo {
+          margin-top: 1em;
+          .ReleaseArtist {
             display: flex;
             align-items: center;
-            margin-left: 0.8em;
-            font-size: 1em;
-            font-weight: 700;
   
-            .RatingCircle {
-              margin-left: 0.5em;
-              height: 1rem;
-              width: 1rem;
-              border: 2px solid $accent-color;
-              background: $main-color;
-              border-radius: 50%;
-              
+            h2 {
+              margin: 0;
+              margin-top: 0.4em;
+              font-size: 2.8em;
+              white-space: nowrap;
+            }
+  
+            .LineSeperator {
+              margin-top: 1.2em;
+              margin-left: 0.8em;
+              border-bottom: 2px solid #393939;
+              width: 100%
+            }
+          }       
+  
+          .ReleaseTitle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.6em;
+  
+            h3 {
+              margin: 0;
+              font-size: 2em;
+              font-style: italic;
+              white-space: nowrap;
+            }         
+            
+            .LineSeperator {
+              margin-top: 0.2em;
+              margin-right: 0.8em;
+              border-bottom: 2px solid #393939;
+              width: 100%
+            }
+          }  
+  
+          p {
+            margin-bottom: 2em;
+            min-height: 12em;      
+            font-size: 0.9em;
+            line-height: 1.4em;
+          }
+  
+          h4 {
+            @include uppercase;
+            margin: 0;
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+            font-weight: 700;
+          }
+        }
+
+        .ReleaseFeedback {
+          position: relative;
+
+          input,
+          textarea {
+            font-size: 1.2em;
+          }
+
+          .ReleaseFeedbackBottom {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+
+            button {
+              @include uppercase;
+              height: 2.8em;
+              width: 10em;
+              padding: 0.1em;
+              color: white;
+              background:$accent-color;
+              font-size: 1.4em;
+              font-weight: 700;
+              transition: $fast-transition;
+
               &:hover {
-                background: $accent-color;
+                background: $accent-color-hover;
+                color: $main-color-hover;
               }
             }
-    
-            input[type="radio"]:not(:checked) +label { 
-              background: $main-color;
+
+            .Rating {
+              @include uppercase;
+              display: flex;
+              align-items: center;
+              width: 100%;
+              color: $accent-color;
+              font-size: 1.7em;
+              font-weight: 700;
+
+              .RatingCircle {
+                margin-left: 0.5em;
+                height: 1rem;
+                width: 1rem;
+                border: 2px solid $accent-color;
+                background: $main-color;
+                border-radius: 50%;
+                
+                &:hover {
+                  background: $accent-color;
+                }
+              }
+
+              input[type="radio"]:checked+label { 
+                background: $accent-color; 
+              }
             }
-            input[type="radio"]:checked+label { 
-              background: $accent-color; 
+          }
+
+          .ThankYou {
+            display: flex;
+            flex-direction: column;
+            @include center-content;
+            height: 98%;
+            width: 100%;
+            margin: 0.4em 0 0.8em 0;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+
+            p {
+              margin-bottom: 2em;
+              color: white;
+              text-transform: lowercase;
+              font-size: 1.2em;
+              font-style: italic;
+              font-weight: 700;
             }
-    
+
+            button {
+              @include uppercase;
+              padding: 1em 1.5em;
+              color: white;
+              font-size: 1.2em;
+              font-weight: 700;
+              border: 2px solid white;
+              transition: $fast-transition;
+            }
+
+            button:hover {
+              background: white;
+              color: black;
+            } 
+            
           }
         }
       }

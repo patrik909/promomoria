@@ -95,9 +95,8 @@ class ReleaseContent extends Component {
                 </div>
                 <div className="ReleaseInfoFeedback">
                     <div className="ReleaseInfo">
-                        <h2 className="ArtistName">{this.props.releaseData.artist}</h2>
-                        <h3 className="RecordTitle">{this.props.releaseData.title}</h3>
-                        {this.props.releaseData.release_date ? ( <h4>Release date: {this.props.releaseData.release_date}</h4>) : (  null )}
+                        <div className="ReleaseArtist"><h2>{this.props.releaseData.artist}</h2><div className="LineSeperator"></div></div>
+                        <div className="ReleaseTitle"><div className="LineSeperator"></div><h3 className="RecordTitle">{this.props.releaseData.title}</h3></div>
                         <div className="ReleaseInfoText">
                             <p>
                                 {this.props.releaseData.info_text.split('\n').map((text, key) => {
@@ -105,6 +104,7 @@ class ReleaseContent extends Component {
                                 })}  
                             </p>              
                         </div>
+                        {this.props.releaseData.release_date ? ( <h4>Release date: {this.props.releaseData.release_date}</h4>) : (  null )}
                     </div>
                     <div className="ReleaseFeedback">
                         {this.state.feedbackAdded ? (
@@ -133,22 +133,22 @@ class ReleaseContent extends Component {
                         <div className="ReleaseFeedbackBottom">
                             {this.props.releaseData.rating === 1 ? (
                                 <div className="Rating half-width">
-                                    Rating:
-                                    <input className="hide" type="radio" value="1" id="rating1" onClick={this.handleRating} />
+                                    Rate
+                                    <input name="rating" className="hide" type="radio" value="1" id="rating1" onClick={this.handleRating} />
                                     <label htmlFor="rating1" className="RatingCircle"></label>
-                                    <input className="hide" type="radio" value="2" id="rating2" onClick={this.handleRating} />
+                                    <input name="rating" className="hide" type="radio" value="2" id="rating2" onClick={this.handleRating} />
                                     <label htmlFor="rating2" className="RatingCircle"></label>
-                                    <input className="hide" type="radio" value="3" id="rating3" onClick={this.handleRating} />
+                                    <input name="rating" className="hide" type="radio" value="3" id="rating3" onClick={this.handleRating} />
                                     <label htmlFor="rating3" className="RatingCircle"></label>
-                                    <input className="hide" type="radio" value="4" id="rating4" onClick={this.handleRating} />
+                                    <input name="rating" className="hide" type="radio" value="4" id="rating4" onClick={this.handleRating} />
                                     <label htmlFor="rating4" className="RatingCircle"></label>
-                                    <input className="hide" type="radio" value="5" id="rating5" onClick={this.handleRating} />
+                                    <input name="rating" className="hide" type="radio" value="5" id="rating5" onClick={this.handleRating} />
                                     <label htmlFor="rating5" className="RatingCircle"></label>
                                 </div>                    
                             ) : (
-                                <div className="half-width">{/*Leave empty if there is no rating opt */}</div>
+                                <div>{/*Leave empty if there is no rating opt */}</div>
                             )}
-                            <div className="half-width"> 
+                            <div> 
                                 <Button 
                                     innerText={'Submit'}
                                     onClick={this.addFeedback}

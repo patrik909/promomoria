@@ -112,7 +112,6 @@ class Feed extends Component {
             </div>
         );
     }
-
 }
 
 export default Feed;

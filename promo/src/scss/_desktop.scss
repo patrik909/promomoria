@@ -45,8 +45,19 @@ html {
     }
 
     main.Release {
+      flex-direction: row;
+
       .ReleaseFiles {
+        margin-right: 1.3em;
         width: 50%;
+      }
+
+      .ReleaseInfoFeedback { 
+        margin-left: 1.3em;
+        width: 50%;
+        .ReleaseInfo {
+          margin-top: 0em;
+        }
       }
     }
 
