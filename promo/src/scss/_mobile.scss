@@ -9,6 +9,7 @@ html {
     font-family: $main-font;
   
     header {
+      position: relative;
       height: 15vh;
       display: flex;
       flex-direction: column;
@@ -31,12 +32,30 @@ html {
   
         h2 {
           display: none;
+          z-index: 20;
         }
       }
   
       .underline {
         margin: 0 0.15em 0 0.5em;
         border-bottom: 0.1em solid $accent-color;
+      }
+
+      button {
+        position: absolute;
+        top: 18vh;
+        right: 0em;
+        padding: 0;
+        color: $accent-color;
+        font-size: 0.5em;
+        font-weight: 700;
+        text-transform: lowercase;
+        transition: $fast-transition;
+
+        &:hover {
+          color: $accent-color-hover;
+          text-decoration: underline;
+        }
       }
     }
   

@@ -15,7 +15,6 @@ class Feed extends Component {
     }
 
     componentDidMount() {
-        
         // Calling function to fetch all releases for user.
         this.fetchAllReleases();
     }
