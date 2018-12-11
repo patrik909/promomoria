@@ -24,7 +24,6 @@ class Release extends Component {
             release_id: parseInt(this.props.match.params.id, 10)
         }).then(tracks => {
             this.setState({ relesaeTracks : tracks.data })
-            console.log(tracks.data)
         });     
 
         const alreadyGotAccess = JSON.parse(localStorage.getItem(`AccessTo:${parseInt(this.props.match.params.id, 10)}`));

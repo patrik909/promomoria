@@ -10,6 +10,8 @@ const fs = require('fs');
 const multer = require('multer');
 const cors = require('cors');
 
+var JSZip = require("jszip");
+
 const connection = mysql.createConnection({
     host     : 'localhost',
     port     : '8889',
@@ -256,17 +258,25 @@ app.post('/add_feedback', (req, res) => {
 
 // Download release
 app.post('/download_release', (req, res) => {
+    // console.log("inne i download");
 
-    // var zip = new JSZip();
+    // // var encondedImage = new Buffer(`uploads/artwork/1544397293164-A_SIDE.jpg`, 'base64');
 
-    // zip.file("Hello.txt", "Hello World\n");
-    
-    // // var img = zip.folder("images");
-    // // img.file("smile.gif", imgData, {base64: true});
-    
-    // zip.generateAsync({type:"blob"}).then(function(content) {
-    //     // see FileSaver.js
-    //     saveAs(content, "example.zip");
+    // fs.readFile(`uploads/artwork/1544397293164-A_SIDE.jpg`, 'binary',function (err, content) {
+    //     if (!err) {
+    //         console.log(content)
+    //         // res.writeHead(200, {'Content-Type': 'image/jpg'})
+    //         // res.end(content,'Base64');
+    //         res.send(content)
+    //         // console.log(content)
+    //         // (req, res) => {
+    //             // res.writeHead(200,{'Content-type':'image/jpg'});
+    //             // res.end(content);
+    //         //   }
+
+    //     } else {
+    //         console.log(err);
+    //     }
     // });
     
 
@@ -282,6 +292,8 @@ app.post('/add_release', (req, res) => {
     connection.query(
         `insert into  releases(user_id,artist,title,cat_number,info_text,release_date,rating,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.release_date}','${newRelease.rating}','releaseFile','${newRelease.password}')`, 
         function (error, results, fields) { 
+            console.log(results)
+            console.log(error)
             res.send(results);
 
             connection.query(
@@ -364,60 +376,5 @@ app.post('/delete_tracks', (req, res) => {
         fs.unlink(`uploads/tracks/${trackName}`)
     });
 });
-
-
-
-
-
-/* --- CLEAN ADD RELEASE - END -- */
-
-
-
-
-// session
-// https://www.npmjs.com/package/express-mysql-session
-// !https://stackoverflow.com/questions/46760789/equivalent-of-session-start-and-session-in-node-js-express
-
-// !! https://medium.com/@evangow/server-authentication-basics-express-sessions-passport-and-curl-359b7456003d
-
-// app.use(session({secret: "Shh, its a secret!"}));
-// https://www.tutorialspoint.com/expressjs/expressjs_sessions.htm
-// Testat koden över
-// const loginUser = userId => {
-//   app.get('/', function(req, res){
-//     // if(req.session.page_views){
-//     //    req.session.page_views++;
-//     //    res.send("You visited this page " + req.session.page_views + " times");
-//     // } else {
-//        session.user_id = userId;
-//        res.send(session.user_id);
-//     });
-//   // });
-// }
-
-// app.use(session({
-//   genid: (req) => {
-//     console.log('Inside the session middleware')
-//     console.log(req.sessionID)
-//     return uuid() // use UUIDs for session IDs
-//   },
-//   secret: 'keyboard cat',
-//   resave: false,
-//   saveUninitialized: true
-// }))
-
-// // create the homepage route at '/'
-// app.get('/', (req, res) => {
-//   console.log('Inside the homepage callback function')
-//   console.log(req.sessionID)
-//   res.send(`You hit home page!\n`)
-//   // res.send(req.sessionID)
-// })
-
-// app.post('/login', (req, res) => {
-//   console.log('Inside POST /login callback function')
-//   console.log(req.body)
-//   res.send(`You posted to the login page!\n`)
-// })
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

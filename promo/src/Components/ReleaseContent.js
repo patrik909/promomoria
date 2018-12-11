@@ -3,6 +3,8 @@ import Inputfield from './Parts/Inputfield.js';
 import Audioplayer from './ReleasesAudioplayer.js';
 import Button from './Parts/Button.js';
 import axios from 'axios';
+// var saveAs= require('file-saver');
+
 
 class ReleaseContent extends Component {
 
@@ -47,6 +49,7 @@ class ReleaseContent extends Component {
     }
 
     addFeedback = () => {
+
         if (
             this.state.artist !== '' &&
             this.state.feedback !== ''
@@ -65,10 +68,25 @@ class ReleaseContent extends Component {
         }
     }
 
+    downloadRelease = () => {
+        console.log("Ladda ner")
+        // axios.post(window.location.origin + '/api/download_release', {
+        // }).then(res => {
+
+        //     console.log(res.data);
+        //     // 'http://localhost:3000/api/artwork/1544397293164-A_SIDE.jpg'
+
+
+        //         saveAs('http://localhost:3000/api/artwork/1544397293164-A_SIDE.jpg', "archive.jpg");
+
+        // }); 
+
+    }
+
 
     render(){
         return (
-            <main className="Release verticalWrapper">
+            <main className="Release">
                 <div className="ReleaseFiles">
                     <div className="ArtworkHolder">
                         <img src={window.location.origin +  '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
@@ -94,7 +112,7 @@ class ReleaseContent extends Component {
                                 <p>Thank you for your feedback!</p>
                                 <Button
                                     innerText={'Download'}
-                                    onClick={this.addFeedback}
+                                    onClick={this.downloadRelease}
                                 />
                             </div>
                         ) : (

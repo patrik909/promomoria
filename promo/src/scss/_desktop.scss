@@ -20,6 +20,10 @@ html {
           bottom: -0.08em;
         }
       }
+
+      button {
+        top: 18vh;
+      }
     }
 
     main {
@@ -37,6 +41,12 @@ html {
 
       h3 {
         font-size: 0.8em;
+      }
+    }
+
+    main.Release {
+      .ReleaseFiles {
+        width: 50%;
       }
     }
 
