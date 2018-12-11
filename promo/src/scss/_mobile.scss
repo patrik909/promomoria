@@ -7,79 +7,26 @@ html {
     background: $main-color;
     color: $accent-color;
     font-family: $main-font;
-
-    #modal {
-
-      .Modal.close {
-        display: none;
-      }
-      .Modal.open {
-        @include center-content;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0.2);
-
-        .ModalContainer {
-          @include center-content;
-          flex-direction: column;
-          height: 20rem;
-          width: 30rem;
-          background: white;
-          color: black;
-          font-size: 1.2rem;
-          font-style: italic;
-          font-weight: 700;
-
-          p {
-            margin: 0.5em 0;
-
-            span {
-              font-style: normal;
-              text-transform: none;
-            }
-          }
-
-          div {
-            display: flex;
-
-            button {
-              margin: 0.8em 0.5em;
-              padding: 0.6em 0;
-              width: 4em;
-              background: black;
-              color: white;
-              font-size: 1.3rem;
-            }
-          }
-        }
-    
-      }
-    }
   
     header {
+      height: 15vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      height: 15vh;
-      font-size: 2rem;
+      font-size: 3.4rem;
   
       div {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
   
         h1,
         h2 {
-          display: none;
           margin: 0;
           text-transform: lowercase;
         }
   
         h1 {
-          font-size: 2em;
-          margin-bottom: -0.48em;
+          margin-bottom: -0.08em;
         }
   
         h2 {
@@ -88,19 +35,19 @@ html {
       }
   
       .underline {
-        margin: 0.8em 0 0.6em 0;
+        margin: 0 0.15em 0 0.5em;
         border-bottom: 0.1em solid $accent-color;
       }
     }
   
     main {
-      min-height: 65vh;
+      min-height: 70vh;
+      font-size: 2.4rem;
     }
   
     main.Login,
     main.Register {
       @include center-content;
-      font-size: 2.2rem;
   
       .LoginForm,
       .RegisterForm {
@@ -108,14 +55,7 @@ html {
   
         input,
         button {
-          font-size: 1em;
           height: 2em;
-        }
-  
-        p {
-          margin: 0 0 1.8em 0;
-          font-size: 0.6em;
-          text-align: center;
         }
   
         button {
@@ -133,36 +73,63 @@ html {
           &:nth-child(2) {
             background: $accent-color;
             color: $main-color;
+            transition: $fast-transition;
+
+            &:hover {
+              background: $accent-color-hover !important;
+              color: $main-color-hover;
+            }
           }
+        }
+
+        p {
+          height: 1em;
+          margin: 0 0 1.8em 0;
+          font-size: 0.6em;
+          text-align: center;
         }
       }
     }
 
     main.Feed {
+      width: 100%;
       margin: auto;
-      max-width: 40em;
-      padding-top: 1.8em;
-      font-size: 1.5rem;
+      padding-top: 2em;
+      font-size: 1.8rem;
 
       h3 {
         margin: 0 0 1em 0;
+        font-size: 1em;
         font-weight: 400;
+
         a {
           color: $accent-color;
-          font-size: 1.8em;
+          font-size: 1.6em;
           font-style: italic;
           text-transform: lowercase;
-        }
-      }
+          transition: $fast-transition;
 
+          &:hover {
+            color: $accent-color-hover;
+          }
+        }
+      }  
+      
       ul {
+        margin-bottom: 2em;
+
         li {
-          padding: 0.9em 0.6em;
           margin-bottom: 1em;
+          padding: 0.9em 0.7em;
           background-color: $accent-color;
           color: $main-color;
-          font-size: 1.3em;
+        }
+      }
+    }
 
+    main.Start {
+      ul {
+        li {
           .ReleaseFeedInfo {
             margin-bottom: 0.2em;
           }
@@ -173,33 +140,32 @@ html {
             padding: 0;
             color: $main-color;
             font-size: 0.6em;
-            text-decoration: underline;
+            text-decoration: underline; 
+            transition: $fast-transition;
+            
+            &:hover {
+              color: $main-color-hover;
+            }
           }
         }
       }
     }
 
     main.Feedback {
-      .FeedbackInfo {
-        margin: 2rem 0 3rem 0;
-        text-align: center;
 
-        p {
-          margin: 0;
-          font-size: 1.2em;
-          font-weight: 700;
-        }
+      p {
+        margin: 0;
       }
 
+      .FeedbackInfo {
+        font-size: 0.9em;
+        font-weight: 700;
+      }
+      
       ul {
         li {
           display: flex;
           flex-direction: column;
-
-          p {
-            margin: 0;
-            font-size: 0.7em;
-          }
 
           .FeedbackArtistDate {
             display: flex;
@@ -220,18 +186,28 @@ html {
               width: 100%
             }  
           }
-          
+
           .FeedbackContent {
-            margin-bottom: 0.8em;
+            margin-bottom: 0.4em;
             font-size: 0.7em;
+            font-style: italic;
           }
 
           .FeedbackRating {
+            font-size: 0.8em;
             font-weight: 700;
             text-align: right;
           }
         }
-      }    
+      } 
+
+      h3 {
+        text-align: center;
+      }  
+    }
+
+    main.AddRelease {
+
     }
     
     main.AddRelease {
@@ -434,7 +410,7 @@ html {
         }   
       }
     }
-
+    
     main.ReleaseLogin {
       @include center-content;
       max-width: 35em;
@@ -729,13 +705,12 @@ html {
     }
   
     footer {
-      display: none;
-      // display: flex;
-      align-items: center;
+      height: 15vh;
+      display: flex;
       justify-content: flex-end;
-      height: 20vh;
       
       p {
+        margin-right: 0.2em;
         font-size: 1.5rem;
         font-style: italic;
       }
@@ -750,6 +725,59 @@ html {
           text-decoration: underline;
         }
       }
+    }
+  }
+
+  /* not cleaned */
+
+  #modal {
+
+    .Modal.close {
+      display: none;
+    }
+    .Modal.open {
+      @include center-content;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.2);
+
+      .ModalContainer {
+        @include center-content;
+        flex-direction: column;
+        height: 20rem;
+        width: 30rem;
+        background: white;
+        color: black;
+        font-size: 1.2rem;
+        font-style: italic;
+        font-weight: 700;
+
+        p {
+          margin: 0.5em 0;
+
+          span {
+            font-style: normal;
+            text-transform: none;
+          }
+        }
+
+        div {
+          display: flex;
+
+          button {
+            margin: 0.8em 0.5em;
+            padding: 0.6em 0;
+            width: 4em;
+            background: black;
+            color: white;
+            font-size: 1.3rem;
+          }
+        }
+      }
+  
     }
   }
 }

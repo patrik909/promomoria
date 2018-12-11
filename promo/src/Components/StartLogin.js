@@ -3,7 +3,7 @@ import Inputfield from './Parts/Inputfield.js';
 import Button from './Parts/Button.js';
 import axios from 'axios';
 
-class Register extends Component {
+class StartLogin extends Component {
 
     state = {
         loginEmail: '',
@@ -36,7 +36,7 @@ class Register extends Component {
                 }
             });
         } else {
-            this.setState({message: 'You have to fill in all the fields correct'});
+            this.setState({message: 'You have to fill in all the fields correct!'});
         }
     }
 
@@ -78,4 +78,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default StartLogin;

@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
 
 $main-color: rgb(214, 214, 214);
-// $main-color: rgb(242, 242, 242);
-$accent-color: rgb(213, 32, 32);
+$main-color-hover: rgb(240, 240, 240);
+$accent-color: rgb(230, 32, 32);
+$accent-color-hover:  rgb(210, 32, 32);
 $main-font: 'Inconsolata', monospace;
 $fast-transition: 200ms;
 
@@ -24,9 +25,15 @@ button {
   box-sizing:border-box;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: 1em;
   font-family: $main-font;
   resize: none;
+}
+
+button {
+  a {
+    color: inherit;
+  }
 }
 
 input,
@@ -50,12 +57,9 @@ p {
   font-weight: 700;
 }
 
-button {
-  background: none;
-  cursor: pointer;
-}
-
+button,
 label {
+  background: none;
   cursor: pointer;
 }
 
@@ -70,12 +74,11 @@ label {
 
 ul {
   padding: 0;
-}
 
-li {
-  list-style: none;
+  li {
+    list-style: none;
+  }
 }
-
 
 @mixin center-content {
   display: flex;

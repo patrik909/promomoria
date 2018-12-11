@@ -3,33 +3,64 @@ html {
 
   body {
 
-    main.AddRelease {
+    header {
+      height: 14vh;
+      font-size: 2em;
+  
+      div {
+        position: relative;
 
-      .AddReleaseFiles {
-
-        .ArtworkHolder {
-          height: 20em;
-
-          img {
-            margin-top: -15%;
-          }
+        h2 {
+          @include center-content;
+          position: absolute;
+          right: 0;
+          bottom: -0.06em;
+          height: 1.1em;
+          padding: 0 0.5em;
+          background: $accent-color;
+          color: $main-color;
+          font-size: 1.5em;
+          font-style: italic;
         }
       }
     }
 
-    main.Release {
-      .ReleaseInfoFeedback {
-
-        .ReleaseFeedback {
-          .ReleaseFeedbackBottom {
-            font-size: 1.8rem;
-
-            .Rating {
-              font-size: 1.2em;
-            }
-          }         
-        }
-      }
+    main {
+      min-height: 71vh;
+      font-size: 2rem;
     }
+
+    main.Feed {
+      font-size: 2rem;
+    }
+
+    // main.AddRelease {
+
+    //   .AddReleaseFiles {
+
+    //     .ArtworkHolder {
+    //       height: 20em;
+
+    //       img {
+    //         margin-top: -15%;
+    //       }
+    //     }
+    //   }
+    // }
+
+    // main.Release {
+    //   .ReleaseInfoFeedback {
+
+    //     .ReleaseFeedback {
+    //       .ReleaseFeedbackBottom {
+    //         font-size: 1.8rem;
+
+    //         .Rating {
+    //           font-size: 1.2em;
+    //         }
+    //       }         
+    //     }
+    //   }
+    // }
   }
 }

@@ -15,6 +15,11 @@ class ReleaseContent extends Component {
     }
 
     componentDidMount(){
+        const alreadyLeftFeedback = JSON.parse(localStorage.getItem(`FeedbackLeftOn:${parseInt(this.props.releaseData.id, 10)}`));
+        
+        if (alreadyLeftFeedback === true) {
+            this.setState({feedbackAdded: true});
+        }
     }
 
     handlePlayer = event => {
@@ -54,6 +59,7 @@ class ReleaseContent extends Component {
             }).then(res => {
                 if (res.data === 'done') {
                     this.setState({ feedbackAdded: true });
+                    localStorage.setItem(`FeedbackLeftOn:${parseInt(this.props.releaseData.id, 10)}`, true);
                 }
             }); 
         }

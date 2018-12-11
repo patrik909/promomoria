@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router'
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import Modal from '../Modal';
-import ModalChild from './ModalChild';
 import Button from './Parts/Button.js';
 import axios from 'axios';
 
@@ -15,6 +15,8 @@ class Feed extends Component {
     }
 
     componentDidMount() {
+        
+        // Calling function to fetch all releases for user.
         this.fetchAllReleases();
     }
 
@@ -30,23 +32,15 @@ class Feed extends Component {
         axios.post('api/delete_release', {
             release_id: event.target.value
         }).then(this.fetchAllReleases());
-            this.setState({
-                releaseToDelete: {},
-                modal: 'close'               
-            });     
-    }
-
-    closeModal = event => { 
-
-            this.setState({
-                releaseToDelete: {},
-                modal: 'close'               
-            })    
+        // After removing release & fetched releases, clean state and close modal.
+        this.closeModal();     
     }
 
     statusRelease = event => {
+        // Status = 0, is deactivated.
         let status = 0
         if (event.target.value === '0') {
+            // If status is 0, activate.
             status = 1
         }
         axios.post('api/status_release', {
@@ -56,17 +50,15 @@ class Feed extends Component {
     }
 
     feedbackRelease = event => {
+        // Redirect user to feedback-page.
         this.setState({redirectTo: '/Feedback/' + event.target.value});
     }
 
-    viewRelease = event => {
-        this.setState({redirectTo: '/Release/' + event.target.value});
-    }
-
-    openRemoveReleaseModal = event => {
+    openModal = event => {
         axios.post('/api/fetch_release', {
             release_id: event.target.value
         }).then(release => {
+            // Set useful data to object and open modal.
             this.setState({
                 releaseToDelete: {
                     id: release.data[0].id,
@@ -78,75 +70,78 @@ class Feed extends Component {
         }); 
     }
 
-    render() {
-        console.log(this.state.releaseToDelete)
+    closeModal = () => { 
+        this.setState({
+            releaseToDelete: {},
+            modal: 'close'               
+        });    
+    }
 
+    render() {
         if (this.state.redirectTo) {
             return <Redirect to={this.state.redirectTo} />;
         } else {
             return (
-                <ul className="ReleasesFeed">
-                
-                    {this.state.releases ? ( 
-                        this.state.releases.map(release => {
-                            return ( 
-                                <li key={release.id}>
-                                    <div className="ReleaseFeedInfo">
-                                        {release.cat_number}: {release.artist} - {release.title}
-                                    </div>   
-                                    <div className="ReleaseFeedButton">
-                                        <Button 
-                                            innerText={'View'}
-                                            value={release.id}
-                                            onClick={this.viewRelease}
-                                        />
-                                        <Button 
-                                            innerText={'Feedback'}
-                                            value={release.id}
-                                            onClick={this.feedbackRelease}
-                                        />
-                                        <Button 
-                                            innerText={release.activated === 1 ? ( 'Deactivate' ) : ( 'Activate' )}
-                                            id={release.id}
-                                            value={release.activated}
-                                            onClick={this.statusRelease}
-                                        />
-                                        <Button 
-                                            innerText={'Delete'}
-                                            value={release.id}
-                                            onClick={this.openRemoveReleaseModal}
-                                        />
-                                    </div>                                 
-                                </li>
+                <main className="Start Feed">
+                    <h3><Link to="/AddRelease" className="AddReleaseLink">+ Add release</Link></h3>
+                    <ul className="ReleasesFeed">           
+                        {
+                            this.state.releases ? ( 
+                                this.state.releases.map(release => {
+                                    return ( 
+                                        <li key={release.id}>
+                                            <div className="ReleaseFeedInfo">
+                                                {release.cat_number}: {release.artist} - {release.title}
+                                            </div>   
+                                            <div className="ReleaseFeedButton">
+                                                <Button 
+                                                    innerText={<Link to={'/Release/' + release.id} target="_blank">View</Link>}
+                                                />
+                                                <Button 
+                                                    innerText={'Feedback'}
+                                                    value={release.id}
+                                                    onClick={this.feedbackRelease}
+                                                />
+                                                <Button 
+                                                    innerText={release.activated === 1 ? ( 'Deactivate' ) : ( 'Activate' )}
+                                                    id={release.id}
+                                                    value={release.activated}
+                                                    onClick={this.statusRelease}
+                                                />
+                                                <Button 
+                                                    innerText={'Delete'}
+                                                    value={release.id}
+                                                    onClick={this.openModal}
+                                                />
+                                            </div>                                 
+                                        </li>
+                                    )
+                                })
+                            ) : (
+                                null
                             )
-                        })
-                    ) : (
-                        null
-                    )}
-                    <Modal 
-                   element={
-                        document.getElementById('modal')
-                    }
-                >
-                    <div className={"Modal " + this.state.modal}>
-                        <div className="ModalContainer">
-                            <p>Are you sure that you want to delete;</p>
-                            <p><span>{this.state.releaseToDelete.title} by {this.state.releaseToDelete.artist}</span></p>
-                            <div>
-                                <Button 
-                                    innerText={'No'}
-                                    onClick={this.closeModal}
-                                />
-                                <Button 
-                                    innerText={'Yes'}
-                                    value={this.state.releaseToDelete.id}
-                                    onClick={this.removeRelease}
-                                />                            
+                        }
+                    </ul>
+                    <Modal element={document.getElementById('modal')}>
+                        <div className={"Modal " + this.state.modal}>
+                            <div className="ModalContainer">
+                                <p>Are you sure that you want to delete</p>
+                                <p><span>{this.state.releaseToDelete.title} by {this.state.releaseToDelete.artist}</span></p>
+                                <div>
+                                    <Button 
+                                        innerText={'No'}
+                                        onClick={this.closeModal}
+                                    />
+                                    <Button 
+                                        innerText={'Yes'}
+                                        value={this.state.releaseToDelete.id}
+                                        onClick={this.removeRelease}
+                                    />                            
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Modal>
-                </ul>
+                    </Modal>
+                </main>
             );
         }
     }
