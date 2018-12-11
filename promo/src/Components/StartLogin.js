@@ -36,7 +36,7 @@ class StartLogin extends Component {
                 }
             });
         } else {
-            this.setState({message: 'You have to fill in all the fields correct'});
+            this.setState({message: 'You have to fill in all the fields correct!'});
         }
     }
 

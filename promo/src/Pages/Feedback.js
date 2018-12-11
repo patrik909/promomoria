@@ -12,17 +12,27 @@ class Feedback extends Component {
     }
 
     componentDidMount() {
+        // Fetch all feedback for for release by url param.
         axios.post(window.location.origin + '/api/fetch_feedback', {
             release_id: parseInt(this.props.match.params.id, 10) 
         }).then((feedback) => {
+            // Setting feedback data and amount of feedback to state.
             this.setState({ 
                 feedbackData: feedback.data,
                 amountOfFeedback: feedback.data.length
             });
+
             let feedbackSum = 0;
+            // Looping all feedback.
             feedback.data.map(feedback => {
-                feedbackSum = feedbackSum + parseInt(feedback.rating)
+                // Converting rating value to number from string.
+                const rating = parseInt(feedback.rating);
+                // If rating is a number.
+                if (!isNaN(rating)) {
+                    feedbackSum = feedbackSum + parseInt(rating)
+                }
             });
+            // Set state for average rating.
             this.setState({ averageRating: feedbackSum / feedback.data.length})
         });
     }
@@ -31,12 +41,12 @@ class Feedback extends Component {
 
         return (
             <main className="Feedback Feed">
-                <h3><Link to="/"> {'< Back'} </Link></h3>
                 <div className="FeedbackInfo">
                     <p>amount of feedback: {this.state.amountOfFeedback || '-'}</p>
-                    <p>average rating: {this.state.averageRating || '-'}</p>
+                    <p>average rating: {this.state.averageRating.toFixed(1) || '-'}</p>
                 </div>
                 <FeedbackFeed feedbackData={this.state.feedbackData}/>
+                <h3><Link to="/"> {'< Back'} </Link></h3>
             </main>
         );
     }

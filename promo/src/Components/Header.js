@@ -5,7 +5,7 @@ function Header(props) {
         <header>
             <div>
                 <h1>Promomoria</h1>
-                <h2>{props.labelName}</h2>
+                <h2>{props.labelName.replace(/ .*/,'')}</h2>
             </div>
             <div className="underline"></div>
         </header>

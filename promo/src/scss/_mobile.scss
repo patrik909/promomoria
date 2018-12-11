@@ -26,7 +26,7 @@ html {
         }
   
         h1 {
-          margin-bottom: -0.06em;
+          margin-bottom: -0.08em;
         }
   
         h2 {
@@ -77,7 +77,7 @@ html {
 
             &:hover {
               background: $accent-color-hover !important;
-              color: white;
+              color: $main-color-hover;
             }
           }
         }
@@ -92,30 +92,44 @@ html {
     }
 
     main.Feed {
+      width: 100%;
       margin: auto;
-      max-width: 40em;
-      padding-top: 1.8em;
-      font-size: 1.5rem;
+      padding-top: 2em;
+      font-size: 1.8rem;
 
       h3 {
         margin: 0 0 1em 0;
+        font-size: 1em;
         font-weight: 400;
+
         a {
           color: $accent-color;
-          font-size: 1.8em;
+          font-size: 1.6em;
           font-style: italic;
           text-transform: lowercase;
-        }
-      }
+          transition: $fast-transition;
 
+          &:hover {
+            color: $accent-color-hover;
+          }
+        }
+      }  
+      
       ul {
+        margin-bottom: 2em;
+
         li {
-          padding: 0.9em 0.6em;
           margin-bottom: 1em;
+          padding: 0.9em 0.7em;
           background-color: $accent-color;
           color: $main-color;
-          font-size: 1.3em;
+        }
+      }
+    }
 
+    main.Start {
+      ul {
+        li {
           .ReleaseFeedInfo {
             margin-bottom: 0.2em;
           }
@@ -126,33 +140,32 @@ html {
             padding: 0;
             color: $main-color;
             font-size: 0.6em;
-            text-decoration: underline;
+            text-decoration: underline; 
+            transition: $fast-transition;
+            
+            &:hover {
+              color: $main-color-hover;
+            }
           }
         }
       }
     }
 
     main.Feedback {
-      .FeedbackInfo {
-        margin: 2rem 0 3rem 0;
-        text-align: center;
 
-        p {
-          margin: 0;
-          font-size: 1.2em;
-          font-weight: 700;
-        }
+      p {
+        margin: 0;
       }
 
+      .FeedbackInfo {
+        font-size: 0.9em;
+        font-weight: 700;
+      }
+      
       ul {
         li {
           display: flex;
           flex-direction: column;
-
-          p {
-            margin: 0;
-            font-size: 0.7em;
-          }
 
           .FeedbackArtistDate {
             display: flex;
@@ -173,18 +186,28 @@ html {
               width: 100%
             }  
           }
-          
+
           .FeedbackContent {
-            margin-bottom: 0.8em;
+            margin-bottom: 0.4em;
             font-size: 0.7em;
+            font-style: italic;
           }
 
           .FeedbackRating {
+            font-size: 0.8em;
             font-weight: 700;
             text-align: right;
           }
         }
-      }    
+      } 
+
+      h3 {
+        text-align: center;
+      }  
+    }
+
+    main.AddRelease {
+
     }
     
     main.AddRelease {
@@ -387,7 +410,7 @@ html {
         }   
       }
     }
-
+    
     main.ReleaseLogin {
       @include center-content;
       max-width: 35em;
