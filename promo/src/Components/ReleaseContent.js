@@ -17,18 +17,10 @@ class ReleaseContent extends Component {
     }
 
     componentDidMount(){
-        const alreadyLeftFeedback = JSON.parse(localStorage.getItem(`FeedbackLeftOn:${parseInt(this.props.releaseData.id, 10)}`));
-        
+        const alreadyLeftFeedback = JSON.parse(localStorage.getItem(`FeedbackLeftOn:${parseInt(this.props.releaseData.id, 10)}`));     
         if (alreadyLeftFeedback === true) {
             this.setState({feedbackAdded: true});
         }
-    }
-
-    handlePlayer = event => {
-        const audio = document.getElementsByClassName('releaseTrack')[0]
-        audio.addEventListener('timeupdate', function(){
-            console.log(this.currentTime);
-        })
     }
 
     handleTrack = event => {
@@ -36,20 +28,18 @@ class ReleaseContent extends Component {
     }
 
     handleRating = event => {
-        this.setState({rating: event.target.value})
-        console.log(event.target.value)
+        this.setState({rating: event.target.value});
     }
 
     handleArtist = event => {
-        this.setState({artist: event.target.value})
+        this.setState({artist: event.target.value});
     }
 
     handleFeedback = event => {
-        this.setState({feedback: event.target.value})
+        this.setState({feedback: event.target.value});
     }
 
     addFeedback = () => {
-
         if (
             this.state.artist !== '' &&
             this.state.feedback !== ''
