@@ -4,7 +4,7 @@ html {
 
   .verticalWrapper {
     display: flex;
-    width: 100%;
+    flex-direction: row;
   }
 
   body {
@@ -19,6 +19,10 @@ html {
         h2 {
           bottom: -0.08em;
         }
+      }
+
+      button {
+        top: 18vh;
       }
     }
 
@@ -40,64 +44,37 @@ html {
       }
     }
 
-  //   main.AddRelease {
+    main.Release {
+      flex-direction: row;
+    }
 
-  //     .AddReleaseFiles {
-  //       margin-right: 0.5em;
-  //       width: 50%;
-  //     }
-  //     .AddReleaseInfo {
-  //       margin-left: 0.5em;
-  //       width: 50%;
-  //     }
-  //   }
+    main.AddRelease {
+      .AddReleaseFiles {
+        margin-right: 1.3em;
+        width: 50%;
+      }
 
-  //   main.ReleaseLogin {
-  //     max-width: 50em;
-
-  //     .ReleaseLoginTopContent {
-  //       margin-bottom: 2em;
-  //     }
-
-  //     .ReleaseLoginBottomContent {
-  //       margin-bottom: 2em;
-  //     }
-  //   }
-
-  //   main.Release {
-  //     font-size: 1.2rem;
-
-  //     .ReleaseFiles {
-  //       width: 50%;
-  //       margin-right: 1.5rem;
-
-  //       .ArtworkHolder {
-  //         height: 21em;
-  //       }
-  //     }
-
-  //     .ReleaseInfoFeedback {
-  //       width: 50%;
-  //       margin-left: 1.5rem;
-
-  //       .ReleaseInfo {
-  //         height: 22em;
-  //         h2 {
-  //           margin: 0;
-  //         }
-  //       }
-  //       .ReleaseFeedback {
-  //         .ReleaseFeedbackBottom {
-  //           font-size: 1.4rem;
-  //         }         
-  //       }
-  //     }
-  //   }
+      .AddReleaseInfo {
+        margin-left: 0.5em;
+        width: 50%;      
+      }
+    }
     
-  // }
+    main.Release {
+      .ReleaseFiles {
+        margin-right: 0.5em;
+        width: 50%;
+      }
 
-  // footer {
-  //   height: 15vh;
-  // }
+      .ReleaseInfoFeedback { 
+        margin-left: 1.3em;
+        width: 50%;
+        .ReleaseInfo {
+          margin-top: 0em;
+        }
+      }
+    }
+
+
   }
 }

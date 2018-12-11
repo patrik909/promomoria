@@ -24,7 +24,10 @@ class AddReleaseTracks extends Component {
         }).then(response => {
             this.setState({trackNames : [...this.state.trackNames, response.data.trackName]})
             this.props.handleTrackNames(this.state.trackNames)
-            this.setState({message: ''});
+            this.setState({
+                loaded: 0,
+                message: ''
+            });
         });
 
     }
@@ -70,39 +73,44 @@ class AddReleaseTracks extends Component {
     render() {
         return (
             <div className="AddReleaseTracks">
-            {
-                this.state.loaded === 0 || this.state.loaded === 100 ? (
-                    <label htmlFor="uploadTrackInput">+ Add track</label>  
-                ) : (
-                    <label>Wait til track is uplaoded to add a new one</label> 
-                ) }
-                <div className="TrackProcessBar"><div className="FileProcessed" style={{width : Math.round(this.state.loaded,2) + '%'}}></div> </div>
-            
-                <input 
-                    type="file" 
-                    className="hideInputFile" 
-                    id="uploadTrackInput"
-                    onChange={this.addTrack} 
-                />
-                            <ul className="TrackList">
-            {this.state.trackNames.length !== 0 ? (
-                    <div>
-                        {this.state.trackNames.map((track, index) => {
-                            const trackName = track.substring(14);
-                            return (
-                                <li key={index}>
-                                    {index + 1 + '. ' + trackName}
-                                    <button onClick={this.removeTrack} value={track}>delete</button>
-                                    <button onClick={this.moveDownTrack} value={track} id={index}>move down</button>
-                                    <button onClick={this.moveUpTrack} value={track} id={index}>move up</button>
-                                </li>
-                            )
-                        })}
-                    </div>
-                ) : (
-                    null
-                )}
-            </ul> 
+                <div className="TrackUploader">
+                    {
+                        this.state.loaded === 0 || this.state.loaded === 100 ? (
+                            <label className="AddTrack" htmlFor="uploadTrackInput"><p>+ Add track</p></label> 
+                        ) : (
+                            <label><p>Wait til track is uplaoded to add a new one</p></label> 
+                        ) 
+                    }
+                    <p className="helper">Name the tracks as you want to display them</p>
+                    <div className="TrackProcessBar"><div className="FileProcessed" style={{width : Math.round(this.state.loaded,2) + '%'}}></div> </div>
+                    <input 
+                        type="file" 
+                        className="hideInputFile" 
+                        id="uploadTrackInput"
+                        onChange={this.addTrack} 
+                    />
+                </div>
+                <ul className="TrackList">
+                    {
+                        this.state.trackNames.length !== 0 ? (
+                            <div>
+                                {this.state.trackNames.map((track, index) => {
+                                    const trackName = track.substring(14);
+                                    return (
+                                        <li key={index}>
+                                            <p>{index + 1 + '. ' + trackName}</p>
+                                            <button onClick={this.moveDownTrack} value={track} id={index}>DOWN</button>
+                                            <button onClick={this.moveUpTrack} value={track} id={index}>UP</button>
+                                            <button onClick={this.removeTrack} value={track}>Delete</button>
+                                        </li>
+                                    )
+                                })}
+                            </div>
+                        ) : (
+                            null
+                        )
+                    }
+                </ul> 
             </div>
         );
     }

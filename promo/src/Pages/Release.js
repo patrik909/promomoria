@@ -13,7 +13,6 @@ class Release extends Component {
     }
 
     componentDidMount(){
-
         axios.post(window.location.origin + '/api/fetch_release', {
             release_id: parseInt(this.props.match.params.id, 10)
         }).then(release => {
@@ -24,11 +23,9 @@ class Release extends Component {
             release_id: parseInt(this.props.match.params.id, 10)
         }).then(tracks => {
             this.setState({ relesaeTracks : tracks.data })
-            console.log(tracks.data)
         });     
 
-        const alreadyGotAccess = JSON.parse(localStorage.getItem(`AccessTo:${parseInt(this.props.match.params.id, 10)}`));
-        
+        const alreadyGotAccess = JSON.parse(localStorage.getItem(`AccessTo:${parseInt(this.props.match.params.id, 10)}`));     
         if (alreadyGotAccess === true) {
             this.setState({access: true});
         }
@@ -38,7 +35,7 @@ class Release extends Component {
         this.setState({ password: event.target.value });
     }
 
-    handleAccess = event => {
+    handleAccess = () => {
         if (this.state.password === this.state.release[0].password) {
             this.setState({access: true});
             localStorage.setItem(`AccessTo:${parseInt(this.props.match.params.id, 10)}`, true);
@@ -48,22 +45,28 @@ class Release extends Component {
     render(){
         if (this.state.release.length !== 0 && this.state.relesaeTracks.length !== 0) {
             return (
-                <div className="Release">
+                <React.Fragment>
                     {
-                        this.state.access === true ? (
-                            <ReleaseContent
-                                releaseData={this.state.release[0]}
-                                tracks={this.state.relesaeTracks}
-                            />                         
+                        this.state.release[0].activated === 1 ? (
+                            this.state.access === true ? (
+                                <ReleaseContent
+                                    releaseData={this.state.release[0]}
+                                    tracks={this.state.relesaeTracks}
+                                />                         
+                            ) : (
+                                <ReleaseLogin                     
+                                    releaseData={this.state.release[0]}
+                                    handlePassword={this.handlePassword}
+                                    handleAccess={this.handleAccess}
+                                /> 
+                            )                          
                         ) : (
-                            <ReleaseLogin                     
-                                releaseData={this.state.release[0]}
-                                handlePassword={this.handlePassword}
-                                handleAccess={this.handleAccess}
-                            /> 
+                            <main className="NotAvailable">
+                                <h3>This release<br />is not available<br />at the moment</h3>
+                            </main>                           
                         )
                     }
-                </div>
+                </React.Fragment>
             );
         } else {
             return null;

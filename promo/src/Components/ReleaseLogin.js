@@ -31,15 +31,3 @@ function ReleaseLogin(props) {
 }
 
 export default ReleaseLogin;
-
-{/* <div className="ReleaseLogin">
-{props.releaseData.artist} - {props.releaseData.title}
-<Inputfield 
-    placeholder={'password'}
-    onChange={props.handlePassword}
-/>
-<Button 
-    innerText={'OK'}
-    onClick={props.handleAccess}
-/>
-</div> */}

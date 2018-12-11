@@ -43,11 +43,11 @@ html {
 
       button {
         position: absolute;
-        top: 18vh;
+        top: 15.5vh;
         right: 0em;
         padding: 0;
         color: $accent-color;
-        font-size: 0.5em;
+        font-size: 0.4em;
         font-weight: 700;
         text-transform: lowercase;
         transition: $fast-transition;
@@ -171,7 +171,6 @@ html {
     }
 
     main.Feedback {
-
       p {
         margin: 0;
       }
@@ -225,36 +224,54 @@ html {
       }  
     }
 
-    main.AddRelease {
+    .ArtworkHolder {
+      @include center-content;
+      height: 24em;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
 
+      img {
+        width: 100%;
+        position: absolute;
+        left: 50%;
+        margin-left: -50%;
+        top: 50%;
+        margin-top: -50%;
+      }
     }
-    
+
+    main.AddRelease,
+    main.Release {
+        display: flex;
+        flex-direction: column;
+        max-width: 68em;
+        margin: auto;
+        margin-top: 3.5em;
+        margin-bottom: 3em;
+        font-size: 1.4rem;
+    }
+
     main.AddRelease {
-      max-width: 90rem;
-      margin: auto;
-      padding-top: 1.4em;
-      font-size: 1.4rem;
 
       .AddReleaseFiles {
         width: 100%;
+        background: #393939;
+        padding: 1em;
+        box-sizing: border-box;
 
         .helper {
-          margin-bottom: -0.1em;
+          margin-bottom: 0.5em;
+          color: $main-color;
+          font-size: 0.8em;
+          font-weight: 300;
         }
 
         .ArtworkHolder {
-          @include center-content;
-          margin-top: 0.7em;
+          margin-bottom: 1em;
           height: 20em;
-          width: 100%;
           background:rgb(71, 71, 71);
-
-          img {
-            left: 50%;
-            margin-left: -50%;
-            top: 50%;
-            margin-top: -50%;
-          }
+          color: $main-color;
 
           .ArtworkFileInput {
             display: flex;
@@ -263,8 +280,8 @@ html {
 
             .ArtworkPlaceholderIcon {
               @include center-content;
-              height: 5em;
-              width: 5em;
+              height: 5.5em;
+              width: 5.5em;
               background: $main-color;
               border-radius: 50%;
               transition: $fast-transition;
@@ -278,20 +295,20 @@ html {
             }   
 
             p {
-              color: $main-color;
-              font-size: 0.8rem;
+              font-size: 0.9em;
               transition: $fast-transition;
             }
             &:hover div{
-              background: white;
+              background: $main-color-hover;
             }
             &:hover p {
-              color: white;
+              color:$main-color-hover;
             } 
           }
 
           .ArtworkProcessBar {
             height: 0.5em;
+            padding: 1px;
             border: 1px solid $main-color;
     
             .FileProcessed {
@@ -309,44 +326,98 @@ html {
           }
 
           .DeleteArtwork {
+            @include center-content;
             padding: 0.2em 0.5em;
             background: $main-color;
             z-index: 100;
             position: absolute;
+            height: 1.6em;
+            width: 1.6em;
             right: 0.5em;
             top: 0.5em;
             font-weight: 700;
             font-size: 1em;
+            border-radius: 50%;
             transition: $fast-transition;
+
             &:hover {
-              background: white;
+              background: $main-color-hover;
             }
           }
         }
 
         .AddReleaseTracks {
-          padding: 1em;
-          height: 100%;
-          background: white;
-          font-size: 1.2rem;
 
-          .TrackList {
-            min-height: 3em;
+          .AddTrack {
+            font-size: 1.6em;
+
+            &:hover {
+              color: $main-color-hover;
+              text-decoration: underline;
+            }
+          }
+
+          label {
+            height: 2em;
+            color: $main-color;
+            font-weight: 700;
+            text-transform: lowercase;
+            transition: $fast-transition;
+
+            p {
+              margin: 0;
+              height: 1.4em;
+            }
           }
 
           .TrackProcessBar {
+            padding: 1px;
             height: 1em;
-            border: 1px solid black;
+            border: 1px solid $main-color;
 
             .FileProcessed {
               height: 100%;
-              background: black;
+              background: $main-color;
             }
           }
+
+          .TrackList {
+            min-height: 5em;
+
+            li {
+              margin-bottom: 0.3em;
+              padding: 0.5em 0.4em;
+              background:rgb(71, 71, 71);
+              color: $main-color;
+
+              p {
+                margin: 0;
+                margin-bottom: 0.4em;
+                font-size: 0.9em;
+                font-weight: 700;
+              }
+
+              button {
+                @include uppercase;
+                text-decoration: underline;
+                color: $main-color;
+                font-size: 0.7em;
+                transition: $fast-transition;
+
+                &:hover {
+                  color: $main-color-hover;
+                }
+
+                &:last-child {
+                  margin-left: 1em;
+                  text-align: right;
+                }
+              }
+            }
+          }
+
         }
       }
-
-      
 
       .AddReleaseInfo {
         width: 100%;
@@ -430,9 +501,20 @@ html {
       }
     }
     
+    main.NotAvailable{
+      @include uppercase;
+      @include center-content;
+      font-size: 2.5em;
+      text-align: center;
+
+      h3 {
+        font-weight: 300;
+      }
+    }
+
     main.ReleaseLogin {
       @include center-content;
-      max-width: 35em;
+      max-width: 30em;
       margin: auto;
  
       .ReleaseLoginForm {
@@ -477,6 +559,12 @@ html {
             background: $accent-color;
             color: $main-color;
             font-weight: 700;
+            transition: $fast-transition;
+
+            &:hover {
+              background: $accent-color-hover;
+              color: $main-color-hover;
+            }
           }
         }
         
@@ -487,39 +575,18 @@ html {
       }
     }
 
-    main.Release {  
-      font-size: 1.4rem;
+    main.Release {
 
       .ReleaseFiles {
-        padding: 1.5em;
-        background: white;
-
-        .ArtworkHolder {
-          @include center-content;
-          margin-top: 0.7em;
-          height: 20em;
-          width: 100%;
-          position: relative;
-          overflow: hidden;
-          background:rgb(71, 71, 71);
-
-          img {
-            width: 100%;
-            position: absolute;
-            left: 50%;
-            margin-left: -50%;
-            top: 50%;
-            margin-top: -50%;
-          }
-        }
+        padding: 0.8em;
+        background:#393939;
+        font-size: 0.9em;
 
         .Audioplayer {
-          padding: 1em;
-          background-color: white;
-          font-size: 1.5rem;
 
           .Player {
             display: flex;
+            margin-top: 0.8em;
 
             .PlayerButtons {
               display: flex;
@@ -527,27 +594,33 @@ html {
               button {
                 @include center-content;
                 position: relative;
-                margin-right: 1em;
-                width: 3.5em;
-                height: 3.5em;
-                background:black;
+                margin: 0.2em;
+                width: 3em;
+                height: 3em;
+                background: $main-color;
                 border-radius: 50%;
+                transition: $fast-transition;
 
                 img {
-                  position: absolute;
                   height: 1.8em;
-                  width: 1.8em;                 
+                  width: 1.8em;
+                  position: absolute;
+                  top: 0.6em;
+                  right: 0.6em;
+                }
+
+                &:hover {
+                  background: $main-color-hover;
                 }
 
                 .PlayIcon {
-                  left: 1em;
+                  right: 0.4em;
                 }
-
                 .StopIcon {
                   margin-left: 0.05em;
                   height: 1em;
                   width: 1em;
-                  background: white
+                  background: #393939;
                 }
               }
             }
@@ -556,168 +629,224 @@ html {
               display: flex;
               flex-direction: column;
               justify-content: space-between;
-              padding: 0.2em 0;
+              margin-left: 0.7em;
+              padding: 0.4em 0;
               width: 100%;
 
               .Time {
-                color: black;
-                font-size: 0.8em;
-                font-weight: 700;
+                color: $main-color;
+                font-size: 1em;
+                font-weight: 700;               
               }
 
               .ProcessBar {
+                margin-bottom: 0.2em;
+                padding: 1px;
                 height: 0.8em;
-                border: 1px solid black;
+                border: 1px solid $main-color;
 
                 .Processed {
                   height: 100%;
-                  background: black;
+                  background: $main-color-hover;
                 }
               }
             }
           }
 
-          .Playlist {
-            padding: 0;
+          ul.Playlist { 
+            margin: 1em 0.2em 0.4em 0.2em;
+
             li {
-              padding: 0.5rem 0;
+              padding: 0.5em;
               transition: $fast-transition;
-              &:hover {
-                background:#e3e3e3;
-              }
+              border-bottom: 1px solid $main-color;
 
               button {
-                font-size: 0.8em;
+                width: 100%;
+                color: $main-color;
+                text-align: left;
+              }
+
+              &:hover {
+                background: #5f5f5f;
+                font-weight: 700;
+
+                button {
+                  color: $main-color-hover;
+                }
+              }
+
+              &:last-child {
+                border: none;
               }
             }
 
             .trackIsPlaying {
-              background: black;
+              background: $main-color !important;
               
               button {
-                color: white;
-                font-weight: 700;
+                color: black !important;
+                font-style: italic;
+                font-weight: 700 !important;
               }
             }
           }
         }
       }
 
-      .ReleaseInfo {
+      .ReleaseInfoFeedback {
+        color: #393939;
         text-transform: lowercase;
 
-        h2 {
-          margin: 0;
-          margin-top: 0.4em;
-          font-size: 3em;
-        }
-
-        h3 {
-          margin: 0;
-          margin-bottom: 0.6em;
-          font-size: 2em;
-          font-style: italic;
-        }
-
-        h4 {
-          margin: 0;
-          font-size: 1.2em;
-          font-weight: 700;
-        }
-
-        p {
-          line-height: 1.4em;
-          margin-bottom: 2em;
-          min-height: 12em;
-        }
-      }
-
-      .ReleaseFeedback {
-        position: relative;
-
-        .ThankYou {
-          display: flex;
-          flex-direction: column;
-          @include center-content;
-          height: 98%;
-          width: 100%;
-          margin: 0.4em 0 0.8em 0;
-          position: absolute;
-          background: rgba(0, 0, 0, 0.8);
-
-          p {
-            margin-bottom: 2em;
-            color: white;
-            text-transform: lowercase;
-            font-size: 1.2em;
-            font-style: italic;
-            font-weight: 700;
-          }
-
-          button {
-            @include uppercase;
-            padding: 1em 1.5em;
-            color: white;
-            font-size: 1.2em;
-            font-weight: 700;
-            border: 2px solid white;
-            transition: $fast-transition;
-          }
-
-          button:hover {
-            background: white;
-            color: black;
-          } 
-          
-        }
-        input,
-        textarea {
-          font-size: 1.2em;
-        }
-
-        .ReleaseFeedbackBottom {
-          display: flex;
-          align-items: center;
-          font-size: 1.2rem;
-
-          button {
-            @include uppercase;
-            height: 2.5em;
-            width: 100%;
-            padding: 0.1em;
-            color: white;
-            background:$accent-color;
-            font-size: 1em;
-            font-weight: 700;
-          }
-  
-          .Rating {
+        .ReleaseInfo {
+          margin-top: 1em;
+          .ReleaseArtist {
             display: flex;
             align-items: center;
-            margin-left: 0.8em;
-            font-size: 1em;
-            font-weight: 700;
   
-            .RatingCircle {
-              margin-left: 0.5em;
-              height: 1rem;
-              width: 1rem;
-              border: 2px solid $accent-color;
-              background: $main-color;
-              border-radius: 50%;
-              
+            h2 {
+              margin: 0;
+              margin-top: 0.4em;
+              font-size: 2.8em;
+              white-space: nowrap;
+            }
+  
+            .LineSeperator {
+              margin-top: 1.2em;
+              margin-left: 0.8em;
+              border-bottom: 2px solid #393939;
+              width: 100%
+            }
+          }       
+  
+          .ReleaseTitle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.6em;
+  
+            h3 {
+              margin: 0;
+              font-size: 2em;
+              font-style: italic;
+              white-space: nowrap;
+            }         
+            
+            .LineSeperator {
+              margin-top: 0.2em;
+              margin-right: 0.8em;
+              border-bottom: 2px solid #393939;
+              width: 100%
+            }
+          }  
+  
+          p {
+            margin-bottom: 2em;
+            min-height: 12em;      
+            font-size: 0.9em;
+            line-height: 1.4em;
+          }
+  
+          h4 {
+            @include uppercase;
+            margin: 0;
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+            font-weight: 700;
+          }
+        }
+
+        .ReleaseFeedback {
+          position: relative;
+
+          input,
+          textarea {
+            font-size: 1.2em;
+          }
+
+          .ReleaseFeedbackBottom {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+
+            button {
+              @include uppercase;
+              height: 2.8em;
+              width: 10em;
+              padding: 0.1em;
+              color: white;
+              background:$accent-color;
+              font-size: 1.4em;
+              font-weight: 700;
+              transition: $fast-transition;
+
               &:hover {
-                background: $accent-color;
+                background: $accent-color-hover;
+                color: $main-color-hover;
               }
             }
-    
-            input[type="radio"]:not(:checked) +label { 
-              background: $main-color;
+
+            .Rating {
+              @include uppercase;
+              display: flex;
+              align-items: center;
+              width: 100%;
+              color: $accent-color;
+              font-size: 1.7em;
+              font-weight: 700;
+
+              .RatingCircle {
+                margin-left: 0.5em;
+                height: 1rem;
+                width: 1rem;
+                border: 2px solid $accent-color;
+                background: $main-color;
+                border-radius: 50%;
+                
+                &:hover {
+                  background: $accent-color;
+                }
+              }
+
+              input[type="radio"]:checked+label { 
+                background: $accent-color; 
+              }
             }
-            input[type="radio"]:checked+label { 
-              background: $accent-color; 
+          }
+
+          .ThankYou {
+            display: flex;
+            flex-direction: column;
+            @include center-content;
+            height: 98%;
+            width: 100%;
+            margin: 0.4em 0 0.8em 0;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+
+            p {
+              margin-bottom: 2em;
+              color: white;
+              text-transform: lowercase;
+              font-size: 1.2em;
+              font-style: italic;
+              font-weight: 700;
             }
-    
+
+            button {
+              @include uppercase;
+              padding: 1em 1.5em;
+              color: white;
+              font-size: 1.2em;
+              font-weight: 700;
+              border: 2px solid white;
+              transition: $fast-transition;
+            }
+
+            button:hover {
+              background: white;
+              color: black;
+            } 
+            
           }
         }
       }
