@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const app = express();
 const port = 3001;
 const mysql = require('mysql');
@@ -20,6 +21,35 @@ const connection = mysql.createConnection({
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('uploads'));
+
+
+app.use(session({secret: 'ssshhhhh'}));
+
+let sess;
+
+app.post('/',function(req,res){
+    sess = req.session;
+    console.log(sess)
+    //Session set when user Request our app via URL
+    if(sess.user_id) {
+        connection.query(
+            `SELECT id, label_name FROM users WHERE id = '${sess.user_id}'`, 
+            function (error, results, fields) { 
+                res.send({
+                    success: true,
+                    user_id: results[0].id,
+                    label_name: results[0].label_name
+                });              
+            }
+        );
+    }
+});
+
+app.post('/log_out',function(req,res){
+    console.log("session")
+    req.session.destroy();
+    res.send(true)
+});
 
 // Create new user.
 app.post('/add_user', (req, res) => {
@@ -79,6 +109,15 @@ app.post('/login', (req, res) => {
             if (results) {
                 bcrypt.compare(password, results[0].password, function (err, result) {
                     if (result === true) {
+
+                        /* TEST */
+                        
+                        sess = req.session;
+                        sess.user_id=results[0].id;
+
+                        /* ----- */
+
+
                         // Set session here??
                         res.send({
                             success: true,
@@ -333,9 +372,13 @@ app.post('/delete_tracks', (req, res) => {
 /* --- CLEAN ADD RELEASE - END -- */
 
 
+
+
 // session
 // https://www.npmjs.com/package/express-mysql-session
-// https://stackoverflow.com/questions/46760789/equivalent-of-session-start-and-session-in-node-js-express
+// !https://stackoverflow.com/questions/46760789/equivalent-of-session-start-and-session-in-node-js-express
+
+// !! https://medium.com/@evangow/server-authentication-basics-express-sessions-passport-and-curl-359b7456003d
 
 // app.use(session({secret: "Shh, its a secret!"}));
 // https://www.tutorialspoint.com/expressjs/expressjs_sessions.htm
