@@ -14,24 +14,22 @@ import Release from './Pages/Release.js'
 class Promomoria extends Component {
 
     state = {
-    //   loggedInUser: false
-        loggedInUser: {
-            // this is a placeholder
-            id: 12,
-            label_name: "Arsenik Records"
-        }
+      loggedInUser: false
     }
 
     componentDidMount(){
-        axios.post('api/').then((res) => {
-            if (res.data.success === true) {
-                const userObject = {
-                    id: res.data.user_id,
-                    label_name: res.data.label_name
+        const releasePage = window.location.pathname.toLowerCase().includes('/release/');
+        if (!releasePage) {
+            axios.post('api/').then((res) => {
+                if (res.data.success === true) {
+                    const userObject = {
+                        id: res.data.user_id,
+                        label_name: res.data.label_name
+                    }
+                    this.setState({loggedInUser: userObject})             
                 }
-                this.setState({loggedInUser: userObject})             
-            }
-        });
+            });
+        }
     }
 
     handleLogin = user => {
@@ -39,7 +37,6 @@ class Promomoria extends Component {
     }
 
     logOutUser = () => {
-        console.log("hej")
         axios.post('api/log_out').then((logOut) => {
             if (logOut.data === true) {
                 this.setState({loggedInUser: false})

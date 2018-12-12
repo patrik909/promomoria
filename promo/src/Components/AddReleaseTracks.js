@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import UpIcon from '../Images/up.svg';
+import DownIcon from '../Images/down.svg';
 
 class AddReleaseTracks extends Component {
 
@@ -47,9 +49,9 @@ class AddReleaseTracks extends Component {
     moveDownTrack = event => {
         const trackNames = [...this.state.trackNames]
 
-        const currentIndex = event.target.id;
-        const newIndex = event.target.id-1;
-        const trackName = event.target.value;
+        const currentIndex = event.currentTarget.id;
+        const newIndex = event.currentTarget.id-1;
+        const trackName = event.currentTarget.value;
         trackNames.splice(currentIndex, 1);
         trackNames.splice(newIndex, 0, trackName)
 
@@ -60,9 +62,9 @@ class AddReleaseTracks extends Component {
     moveUpTrack = event => {
         const trackNames = [...this.state.trackNames]
 
-        const currentIndex = event.target.id;
-        const newIndex = event.target.id+1;
-        const trackName = event.target.value;
+        const currentIndex = event.currentTarget.id;
+        const newIndex = event.currentTarget.id+1;
+        const trackName = event.currentTarget.value;
         trackNames.splice(currentIndex, 1);
         trackNames.splice(newIndex, 0, trackName);
         
@@ -95,13 +97,15 @@ class AddReleaseTracks extends Component {
                         this.state.trackNames.length !== 0 ? (
                             <div>
                                 {this.state.trackNames.map((track, index) => {
-                                    const trackName = track.substring(14);
+                                    // const trackName = track.substring(14);
                                     return (
                                         <li key={index}>
-                                            <p>{index + 1 + '. ' + trackName}</p>
-                                            <button onClick={this.moveDownTrack} value={track} id={index}>DOWN</button>
-                                            <button onClick={this.moveUpTrack} value={track} id={index}>UP</button>
+                                            <p>{index + 1 + '. ' + track}</p>
+                                            <div>
+                                            <button onClick={this.moveDownTrack} value={track} id={index}> <img src={UpIcon} /> </button>
+                                            <button onClick={this.moveUpTrack} value={track} id={index}> <img src={DownIcon} /> </button>
                                             <button onClick={this.removeTrack} value={track}>Delete</button>
+                                            </div>
                                         </li>
                                     )
                                 })}

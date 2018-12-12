@@ -43,7 +43,7 @@ class Feedback extends Component {
             <main className="Feedback Feed">
                 <div className="FeedbackInfo">
                     <p>amount of feedback: {this.state.amountOfFeedback || '-'}</p>
-                    <p>average rating: {this.state.averageRating.toFixed(1) || '-'}</p>
+                    <p>average rating: { this.state.averageRating ? ( this.state.averageRating.toFixed(1) ) : ( '-' )}</p>
                 </div>
                 <FeedbackFeed feedbackData={this.state.feedbackData}/>
                 <h3><Link to="/"> {'< Back'} </Link></h3>

@@ -3,7 +3,7 @@ import Inputfield from './Parts/Inputfield.js';
 import Audioplayer from './ReleasesAudioplayer.js';
 import Button from './Parts/Button.js';
 import axios from 'axios';
-// var saveAs= require('file-saver');
+const saveAs = require('file-saver');
 
 
 class ReleaseContent extends Component {
@@ -58,21 +58,18 @@ class ReleaseContent extends Component {
         }
     }
 
-    downloadRelease = () => {
-        console.log("Ladda ner")
-        // axios.post(window.location.origin + '/api/download_release', {
-        // }).then(res => {
-
-        //     console.log(res.data);
-        //     // 'http://localhost:3000/api/artwork/1544397293164-A_SIDE.jpg'
-
-
-        //         saveAs('http://localhost:3000/api/artwork/1544397293164-A_SIDE.jpg', "archive.jpg");
-
-        // }); 
-
+    downloadRelease = () => { 
+        this.props.tracks.map(track => {
+            // Arranging the new title for track file.
+            const trackFileInfo = `${this.props.releaseData.cat_number} ${track.track_index}.${track.track_file.substring(16)}`; 
+            // Saving every track for release individually. 
+            saveAs(`http://localhost:3000/api/tracks/${track.track_file}`, 
+            `${trackFileInfo}`);          
+        });
+        // Saving the artwork for release.
+        saveAs(`http://localhost:3000/api/artwork/${this.props.releaseData.image_file}`, 
+        `${this.props.releaseData.cat_number} LABEL`);
     }
-
 
     render(){
         return (

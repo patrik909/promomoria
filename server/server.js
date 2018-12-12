@@ -10,8 +10,6 @@ const fs = require('fs');
 const multer = require('multer');
 const cors = require('cors');
 
-var JSZip = require("jszip");
-
 const connection = mysql.createConnection({
     host     : 'localhost',
     port     : '8889',
@@ -147,7 +145,7 @@ app.post('/login', (req, res) => {
 app.post('/fetch_releases', (req, res) => {
     const userId = req.body.userId
     connection.query(
-        `SELECT * FROM releases WHERE user_id = '${userId}'`,    
+        `SELECT * FROM releases WHERE user_id = '${userId}' ORDER BY id DESC`,    
         (error, results, fields) => { 
             res.send(results)
         }
@@ -262,22 +260,23 @@ app.post('/download_release', (req, res) => {
 
     // // var encondedImage = new Buffer(`uploads/artwork/1544397293164-A_SIDE.jpg`, 'base64');
 
-    // fs.readFile(`uploads/artwork/1544397293164-A_SIDE.jpg`, 'binary',function (err, content) {
-    //     if (!err) {
+    fs.readFile(`uploads/artwork/1544558512879-A_SIDE.jpg`,function (err, content) {
+        // res.send(content)
+        if (!err) {
     //         console.log(content)
-    //         // res.writeHead(200, {'Content-Type': 'image/jpg'})
-    //         // res.end(content,'Base64');
-    //         res.send(content)
+            // res.writeHead(200, {'Content-Type': 'image/jpg'})
+            // res.end(content,'Base64');
+            res.send(content)
     //         // console.log(content)
     //         // (req, res) => {
     //             // res.writeHead(200,{'Content-type':'image/jpg'});
     //             // res.end(content);
     //         //   }
 
-    //     } else {
-    //         console.log(err);
-    //     }
-    // });
+        } else {
+            console.log(err);
+        }
+    });
     
 
 });
@@ -290,7 +289,7 @@ app.post('/add_release', (req, res) => {
     const newRelease = req.body;
     console.log(newRelease.tracks)
     connection.query(
-        `insert into  releases(user_id,artist,title,cat_number,info_text,release_date,rating,release_file,password) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.release_date}','${newRelease.rating}','releaseFile','${newRelease.password}')`, 
+        `insert into  releases(user_id,artist,title,cat_number,info_text,release_date,rating,password,activated) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.release_date}','${newRelease.rating}','${newRelease.password}','1')`, 
         function (error, results, fields) { 
             console.log(results)
             console.log(error)

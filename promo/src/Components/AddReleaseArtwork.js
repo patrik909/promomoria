@@ -71,7 +71,7 @@ class AddReleaseArtwork extends Component {
   
         return (
             <div className="ArtworkUploader">
-                <p className="helper">artwork have to be square & 1400x1400px or larger</p>
+                <p className="helper">Artwork have to be square & 1400x1400px or larger</p>
                 <div className="ArtworkHolder">
                     {!this.state.imageUrl ? (
                         <div>

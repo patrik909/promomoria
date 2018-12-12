@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router'
 import Button from '../Components/Parts/Button.js';
+import Modal from '../Modal.js';
 import AddReleaseArtwork from '../Components/AddReleaseArtwork.js';
 import AddReleaseTracks from '../Components/AddReleaseTracks.js';
 import AddReleaseInfo from '../Components/AddReleaseInfo.js';
@@ -9,7 +10,7 @@ import axios from 'axios';
 class AddRelease extends Component {
 
     state = {
-        userId: '',
+         userId: '',
         releaseArtist: '',
         releaseTitle: '',
         releaseCatNr: '',
@@ -19,8 +20,10 @@ class AddRelease extends Component {
         releaseInfoText: '',
         releaseArtwork: '',
         releaseTracks: [],
-        redirect: false,
-        cancelUpload: false
+        redirectTo: false,
+        cancelUpload: false,
+        modal: 'close',
+        addedRelease: {}
     }
 
     componentDidMount() {
@@ -50,8 +53,11 @@ class AddRelease extends Component {
                 artwork_name: this.state.releaseArtwork,
                 tracks: this.state.releaseTracks,
                     
-            }).then(() => {
-                this.setState({redirect: true})
+            }).then((res) => {
+                this.setState({
+                    modal: 'open',
+                    addedReleaseId: res.data.insertId
+                })
             });
         }
     }
@@ -97,7 +103,7 @@ class AddRelease extends Component {
     }
 
     back = () => {
-        this.setState({ redirect: true });
+        this.setState({ redirectTo: '/' });
 
         if (this.state.releaseTracks.length) {
             axios.post('api/delete_tracks', {
@@ -112,10 +118,18 @@ class AddRelease extends Component {
         }
     }
 
+    redirect = () => {
+        this.setState({redirectTo: '/'});
+    }
+
+    viewRelease = () => {
+        this.setState({redirectTo: '/Release/' + this.state.addedReleaseId});
+    }
+
     render() {
 
-        if (this.state.redirect === true ) {
-            return <Redirect to="/"/>;
+        if (this.state.redirectTo !== false ) {
+            return <Redirect to={this.state.redirectTo}/>;
         } else {
             return (
                 <main className="AddRelease">
@@ -149,6 +163,28 @@ class AddRelease extends Component {
                             onClick={this.addRelease}
                         />
                     </div>
+                    <Modal element={document.getElementById('modal')}>
+                        <div className={"Modal " + this.state.modal}>
+                            <div className="ModalContainer Add">
+                                <p>Your release is added!</p>
+                                <p><span>{this.state.releaseCatNr}: {this.state.releaseArtist} - {this.state.releaseTitle}</span></p>
+                                <div className="LinkPass">
+                                    Link: {window.location.origin}/Release/{this.state.addedReleaseId} <br/>
+                                    Password: {this.state.releasePassword}
+                                </div>
+                                <div>
+                                    <Button 
+                                        innerText={'View'}
+                                        onClick={this.viewRelease}
+                                    /> 
+                                    <Button 
+                                        innerText={'Ok'}
+                                        onClick={this.redirect}
+                                    />                                      
+                                </div>
+                            </div>
+                        </div>
+                    </Modal>
                 </main>
             );
         }

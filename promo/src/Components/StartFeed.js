@@ -122,7 +122,7 @@ class Feed extends Component {
                         }
                     </ul>
                     <Modal element={document.getElementById('modal')}>
-                        <div className={"Modal " + this.state.modal}>
+                        <div className={"Modal Delete " + this.state.modal}>
                             <div className="ModalContainer">
                                 <p>Are you sure that you want to delete</p>
                                 <p><span>{this.state.releaseToDelete.title} by {this.state.releaseToDelete.artist}</span></p>

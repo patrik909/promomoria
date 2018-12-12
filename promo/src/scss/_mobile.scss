@@ -272,6 +272,7 @@ html {
           height: 20em;
           background:rgb(71, 71, 71);
           color: $main-color;
+          text-transform: lowercase;
 
           .ArtworkFileInput {
             display: flex;
@@ -366,7 +367,7 @@ html {
 
             p {
               margin: 0;
-              height: 1.4em;
+              height: 3rem;
             }
           }
 
@@ -397,20 +398,31 @@ html {
                 font-weight: 700;
               }
 
-              button {
-                @include uppercase;
-                text-decoration: underline;
-                color: $main-color;
-                font-size: 0.7em;
-                transition: $fast-transition;
+              div {
+                display: flex;
 
-                &:hover {
-                  color: $main-color-hover;
-                }
-
-                &:last-child {
-                  margin-left: 1em;
-                  text-align: right;
+                button {
+                  @include uppercase;
+                  @include center-content;
+                  margin-right: 0.6em;
+                  flex-direction: row;
+                  text-decoration: underline;
+                  color: $main-color;
+                  font-size: 0.7em;
+                  padding: 0;
+                  transition: $fast-transition;
+  
+                  img {
+                    height: 1.2em;
+                  }
+  
+                  &:hover {
+                    color: $main-color-hover;
+                  }
+                  
+                  &:last-child {
+                    margin-left: 1em;
+                  }
                 }
               }
             }
@@ -420,7 +432,9 @@ html {
       }
 
       .AddReleaseInfo {
+        margin-top: 1.4em;
         width: 100%;
+        color: #393939;
 
         .helper {
           margin-bottom: 0.2em;
@@ -477,12 +491,11 @@ html {
 
       .AddReleaseButtons {
         margin: auto;
-        margin-top: 1.6em;
-        max-width: 10em;
-        font-size: 2rem;
+        margin-top: 1.8em;
         button {
           @include uppercase;
-          font-size: 1em;
+          width: 10em;
+          font-size: 1.2em;
           padding: 0.5em;
   
           &:nth-child(1) {
@@ -496,6 +509,12 @@ html {
           &:nth-child(2) {
             background: $accent-color;
             color: $main-color;
+            transition: $fast-transition;
+
+            &:hover {
+              background: $accent-color-hover;
+              color: $main-color-hover;
+            }
           }
         }   
       }
@@ -868,8 +887,10 @@ html {
         text-decoration: none;
         font-style: normal;
         font-weight: 700;
+        transition: $fast-transition;
 
         &:hover {
+          color: $accent-color-hover;
           text-decoration: underline;
         }
       }
@@ -885,7 +906,7 @@ html {
     }
     .Modal.open {
       @include center-content;
-      position: absolute;
+      position: fixed;
       height: 100%;
       width: 100%;
       top: 0;
@@ -923,6 +944,37 @@ html {
             color: white;
             font-size: 1.3rem;
           }
+        }
+      }
+
+      .ModalContainer.Add {
+        width: 30em;
+        background: $main-color-hover;
+        font-style: normal;
+
+        p {
+          font-size: 1.4rem;
+          margin: 0;
+          margin-bottom: 0.5em;
+
+          span {
+            font-weight: 300;
+          }
+        }
+
+        .LinkPass {
+          margin-top: 0.5em;
+          padding: 1.4em;
+          background: white;
+          font-family: 'Helvetica';
+          font-weight: 300;
+        }
+
+        button {
+          @include uppercase;
+          margin-top: 1.5em;
+          width: 6.2em;
+          font-size: 0.9em;
         }
       }
   
