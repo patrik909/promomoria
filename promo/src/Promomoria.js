@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import axios from 'axios';
 import Header from './Components/Header.js';
 import Footer from './Components/Footer.js';
@@ -65,9 +66,9 @@ class Promomoria extends Component {
                     <Header labelName={this.state.loggedInUser.label_name} loggedInUser={this.state.loggedInUser} logOutUser={this.logOutUser}/>
                     <Route exact path="/" component={() => <Start user={this.state.loggedInUser} handleLogin={this.handleLogin} /> } />
                     <Route path="/Release/:id" component={ReleasePage}/>  
-                    {this.state.loggedInUser ? ( <Route path="/Add" component={() => <AddRelease user={this.state.loggedInUser} /> } /> ) : ( null )}
-                    {this.state.loggedInUser ? ( <Route path="/Feedback/:id" component={FeedbackPage}/> ) : ( null )}
-                    {this.state.loggedInUser ? ( <Route path="/Update/:id" component={UpdatePage}/> ) : ( null )}
+                    {this.state.loggedInUser ? ( <Route path="/Add" component={() => <AddRelease user={this.state.loggedInUser} /> } /> ) : ( <Redirect to="/" /> )}
+                    {this.state.loggedInUser ? ( <Route path="/Feedback/:id" component={FeedbackPage}/> ) : ( <Redirect to="/" /> )}
+                    {this.state.loggedInUser ? ( <Route path="/Update/:id" component={UpdatePage}/> ) : ( <Redirect to="/" /> )}
                     <Footer />
                 </div>
             </Router>

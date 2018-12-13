@@ -12,35 +12,43 @@ class StartLogin extends Component {
     }
 
     handleEmail = event => {
+        // Handling email input event.
         this.setState({loginEmail: event.target.value});
     }
 
     handlePassword = event => {
+        // Handling password input event.
         this.setState({loginPassword: event.target.value});
     }
 
     loginUser = () => {
         if (this.state.loginEmail !== '' && this.state.loginPassword !== '') {
+            // If no fields are empty, call fetch/axios:
             axios.post('api/login', {
                 email: this.state.loginEmail,
                 password: this.state.loginPassword         
             }).then((res) => {
                 if (res.data.success === true) {
+                    // Object holding necessary user info in object.
                     let userObject = {
                         id: res.data.user_id,
                         label_name: res.data.label_name
                     }
+                    // Sends information to Promomoria.js.
                     this.props.handleLogin(userObject);
                 } else {
+                    // Error message sent from Express app.
                     this.setState({message: res.data.message});
                 }
             });
         } else {
+            // If any field is empty.
             this.setState({message: 'You have to fill in all the fields correct!'});
         }
     }
 
     openRegisterUser = () => {
+        // Handle startpage, information sent to Start.js.
         this.props.handleStartPage('register'); 
     }
 
