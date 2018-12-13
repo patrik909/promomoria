@@ -53,6 +53,11 @@ class Feed extends Component {
         this.setState({redirectTo: '/Feedback/' + event.target.value});
     }
 
+    updateRelease = event => {
+        // Redirect user to feedback-page.
+        this.setState({redirectTo: '/Update/' + event.target.value});
+    }
+
     openModal = event => {
         axios.post('/api/fetch_release', {
             release_id: event.target.value
@@ -82,7 +87,7 @@ class Feed extends Component {
         } else {
             return (
                 <main className="Start Feed">
-                    <h3><Link to="/AddRelease" className="AddReleaseLink">+ Add release</Link></h3>
+                    <h3><Link to="/Add" className="AddReleaseLink">+ Add release</Link></h3>
                     <ul className="ReleasesFeed">           
                         {
                             this.state.releases ? ( 
@@ -106,6 +111,11 @@ class Feed extends Component {
                                                     id={release.id}
                                                     value={release.activated}
                                                     onClick={this.statusRelease}
+                                                />
+                                                <Button 
+                                                    innerText={'Update'}
+                                                    value={release.id}
+                                                    onClick={this.updateRelease}
                                                 />
                                                 <Button 
                                                     innerText={'Delete'}

@@ -48,7 +48,8 @@ html {
       flex-direction: row;
     }
 
-    main.AddRelease {
+    main.AddRelease,
+    main.UpdateRelease {
       .AddReleaseFiles {
         margin-right: 1.3em;
         width: 50%;
