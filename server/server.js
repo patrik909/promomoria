@@ -34,7 +34,7 @@ app.post('/',function(req,res){
         // If session is started:
         connection.query(
             `SELECT id, label_name FROM users WHERE id = '${sess.user_id}'`, 
-            function (error, results, fields) { 
+            (error, results, fields) => { 
                 if (results) {
                     res.send({
                         success: true,
@@ -56,7 +56,7 @@ app.post('/login', (req, res) => {
 
     connection.query(
         `SELECT id, label_name, password FROM users WHERE email = '${email}'`, 
-        function (error, results, fields) { 
+        (error, results, fields) => { 
             if (results) {
                 // Bcrypt is matching the password against the result-hashed-password.
                 bcrypt.compare(password, results[0].password, function (err, result) {
@@ -90,9 +90,9 @@ app.post('/login', (req, res) => {
 });
 
 // Log out user.
-app.post('/logout',function(req,res){
+app.post('/logout', (req,res) => {
     req.session.destroy();
-    res.send(true)
+    res.send(true);
 });
 
 // Create new user.
@@ -106,12 +106,12 @@ app.post('/add_user', (req, res) => {
     // Check if e-mail already is registered.
     connection.query(
         `SELECT * FROM users WHERE email = '${email}'`,
-        function (error, results) { 
+        (error, results) => { 
             if (!results.length) {
                 // If email doesnt exist, add user to database.
                 connection.query(
                     `insert into users(password,email,label_name) values('${hashedPassword}','${email}','${labelName}')`, 
-                    function (error, results) { 
+                    (error, results) => { 
                         if (results) {
                             res.send({
                                 success: true,
@@ -142,28 +142,47 @@ app.post('/add_user', (req, res) => {
     );
 });
 
+// General SELECT * FROM query.
+app.post('/fetch_all', (req, res) => {
+    const table = req.body.table;
+    const column = req.body.column;
+    const searchValue = req.body.search_value;
+    const additionalQuery = req.body.additional_query;
 
-// Fetch all releases for logged in user.
-app.post('/fetch_releases', (req, res) => {
-    const userId = req.body.userId
     connection.query(
-        `SELECT * FROM releases WHERE user_id = '${userId}' ORDER BY id DESC`,    
+        `SELECT * FROM ${table} WHERE ${column} = '${searchValue}' ${additionalQuery}`,    
         (error, results, fields) => { 
             res.send(results)
         }
     );
 });
 
-// Fetch all feedback.
-app.post('/fetch_feedback', (req, res) => {
+
+
+// Fetch release
+app.post('/fetch_label', (req, res) => {
+    const userId = req.body.user_id;
+    connection.query(
+      `SELECT 
+          * FROM users 
+      WHERE id = '${userId}'`,    
+      function (error, results, fields) { 
+          res.send(results)
+      }
+    );
+  });
+
+// Fetch tracks
+/* Merge this with function above */
+app.post('/fetch_release_tracks', (req, res) => {
     const releaseId = req.body.release_id;
-    connection.query(
-        `SELECT * FROM feedback WHERE release_id = '${releaseId}'`,    
-        (error, results, fields) => { 
+    connection.query(`SELECT * FROM tracks WHERE release_id = '${releaseId}'`,    
+        function (error, results, fields) { 
             res.send(results)
         }
     );
 });
+
 
 // Update status release.
 app.post('/status_release', (req, res) => {
@@ -232,30 +251,6 @@ app.post('/fetch_release', (req, res) => {
         res.send(results)
     }
   );
-});
-
-// Fetch release
-app.post('/fetch_label', (req, res) => {
-    const userId = req.body.user_id;
-    connection.query(
-      `SELECT 
-          * FROM users 
-      WHERE id = '${userId}'`,    
-      function (error, results, fields) { 
-          res.send(results)
-      }
-    );
-  });
-
-// Fetch tracks
-/* Merge this with function above */
-app.post('/fetch_release_tracks', (req, res) => {
-    const releaseId = req.body.release_id;
-    connection.query(`SELECT * FROM tracks WHERE release_id = '${releaseId}'`,    
-        function (error, results, fields) { 
-            res.send(results)
-        }
-    );
 });
 
 // Add feedback

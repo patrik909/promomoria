@@ -20,10 +20,14 @@ class Feed extends Component {
     }
 
     fetchAllReleases = () => {
-        axios.post('api/fetch_releases', {
-            userId: this.props.userId
+        axios.post('api/fetch_all', {
+            // Body values to specify query.
+            table: 'releases',
+            column: 'user_id',
+            additional_query: 'ORDER BY id DESC',
+            search_value: this.props.userId
         } ).then(releases => {
-            this.setState({ releases : releases.data});
+            this.setState({releases : releases.data});
         });      
     }
 

@@ -13,8 +13,11 @@ class Feedback extends Component {
 
     componentDidMount() {
         // Fetch all feedback for for release by url param.
-        axios.post(window.location.origin + '/api/fetch_feedback', {
-            release_id: parseInt(this.props.match.params.id, 10) 
+        axios.post(window.location.origin + '/api/fetch_all', {
+            table: 'feedback',
+            column: 'release_id',
+            additional_query: 'ORDER BY date DESC',
+            search_value: parseInt(this.props.match.params.id, 10) 
         }).then((feedback) => {
             // Setting feedback data and amount of feedback to state.
             this.setState({ 

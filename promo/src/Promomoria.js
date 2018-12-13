@@ -21,9 +21,10 @@ class Promomoria extends Component {
     componentDidMount(){
         // Variables used to prevent fetch call when user or visitor enters release or update page.
         const releasePage = window.location.pathname.toLowerCase().includes('/release/');
+        const feedbackPage = window.location.pathname.toLowerCase().includes('/feedback/');
         const updatePage = window.location.pathname.toLowerCase().includes('/update/');
 
-        if (!releasePage && !updatePage) {
+        if (!releasePage && !updatePage && !feedbackPage) {
             // Run fetch/axios to see if user session is started.
             axios.post('api/').then((res) => {
                 if (res.data.success === true) {
