@@ -259,13 +259,13 @@ html {
       .UpdateReleaseFiles {
         @include center-content;
         @include uppercase;
+        min-height: 10em;
+        width: 100%;
         margin-right: 1.3em;
-        width: 50%;
         background: #393939;
         color: $main-color-hover;
         font-weight: 700;
         text-align: center;
-        width: 100%;
       }
 
       .AddReleaseFiles {
@@ -473,7 +473,6 @@ html {
           p {
             margin: 0;
             margin-left: 0.8em;
-            font-size: rem;
             text-transform: none;
           }
     
@@ -611,9 +610,13 @@ html {
     main.Release {
 
       .ReleaseFiles {
-        padding: 0.8em;
-        background:#393939;
         font-size: 0.9em;
+
+        .ReleaseFilesHolder { 
+          padding: 0.8em;
+          padding-bottom: 2em;
+          background:#393939;
+        }
 
         .Audioplayer {
 

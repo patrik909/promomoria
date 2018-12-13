@@ -37,7 +37,7 @@ class UpdateRelease extends Component {
 
     updateRelease = event => {
         axios.post(window.location.origin + '/api/update_release', {
-            release_id: parseInt(this.state.releaseId),
+            release_id: parseInt(this.state.releaseId, 10),
             artist: this.state.releaseArtist,
             title: this.state.releaseTitle,
             cat_nr: this.state.releaseCatNr,

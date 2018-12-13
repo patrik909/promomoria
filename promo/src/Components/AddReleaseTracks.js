@@ -102,8 +102,8 @@ class AddReleaseTracks extends Component {
                                         <li key={index}>
                                             <p>{index + 1 + '. ' + track}</p>
                                             <div>
-                                            <button onClick={this.moveDownTrack} value={track} id={index}> <img src={UpIcon} /> </button>
-                                            <button onClick={this.moveUpTrack} value={track} id={index}> <img src={DownIcon} /> </button>
+                                            <button onClick={this.moveDownTrack} value={track} id={index}> <img src={UpIcon} alt="Up Icon" /> </button>
+                                            <button onClick={this.moveUpTrack} value={track} id={index}> <img src={DownIcon} alt="Down Icon" /> </button>
                                             <button onClick={this.removeTrack} value={track}>Delete</button>
                                             </div>
                                         </li>

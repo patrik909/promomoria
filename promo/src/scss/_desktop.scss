@@ -55,10 +55,14 @@ html {
         width: 50%;
       }
 
+      .UpdateReleaseFiles {
+        width: 50%;
+      }
+
       .AddReleaseInfo {
+        width: 50%;
         margin-top: 0;
-        margin-left: 0.5em;
-        width: 50%;      
+        margin-left: 0.5em;      
       }
     }
     
@@ -66,6 +70,10 @@ html {
       .ReleaseFiles {
         margin-right: 0.5em;
         width: 50%;
+
+        .ReleaseFilesHolder { 
+          min-height: 40.8em;
+        }
       }
 
       .ReleaseInfoFeedback { 

@@ -3,7 +3,6 @@ import Inputfield from './Parts/Inputfield.js';
 import Button from './Parts/Button.js';
 
 function ReleaseLogin(props) {
-    console.log(props.releaseData)
     return (
         <main className="ReleaseLogin">
             <div className="ReleaseLoginForm">

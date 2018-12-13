@@ -18,7 +18,7 @@ class AddReleaseArtwork extends Component {
     
             var reader = new FileReader();
             reader.onload = (e) => {
-                var img = new Image;
+                var img = new Image();
                 img.onload = () => {
                     if ( img.width > 1399 && img.height > 1399 && img.width === img.height ) {
                     this.addArtwork(image);
@@ -49,7 +49,6 @@ class AddReleaseArtwork extends Component {
             this.setState({
                 imageName: response.data.imageName
             });
-            console.log(this.state.imageName)
             this.props.handleArtworkName(this.state.imageName)
         });
     }

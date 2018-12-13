@@ -63,7 +63,7 @@ class ReleaseContent extends Component {
             // Arranging the new title for track file.
             const trackFileInfo = `${this.props.releaseData.cat_number} ${track.track_index}.${track.track_file.substring(16)}`; 
             // Saving every track for release individually. 
-            saveAs(`http://localhost:3000/api/tracks/${track.track_file}`, 
+            return saveAs(`http://localhost:3000/api/tracks/${track.track_file}`, 
             `${trackFileInfo}`);          
         });
         // Saving the artwork for release.
@@ -75,10 +75,12 @@ class ReleaseContent extends Component {
         return (
             <main className="Release">
                 <div className="ReleaseFiles">
-                    <div className="ArtworkHolder">
-                        <img src={window.location.origin +  '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
+                    <div className="ReleaseFilesHolder">
+                        <div className="ArtworkHolder">
+                            <img src={window.location.origin +  '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
+                        </div>
+                        <Audioplayer tracks={this.props.tracks} />
                     </div>
-                    <Audioplayer tracks={this.props.tracks} />
                 </div>
                 <div className="ReleaseInfoFeedback">
                     <div className="ReleaseInfo">

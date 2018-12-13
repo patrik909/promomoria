@@ -1,10 +1,28 @@
 @import "_mixin.scss";
 @import "_mobile.scss";
 
+@media screen and (max-width: 340px) {
+    // Small mobile screens.
+    html {
+        font-size: 8.5px;
+    }
+}
+
 @media screen and (min-width: 740px) {
     @import "_tablet.scss";
 }
 
+@media screen and (min-width: 740px) and (orientation:landscape) {
+    @import "_desktop.scss";
+}
+
 @media screen and (min-width: 950px) {
     @import "_desktop.scss";
+}
+
+@media screen and (min-width: 1500px) {
+    // Large desktop screens.
+    html {
+        font-size: calc(14px + 0.3vw);
+    }
 }

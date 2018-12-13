@@ -26,10 +26,12 @@ class Feedback extends Component {
             // Looping all feedback.
             feedback.data.map(feedback => {
                 // Converting rating value to number from string.
-                const rating = parseInt(feedback.rating);
+                const rating = parseInt(feedback.rating, 10);
                 // If rating is a number.
                 if (!isNaN(rating)) {
-                    feedbackSum = feedbackSum + parseInt(rating)
+                    return feedbackSum = feedbackSum + parseInt(rating, 10)
+                } else {
+                    return feedbackSum = '';
                 }
             });
             // Set state for average rating.
