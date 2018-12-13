@@ -232,6 +232,19 @@ app.post('/fetch_release', (req, res) => {
   );
 });
 
+// Fetch release
+app.post('/fetch_label', (req, res) => {
+    const userId = req.body.user_id;
+    connection.query(
+      `SELECT 
+          * FROM users 
+      WHERE id = '${userId}'`,    
+      function (error, results, fields) { 
+          res.send(results)
+      }
+    );
+  });
+
 // Fetch tracks
 /* Merge this with function above */
 app.post('/fetch_release_tracks', (req, res) => {

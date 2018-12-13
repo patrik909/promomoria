@@ -14,15 +14,20 @@ import Release from './Pages/Release.js'
 class Promomoria extends Component {
 
     state = {
-      loggedInUser: false
+        // Holds the users id when logged in to app.
+        loggedInUser: false
     }
 
     componentDidMount(){
+        // Variables used to prevent fetch call when user or visitor enters release or update page.
         const releasePage = window.location.pathname.toLowerCase().includes('/release/');
         const updatePage = window.location.pathname.toLowerCase().includes('/update/');
+
         if (!releasePage && !updatePage) {
+            // Run fetch/axios to see if user session is started.
             axios.post('api/').then((res) => {
                 if (res.data.success === true) {
+                    // If session is started, store necessary user info in object.
                     const userObject = {
                         id: res.data.user_id,
                         label_name: res.data.label_name

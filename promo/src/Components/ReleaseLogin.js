@@ -22,7 +22,7 @@ function ReleaseLogin(props) {
                 </div>
                 <div className="ReleaseLoginBottomContent">
                     <h4>{props.releaseData.cat_number} released on</h4>
-                    <h3>Record Label</h3>
+                    <h3>{props.labelName}</h3>
                 </div>
             </div>    
         </main>

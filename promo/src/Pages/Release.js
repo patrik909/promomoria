@@ -7,6 +7,7 @@ class Release extends Component {
 
     state = {
         access: false,
+        label: '',
         password: '',
         release: [],
         relesaeTracks : []
@@ -16,7 +17,14 @@ class Release extends Component {
         axios.post(window.location.origin + '/api/fetch_release', {
             release_id: parseInt(this.props.match.params.id, 10)
         }).then(release => {
-            this.setState({ release : release.data })
+            this.setState({ release : release.data });
+
+            axios.post(window.location.origin + '/api/fetch_label', {
+                user_id: this.state.release[0].user_id
+            }).then(release => {
+                this.setState({ labelName : release.data[0].label_name })
+            }); 
+
         }); 
 
         axios.post(window.location.origin + '/api/fetch_release_tracks', {
@@ -56,6 +64,7 @@ class Release extends Component {
                             ) : (
                                 <ReleaseLogin                     
                                     releaseData={this.state.release[0]}
+                                    labelName={this.state.labelName}
                                     handlePassword={this.handlePassword}
                                     handleAccess={this.handleAccess}
                                 /> 
