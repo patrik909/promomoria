@@ -39,11 +39,13 @@ class Promomoria extends Component {
     }
 
     handleLogin = user => {
+        // Handling informtion sent from events in StartLogin.js.
         this.setState({loggedInUser: user})
     }
 
     logOutUser = () => {
-        axios.post('api/log_out').then((logOut) => {
+        // Destroys session and clears the loggedIn state.
+        axios.post('api/logout').then((logOut) => {
             if (logOut.data === true) {
                 this.setState({loggedInUser: false})
             }

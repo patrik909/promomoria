@@ -22,31 +22,75 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('uploads'));
 
-
+// Change this to a env-variable in production.
 app.use(session({secret: 'ssshhhhh'}));
 
 let sess;
-
+// Check for session.
 app.post('/',function(req,res){
     sess = req.session;
-    console.log(sess)
-    //Session set when user Request our app via URL
+
     if(sess.user_id) {
+        // If session is started:
         connection.query(
             `SELECT id, label_name FROM users WHERE id = '${sess.user_id}'`, 
             function (error, results, fields) { 
-                res.send({
-                    success: true,
-                    user_id: results[0].id,
-                    label_name: results[0].label_name
-                });              
+                if (results) {
+                    res.send({
+                        success: true,
+                        user_id: results[0].id,
+                        label_name: results[0].label_name
+                    });                   
+                } else {
+                    res.send({success: false});
+                }             
             }
         );
     }
 });
 
-app.post('/log_out',function(req,res){
-    console.log("session")
+// Log in user.
+app.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    connection.query(
+        `SELECT id, label_name, password FROM users WHERE email = '${email}'`, 
+        function (error, results, fields) { 
+            if (results) {
+                // Bcrypt is matching the password against the result-hashed-password.
+                bcrypt.compare(password, results[0].password, function (err, result) {
+                    if (result === true) {
+                        // Sets the user id for session.
+                        sess = req.session;
+                        sess.user_id=results[0].id;
+                        // Success response sent to React app.
+                        res.send({
+                            success: true,
+                            user_id: results[0].id,
+                            label_name: results[0].label_name
+                        });
+                    } else {
+                        // If password is not correct.
+                        res.send({
+                            success: false,
+                            message: 'Your password is not correct'
+                        });
+                    }
+                });              
+            } else {
+                // If login fails.
+                res.send({
+                    success: false,
+                    message: 'Your e-mail or password is not correct'
+                });
+            }
+        }
+    );
+});
+
+// Log out user.
+app.post('/logout',function(req,res){
     req.session.destroy();
     res.send(true)
 });
@@ -98,48 +142,6 @@ app.post('/add_user', (req, res) => {
     );
 });
 
-// Login user.
-app.post('/login', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    connection.query(
-        `SELECT id, label_name, password FROM users WHERE email = '${email}'`, 
-        function (error, results, fields) { 
-            if (results) {
-                bcrypt.compare(password, results[0].password, function (err, result) {
-                    if (result === true) {
-
-                        /* TEST */
-                        
-                        sess = req.session;
-                        sess.user_id=results[0].id;
-
-                        /* ----- */
-
-
-                        // Set session here??
-                        res.send({
-                            success: true,
-                            user_id: results[0].id,
-                            label_name: results[0].label_name
-                        });
-                    } else {
-                        res.send({
-                            success: false,
-                            message: 'Your password is not correct'
-                        });
-                    }
-                });              
-            } else {
-                res.send({
-                    success: false,
-                    message: 'Your e-mail or password is not correct'
-                });
-            }
-        }
-    );
-});
 
 // Fetch all releases for logged in user.
 app.post('/fetch_releases', (req, res) => {
