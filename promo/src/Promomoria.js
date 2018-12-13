@@ -7,9 +7,9 @@ import './css/main.css';
 
 import Start from './Pages/Start.js';
 import AddRelease from './Pages/AddRelease.js';
+import UpdateRelease from './Pages/UpdateRelease.js';
 import Feedback from './Pages/Feedback.js'
 import Release from './Pages/Release.js'
-// import PageNotFound from './Pages/PageNotFound.js'
 
 class Promomoria extends Component {
 
@@ -19,7 +19,8 @@ class Promomoria extends Component {
 
     componentDidMount(){
         const releasePage = window.location.pathname.toLowerCase().includes('/release/');
-        if (!releasePage) {
+        const updatePage = window.location.pathname.toLowerCase().includes('/update/');
+        if (!releasePage && !updatePage) {
             axios.post('api/').then((res) => {
                 if (res.data.success === true) {
                     const userObject = {
@@ -47,6 +48,7 @@ class Promomoria extends Component {
     render() {
 
         const FeedbackPage = ({ match }) => <Feedback match={match} userData={this.state.loggedInUser} />;
+        const UpdatePage = ({ match }) => <UpdateRelease match={match} />;
         const ReleasePage = ({ match }) => <Release match={match} />;
 
         return (
@@ -55,8 +57,9 @@ class Promomoria extends Component {
                     <Header labelName={this.state.loggedInUser.label_name} loggedInUser={this.state.loggedInUser} logOutUser={this.logOutUser}/>
                     <Route exact path="/" component={() => <Start user={this.state.loggedInUser} handleLogin={this.handleLogin} /> } />
                     <Route path="/Release/:id" component={ReleasePage}/>  
-                    {this.state.loggedInUser ? ( <Route path="/AddRelease" component={() => <AddRelease user={this.state.loggedInUser} /> } /> ) : ( null )}
+                    {this.state.loggedInUser ? ( <Route path="/Add" component={() => <AddRelease user={this.state.loggedInUser} /> } /> ) : ( null )}
                     {this.state.loggedInUser ? ( <Route path="/Feedback/:id" component={FeedbackPage}/> ) : ( null )}
+                    {this.state.loggedInUser ? ( <Route path="/Update/:id" component={UpdatePage}/> ) : ( null )}
                     <Footer />
                 </div>
             </Router>

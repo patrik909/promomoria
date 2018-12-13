@@ -287,7 +287,6 @@ app.post('/download_release', (req, res) => {
 app.post('/add_release', (req, res) => {
     // New release data
     const newRelease = req.body;
-    console.log(newRelease.tracks)
     connection.query(
         `insert into  releases(user_id,artist,title,cat_number,info_text,release_date,rating,password,activated) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.release_date}','${newRelease.rating}','${newRelease.password}','1')`, 
         function (error, results, fields) { 
@@ -315,6 +314,19 @@ app.post('/add_release', (req, res) => {
     );
 });
 
+// Add release
+app.post('/update_release', (req, res) => {
+
+    connection.query(
+        `UPDATE releases SET artist='${req.body.artist}',title='${req.body.title}',cat_number='${req.body.cat_nr}',info_text='${req.body.info_text}',release_date='${req.body.release_date}',rating='${req.body.rating}',password='${req.body.password}' WHERE id='${req.body.release_id}'`, 
+        function (error, results, fields) { 
+            console.log(error)
+            console.log(results)
+        }
+    );
+
+});
+
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/artwork/')
@@ -336,12 +348,14 @@ app.post('/upload_artwork', upload.single('artwork'), (req, res) => {
     else 
         res.status("409").json("No Files to Upload.");
 });
+
+
 // Delete artwork
 /* Should able to use same function for both tracks and artwork */
-app.post('/delete_artwork', (req, res) => {
-    const artworkName = req.body.imageName;
-    fs.unlink(`uploads/artwork/${artworkName}`);
-});
+// app.post('/delete_artwork', (req, res) => {
+//     const artworkName = req.body.imageName;
+//     fs.unlink(`uploads/artwork/${artworkName}`);
+// });
 
 const trackStorage = multer.diskStorage({
     destination: (req, file, cb) => {

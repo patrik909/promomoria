@@ -242,7 +242,8 @@ html {
     }
 
     main.AddRelease,
-    main.Release {
+    main.Release,
+    main.UpdateRelease {
         display: flex;
         flex-direction: column;
         max-width: 68em;
@@ -252,7 +253,20 @@ html {
         font-size: 1.4rem;
     }
 
-    main.AddRelease {
+    main.AddRelease,
+    main.UpdateRelease {
+
+      .UpdateReleaseFiles {
+        @include center-content;
+        @include uppercase;
+        margin-right: 1.3em;
+        width: 50%;
+        background: #393939;
+        color: $main-color-hover;
+        font-weight: 700;
+        text-align: center;
+        width: 100%;
+      }
 
       .AddReleaseFiles {
         width: 100%;

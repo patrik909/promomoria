@@ -6,7 +6,6 @@ class AddReleaseArtwork extends Component {
 
     state = {
         imageName: '',
-        imageUrl: '',
         loaded: 0,
         message: ''
     }
@@ -31,7 +30,7 @@ class AddReleaseArtwork extends Component {
                 img.src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);
-            }
+        }
             
     }
 
@@ -40,7 +39,7 @@ class AddReleaseArtwork extends Component {
         const data = new FormData();
         data.append('artwork', image, image.name);
 
-        axios.post('api/upload_artwork', data, {
+        axios.post(window.location.origin + '/api/upload_artwork', data, {
             onUploadProgress: ProgressEvent => {
                 this.setState({
                     loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
@@ -48,9 +47,9 @@ class AddReleaseArtwork extends Component {
             },
         }).then(response => {
             this.setState({
-                imageUrl: response.data.imageUrl,
                 imageName: response.data.imageName
             });
+            console.log(this.state.imageName)
             this.props.handleArtworkName(this.state.imageName)
         });
     }
@@ -60,7 +59,6 @@ class AddReleaseArtwork extends Component {
             imageName: this.state.imageName
         });
         this.setState({
-            imageUrl: '',
             imageName: '',
             loaded: 0
         });
@@ -73,7 +71,7 @@ class AddReleaseArtwork extends Component {
             <div className="ArtworkUploader">
                 <p className="helper">Artwork have to be square & 1400x1400px or larger</p>
                 <div className="ArtworkHolder">
-                    {!this.state.imageUrl ? (
+                    {!this.state.imageName ? (
                         <div>
                             <label htmlFor="uploadArtworkInput" className="ArtworkFileInput">
                                 <div className="ArtworkPlaceholderIcon"><div className="CenterHole"></div></div>
@@ -96,7 +94,7 @@ class AddReleaseArtwork extends Component {
                         </div>
                     ) : (
                         <div className="ArtworkImage" style={{width: '100%', height: '100%', overflow:'hidden', position:'relative'}}>
-                            <img src={this.state.imageUrl ? 'api/' + this.state.imageUrl : null} alt="Release Artwork" style={{width: '100%', position: ' absolute'}}/>
+                            <img src={this.state.imageName ? window.location.origin + '/api/artwork/' + this.state.imageName : null} alt="Release Artwork" style={{width: '100%', position: ' absolute'}}/>
                             <Button 
                                 className={'DeleteArtwork'}
                                 innerText={'X'}
