@@ -2,7 +2,6 @@ import React from 'react';
 import Inputfield from '../Components/Parts/Inputfield.js';
 
 function UpdateReleaseInfo(props) {
-
     return (
         <div className="AddReleaseInfo">
             <p className="helper">Fields with * is required</p>
@@ -50,8 +49,7 @@ function UpdateReleaseInfo(props) {
             ></textarea>
             <p className="UsedCharacters">Used characters: {props.infoTextLength} / 500</p>
         </div>
-    );
-    
+    );   
 }
 
 export default UpdateReleaseInfo;

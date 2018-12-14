@@ -27,7 +27,7 @@ class Promomoria extends Component {
 
         if (!releasePage && !updatePage && !feedbackPage) {
             // Run fetch/axios to see if user session is started.
-            axios.post('api/').then((res) => {
+            axios.get('api/').then((res) => {
                 if (res.data.success === true) {
                     // If session is started, store necessary user info in object.
                     const userObject = {
@@ -66,14 +66,15 @@ class Promomoria extends Component {
                     <Header labelName={this.state.loggedInUser.label_name} loggedInUser={this.state.loggedInUser} logOutUser={this.logOutUser}/>
                     <Route exact path="/" component={() => <Start user={this.state.loggedInUser} handleLogin={this.handleLogin} /> } />
                     <Route path="/Release/:id" component={ReleasePage}/>  
-                    {this.state.loggedInUser ? ( <Route path="/Add" component={() => <AddRelease user={this.state.loggedInUser} /> } /> ) : ( <Redirect to="/" /> )}
-                    {this.state.loggedInUser ? ( <Route path="/Feedback/:id" component={FeedbackPage}/> ) : ( <Redirect to="/" /> )}
-                    {this.state.loggedInUser ? ( <Route path="/Update/:id" component={UpdatePage}/> ) : ( <Redirect to="/" /> )}
+                    {this.state.loggedInUser ? ( <Route path="/Add" component={() => <AddRelease user={this.state.loggedInUser} /> } /> ) : ( null )}
+                    {this.state.loggedInUser ? ( <Route path="/Feedback/:id" component={FeedbackPage}/> ) : ( null )}
+                    {this.state.loggedInUser ? ( <Route path="/Update/:id" component={UpdatePage}/> ) : ( null )}
                     <Footer />
                 </div>
             </Router>
         );
     }
 }
+{/* <Redirect to="/" /> */}
 
 export default Promomoria;

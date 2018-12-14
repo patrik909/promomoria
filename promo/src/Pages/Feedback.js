@@ -12,13 +12,12 @@ class Feedback extends Component {
     }
 
     componentDidMount() {
+        let releaseId = parseInt(this.props.match.params.id, 10);
+        let query = `?table=feedback&column=release_id&search_value=${releaseId}&order_by=date`;
+
         // Fetch all feedback for for release by url param.
-        axios.post(window.location.origin + '/api/fetch_all', {
-            table: 'feedback',
-            column: 'release_id',
-            additional_query: 'ORDER BY date DESC',
-            search_value: parseInt(this.props.match.params.id, 10) 
-        }).then((feedback) => {
+        axios.get(`${window.location.origin}/api/fetch_all${query}`)
+        .then((feedback) => {
             // Setting feedback data and amount of feedback to state.
             this.setState({ 
                 feedbackData: feedback.data,

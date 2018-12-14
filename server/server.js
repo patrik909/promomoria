@@ -22,12 +22,18 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('uploads'));
 
+/* ---- HANDLING USER ---- */
+
 // Change this to a env-variable in production.
-app.use(session({secret: 'ssshhhhh'}));
+app.use(session({
+    secret: 'ssshhhhh',
+    resave: true,
+    saveUninitialized: false
+}));
 
 let sess;
 // Check for session.
-app.post('/',function(req,res){
+app.get('/',function(req,res){
     sess = req.session;
 
     if(sess.user_id) {
@@ -142,21 +148,25 @@ app.post('/add_user', (req, res) => {
     );
 });
 
+/* --- END HANDLING USER --- */
+
 // General SELECT * FROM query.
-app.post('/fetch_all', (req, res) => {
-    const table = req.body.table;
-    const column = req.body.column;
-    const searchValue = req.body.search_value;
-    const additionalQuery = req.body.additional_query;
+app.get('/fetch_all', (req, res) => {
+    const table = req.query.table;
+    const column = req.query.column;
+    const searchValue = req.query.search_value;
+    const orderByValue = req.query.order_by;
 
     connection.query(
-        `SELECT * FROM ${table} WHERE ${column} = '${searchValue}' ${additionalQuery}`,    
+        `SELECT * FROM ${table} WHERE ${column} = '${searchValue}' ORDER BY ${orderByValue} DESC`,    
         (error, results, fields) => { 
             res.send(results)
         }
     );
 });
 
+
+/* ABOVE IS CLEANED */
 
 
 // Fetch release
@@ -183,16 +193,25 @@ app.post('/fetch_release_tracks', (req, res) => {
     );
 });
 
-
-// Update status release.
-app.post('/status_release', (req, res) => {
+// Update release status.
+app.put('/update_release', (req, res) => {
     const releaseId = req.body.release_id;
-    const status = req.body.release_status;
+    let query = ''
+    if (req.body.release_status <= 1) {
+        // Handling STATUS query for updating releases.
+        const statusValue = req.body.release_status;
+        query = `activated = '${statusValue}'`;
+    } else {
+        // Handling INFORMATION query for updating releases.
+        query = `artist='${req.body.artist}',title='${req.body.title}',cat_number='${req.body.cat_nr}',info_text='${req.body.info_text}',release_date='${req.body.release_date}',rating='${req.body.rating}',password='${req.body.password}'`;
+    }
+
     connection.query(
-        `UPDATE releases SET activated = '${status}' WHERE releases . id = '${releaseId}'`,    
+        `UPDATE releases SET ${query} WHERE releases . id = '${releaseId}'`,    
         (error, results, fields) => { 
-            console.log(results)
-            console.log(error)
+            if (results) {
+                res.send(true);
+            }
         }
     );
 });
@@ -322,19 +341,6 @@ app.post('/add_release', (req, res) => {
 
         }
     );
-});
-
-// Add release
-app.post('/update_release', (req, res) => {
-
-    connection.query(
-        `UPDATE releases SET artist='${req.body.artist}',title='${req.body.title}',cat_number='${req.body.cat_nr}',info_text='${req.body.info_text}',release_date='${req.body.release_date}',rating='${req.body.rating}',password='${req.body.password}' WHERE id='${req.body.release_id}'`, 
-        function (error, results, fields) { 
-            console.log(error)
-            console.log(results)
-        }
-    );
-
 });
 
 var storage = multer.diskStorage({

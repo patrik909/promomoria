@@ -20,15 +20,11 @@ class Feed extends Component {
     }
 
     fetchAllReleases = () => {
-        axios.post('api/fetch_all', {
-            // Body values to specify query.
-            table: 'releases',
-            column: 'user_id',
-            additional_query: 'ORDER BY id DESC',
-            search_value: this.props.userId
-        } ).then(releases => {
+        let query = `?table=releases&column=user_id&search_value=${this.props.userId}&order_by=id`;
+        axios.get(`api/fetch_all${query}`)
+        .then(releases => {
             this.setState({releases : releases.data});
-        });      
+        });     
     }
 
     removeRelease = event => { 
@@ -46,7 +42,7 @@ class Feed extends Component {
             // If status is 0, activate.
             status = 1
         }
-        axios.post('api/status_release', {
+        axios.put('api/update_release', {
             release_id: event.target.id,
             release_status: status
         }).then(this.fetchAllReleases());  
