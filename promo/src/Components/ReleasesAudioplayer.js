@@ -17,9 +17,9 @@ class Feed extends Component {
     componentDidMount(){
         this.setState({
             tracks: this.props.tracks,
-            playTrack: this.props.tracks[0].track_file
+            playTrack: this.props.tracks[0]
         });
-        this.handleAudio(this.props.tracks[0].track_file);
+        this.handleAudio(this.props.tracks[0]);
     }
 
     handleTrack = (event) => {
@@ -102,8 +102,8 @@ class Feed extends Component {
                     {
                         this.props.tracks.map(track => {
                             return (
-                                <li key={track.track_file} className={ track.track_file === this.state.playTrack ? ( 'trackIsPlaying' ) : ( null ) }>
-                                    <button value={track.track_file} onClick={this.handleTrack}>{track.track_file.substring(14)}</button>
+                                <li key={track} className={ track === this.state.playTrack ? ( 'trackIsPlaying' ) : ( null ) }>
+                                    <button value={track} onClick={this.handleTrack}>{track.substring(14)}</button>
                                 </li>
                             );
                         })

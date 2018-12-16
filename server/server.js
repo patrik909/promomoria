@@ -23,7 +23,6 @@ app.use(cors());
 app.use(express.static('uploads'));
 
 /* ---- HANDLING USER ---- */
-
 // Change this to a env-variable in production.
 app.use(session({
     secret: 'ssshhhhh',
@@ -148,8 +147,7 @@ app.post('/add_user', (req, res) => {
     );
 });
 
-/* --- END HANDLING USER --- */
-
+/* --- HANDLING GETS --- */
 // General SELECT * FROM query.
 app.get('/fetch_all', (req, res) => {
     const table = req.query.table;
@@ -165,34 +163,18 @@ app.get('/fetch_all', (req, res) => {
     );
 });
 
-
-/* ABOVE IS CLEANED */
-
-
-// Fetch release
-app.post('/fetch_label', (req, res) => {
-    const userId = req.body.user_id;
-    connection.query(
-      `SELECT 
-          * FROM users 
-      WHERE id = '${userId}'`,    
-      function (error, results, fields) { 
-          res.send(results)
-      }
-    );
-  });
-
-// Fetch tracks
-/* Merge this with function above */
-app.post('/fetch_release_tracks', (req, res) => {
-    const releaseId = req.body.release_id;
-    connection.query(`SELECT * FROM tracks WHERE release_id = '${releaseId}'`,    
-        function (error, results, fields) { 
+// Fetch release.
+app.get('/fetch_release', (req, res) => {
+    const releaseId = req.query.release_id;
+        connection.query(
+        `SELECT distinct u.id AS userId, u.label_name AS label_name, r.*, a.image_file, (select GROUP_CONCAT(track_file SEPARATOR '|') from tracks where release_id = r.id ORDER BY track_index) AS files FROM releases r LEFT JOIN users u ON u.id=r.user_id LEFT JOIN artwork a ON a.release_id LEFT JOIN tracks t ON t.release_id = r.id WHERE r.id=${releaseId}`,
+        (error, results, fields) => { 
             res.send(results)
         }
     );
 });
 
+/* --- HANDLING RELEASE UPDATES --- */
 // Update release status.
 app.put('/update_release', (req, res) => {
     const releaseId = req.body.release_id;
@@ -212,6 +194,20 @@ app.put('/update_release', (req, res) => {
             if (results) {
                 res.send(true);
             }
+        }
+    );
+});
+
+
+/* ABOVE IS CLEANED */
+
+// Fetch tracks
+/* Merge this with function above */
+app.post('/fetch_release_tracks', (req, res) => {
+    const releaseId = req.body.release_id;
+    connection.query(`SELECT * FROM tracks WHERE release_id = '${releaseId}'`,    
+        function (error, results, fields) { 
+            res.send(results)
         }
     );
 });
@@ -256,22 +252,6 @@ app.post('/delete_release', (req, res) => {
     );
 });
 
-// Fetch release
-app.post('/fetch_release', (req, res) => {
-  const releaseId = req.body.release_id;
-  connection.query(
-    `SELECT 
-        * FROM releases 
-    JOIN
-        artwork ON release_id =
-        '${releaseId}'
-    WHERE id = '${releaseId}'`,    
-    function (error, results, fields) { 
-        res.send(results)
-    }
-  );
-});
-
 // Add feedback
 app.post('/add_feedback', (req, res) => {
     const feedbackData = req.body;
@@ -281,33 +261,6 @@ app.post('/add_feedback', (req, res) => {
             res.send('done');
         }
     );
-});
-
-// Download release
-app.post('/download_release', (req, res) => {
-    // console.log("inne i download");
-
-    // // var encondedImage = new Buffer(`uploads/artwork/1544397293164-A_SIDE.jpg`, 'base64');
-
-    fs.readFile(`uploads/artwork/1544558512879-A_SIDE.jpg`,function (err, content) {
-        // res.send(content)
-        if (!err) {
-    //         console.log(content)
-            // res.writeHead(200, {'Content-Type': 'image/jpg'})
-            // res.end(content,'Base64');
-            res.send(content)
-    //         // console.log(content)
-    //         // (req, res) => {
-    //             // res.writeHead(200,{'Content-type':'image/jpg'});
-    //             // res.end(content);
-    //         //   }
-
-        } else {
-            console.log(err);
-        }
-    });
-    
-
 });
 
 /* --- CLEAN ADD RELEASE - START -- */
@@ -368,10 +321,10 @@ app.post('/upload_artwork', upload.single('artwork'), (req, res) => {
 
 // Delete artwork
 /* Should able to use same function for both tracks and artwork */
-// app.post('/delete_artwork', (req, res) => {
-//     const artworkName = req.body.imageName;
-//     fs.unlink(`uploads/artwork/${artworkName}`);
-// });
+app.post('/delete_artwork', (req, res) => {
+    const artworkName = req.body.imageName;
+    fs.unlink(`uploads/artwork/${artworkName}`);
+});
 
 const trackStorage = multer.diskStorage({
     destination: (req, file, cb) => {

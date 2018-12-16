@@ -19,9 +19,9 @@ class UpdateRelease extends Component {
     }
 
     componentDidMount() {
-        axios.post(window.location.origin + '/api/fetch_release', {
-            release_id: parseInt(this.props.match.params.id, 10) 
-        }).then((release) => {
+        let query = `?release_id=${parseInt(this.props.match.params.id, 10)}`
+        axios.get(`${window.location.origin}/api/fetch_release${query}`)
+        .then((release) => {
             this.setState({
                 releaseId: release.data[0].id,
                 releaseArtist: release.data[0].artist,
@@ -35,7 +35,7 @@ class UpdateRelease extends Component {
         });
     }
 
-    updateRelease = event => {
+    updateRelease = () => {
         axios.put(window.location.origin + '/api/update_release', {
             release_id: parseInt(this.state.releaseId, 10),
             artist: this.state.releaseArtist,
@@ -45,38 +45,42 @@ class UpdateRelease extends Component {
             release_date: this.state.releaseDate,
             password: this.state.releasePassword,
             info_text: this.state.releaseInfoText
-        }).then(this.redirect());
+        }).then(success => {
+            if (success.data === true) {
+                this.redirect();
+            }
+        });
     }
 
     handleArtistInput = event => {
-        this.setState({ releaseArtist: event.target.value });
+        this.setState({releaseArtist: event.target.value});
     }
 
     handleTitleInput = event => {
-        this.setState({ releaseTitle: event.target.value });
+        this.setState({releaseTitle: event.target.value});
     }
 
     handleCatNrInput = event => {
-        this.setState({ releaseCatNr: event.target.value });
+        this.setState({releaseCatNr: event.target.value});
     }
 
     handlePasswordInput = event => {
-        this.setState({ releasePassword: event.target.value });
+        this.setState({releasePassword: event.target.value});
     }
 
     handleInfoTextInput = event => {
-        this.setState({ releaseInfoText: event.target.value});
+        this.setState({releaseInfoText: event.target.value});
     }
 
     handleReleaseDateInput = event => {
-        this.setState({ releaseDate: event.target.value});
+        this.setState({releaseDate: event.target.value});
     }
 
     handleRatingInput = event => {
         if (this.state.rating === false) {
-            this.setState({ rating: event.target.value });
+            this.setState({rating: event.target.value});
         } else {
-            this.setState({ rating: false });
+            this.setState({rating: false});
         }
     }
 
@@ -94,8 +98,7 @@ class UpdateRelease extends Component {
                     <div className="verticalWrapper">
                         <div className="UpdateReleaseFiles">
                             <p>For updating files<br/>Please redo the uploading process<br/>and delete this version</p> 
-                        </div>
-                        
+                        </div>                        
                         <UpdateReleaseInfo 
                             handleArtist={this.handleArtistInput}
                             handleTitle={this.handleTitleInput}

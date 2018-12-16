@@ -14,24 +14,15 @@ class Release extends Component {
     }
 
     componentDidMount(){
-        axios.post(window.location.origin + '/api/fetch_release', {
-            release_id: parseInt(this.props.match.params.id, 10)
-        }).then(release => {
-            this.setState({ release : release.data });
-
-            axios.post(window.location.origin + '/api/fetch_label', {
-                user_id: this.state.release[0].user_id
-            }).then(release => {
-                this.setState({ labelName : release.data[0].label_name })
-            }); 
-
+        let query = `?release_id=${parseInt(this.props.match.params.id, 10)}`
+        axios.get(`${window.location.origin}/api/fetch_release${query}`)
+        .then(release => {
+            let tracks = release.data[0].files.split('|')
+            this.setState({
+                release :release.data[0],
+                relesaeTracks: tracks
+            });
         }); 
-
-        axios.post(window.location.origin + '/api/fetch_release_tracks', {
-            release_id: parseInt(this.props.match.params.id, 10)
-        }).then(tracks => {
-            this.setState({ relesaeTracks : tracks.data })
-        });     
 
         const alreadyGotAccess = JSON.parse(localStorage.getItem(`AccessTo:${parseInt(this.props.match.params.id, 10)}`));     
         if (alreadyGotAccess === true) {
@@ -44,27 +35,27 @@ class Release extends Component {
     }
 
     handleAccess = () => {
-        if (this.state.password === this.state.release[0].password) {
+        if (this.state.password === this.state.release.password) {
             this.setState({access: true});
             localStorage.setItem(`AccessTo:${parseInt(this.props.match.params.id, 10)}`, true);
         }
     }
 
     render(){
-        if (this.state.release.length !== 0 && this.state.relesaeTracks.length !== 0) {
+        if (this.state.release) {
             return (
                 <React.Fragment>
                     {
-                        this.state.release[0].activated === 1 ? (
+                        this.state.release.activated === 1 ? (
                             this.state.access === true ? (
                                 <ReleaseContent
-                                    releaseData={this.state.release[0]}
+                                    releaseData={this.state.release}
                                     tracks={this.state.relesaeTracks}
                                 />                         
                             ) : (
                                 <ReleaseLogin                     
-                                    releaseData={this.state.release[0]}
-                                    labelName={this.state.labelName}
+                                    releaseData={this.state.release}
+                                    labelName={this.state.release.label_name}
                                     handlePassword={this.handlePassword}
                                     handleAccess={this.handleAccess}
                                 /> 
