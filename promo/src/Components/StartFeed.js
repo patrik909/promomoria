@@ -27,10 +27,9 @@ class Feed extends Component {
         });     
     }
 
-    removeRelease = event => { 
-        axios.post('api/delete_release', {
-            release_id: event.target.value
-        }).then(this.fetchAllReleases());
+    removeRelease = () => { 
+        axios.delete('api/delete_release', {data: {release_id: this.state.releaseToDelete.id}})
+        .then(this.fetchAllReleases());
         // After removing release & fetched releases, clean state and close modal.
         this.closeModal();     
     }
@@ -59,18 +58,19 @@ class Feed extends Component {
     }
 
     openModal = event => {
-        axios.post('/api/fetch_release', {
-            release_id: event.target.value
-        }).then(release => {
+        let query = `?release_id=${event.target.value}`
+        axios.get(`api/fetch_release${query}`)
+        .then(release => {
             // Set useful data to object and open modal.
             this.setState({
                 releaseToDelete: {
                     id: release.data[0].id,
                     title: release.data[0].title,
-                    artist: release.data[0].artist
+                    artist: release.data[0].artist,
+                    cat_number: release.data[0].cat_number
                 },
                 modal: 'open'     
-            })
+            });
         }); 
     }
 
@@ -135,7 +135,7 @@ class Feed extends Component {
                         <div className={"Modal Delete " + this.state.modal}>
                             <div className="ModalContainer">
                                 <p>Are you sure that you want to delete</p>
-                                <p><span>{this.state.releaseToDelete.title} by {this.state.releaseToDelete.artist}</span></p>
+                                <p><span>{this.state.releaseToDelete.title} - {this.state.releaseToDelete.artist} {'(' + this.state.releaseToDelete.cat_number + ')'}</span></p>
                                 <div>
                                     <Button 
                                         innerText={'No'}

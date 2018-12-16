@@ -198,59 +198,33 @@ app.put('/update_release', (req, res) => {
     );
 });
 
-
-/* ABOVE IS CLEANED */
-
-// Fetch tracks
-/* Merge this with function above */
-app.post('/fetch_release_tracks', (req, res) => {
-    const releaseId = req.body.release_id;
-    connection.query(`SELECT * FROM tracks WHERE release_id = '${releaseId}'`,    
-        function (error, results, fields) { 
-            res.send(results)
-        }
-    );
-});
-
+/* --- HANDLING DELETING DATA / FILES --- */
 // Delete release and the files related to release.
-app.post('/delete_release', (req, res) => {
+app.delete('/delete_release', (req, res) => {
     const releaseId = req.body.release_id;
 
     connection.query(
         `SELECT track_file FROM tracks WHERE release_id = '${releaseId}'`, 
         function (error, results, fields) { 
             results.map(track => {
-                fs.unlink(`uploads/tracks/${track.track_file}`);
+                // After file-name been fetched, loop array of tracks to be deleted from server.
+                fs.unlink(`uploads/tracks/${track.track_file}`,(error)=>{ results ? (console.log('success')) : (console.log(error)) });
             })
         }
     );
     connection.query(
         `SELECT image_file FROM artwork WHERE release_id = '${releaseId}'`, 
-        function (error, results, fields) { 
-            results.map(artwork=> {
-                fs.unlink(`uploads/artwork/${artwork.image_file}`);
-            })
+        (error, results, fields) => { 
+            // Deleting the artwork from server.
+            fs.unlink(`uploads/artwork/${results[0].image_file}`,(error)=>{ results ? (console.log('success')) : (console.log(error)) });
         }
     );
-
-    connection.query(
-        `DELETE FROM releases WHERE releases.id = '${releaseId}'`,    
-        (error, results, fields) => {          
-            connection.query(
-                `DELETE FROM tracks WHERE release_id = '${releaseId}'`, 
-                function (error, results, fields) { 
-          
-                }
-            );
-            connection.query(
-                `DELETE FROM artwork WHERE release_id = '${releaseId}'`, 
-                function (error, results, fields) { 
-          
-                }
-            );
-        }
-    );
+    // Deletes data from database.
+    connection.query(`DELETE r.*, t.*, a.* FROM releases r LEFT JOIN tracks t ON t.release_id = r.id LEFT JOIN artwork a ON a.release_id WHERE r.id = ${releaseId}`);
 });
+
+
+/* ABOVE IS CLEANED */
 
 // Add feedback
 app.post('/add_feedback', (req, res) => {
@@ -270,7 +244,7 @@ app.post('/add_release', (req, res) => {
     // New release data
     const newRelease = req.body;
     connection.query(
-        `insert into  releases(user_id,artist,title,cat_number,info_text,release_date,rating,password,activated) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.release_date}','${newRelease.rating}','${newRelease.password}','1')`, 
+        `insert into releases(user_id,artist,title,cat_number,info_text,release_date,rating,password,activated) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.release_date}','${newRelease.rating}','${newRelease.password}','1')`, 
         function (error, results, fields) { 
             console.log(results)
             console.log(error)
@@ -296,27 +270,26 @@ app.post('/add_release', (req, res) => {
     );
 });
 
-var storage = multer.diskStorage({
+const artworkStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/artwork/')
+        cb(null, 'uploads/artwork/');
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname)
+        cb(null, Date.now() + '-' + file.originalname);
     }
 });
-const upload = multer({ storage })
+const artworkUpload = multer({storage: artworkStorage});
 
-/* Should able to use same function for both tracks and artwork */ 
-app.post('/upload_artwork', upload.single('artwork'), (req, res) => {
-    console.log(req.file)
-    if (req.file)
-        res.json({
+app.post('/upload_artwork', artworkUpload.single('artwork'), (req, res) => {
+    if (req.file) {
+         res.json({
             imageUrl: `artwork/${req.file.filename}`,
             imageName: req.file.filename
-        });
-    else 
-        res.status("409").json("No Files to Upload.");
+        });       
+    }
 });
+
+
 
 
 // Delete artwork
@@ -334,7 +307,7 @@ const trackStorage = multer.diskStorage({
         cb(null, Date.now() + '-' + file.originalname)
     }
 });
-const trackUpload = multer({ storage: trackStorage })
+const trackUpload = multer({storage: trackStorage});
  
 /* Should able to use same function for both tracks and artwork */ 
 app.post('/upload_tracks', trackUpload.single('track'), (req, res) => {

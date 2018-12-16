@@ -16,7 +16,8 @@ class Promomoria extends Component {
 
     state = {
         // Holds the users id when logged in to app.
-        loggedInUser: false
+        // loggedInUser: false
+        loggedInUser: {id: 1, label_name: "Arsenik"}
     }
 
     componentDidMount(){
