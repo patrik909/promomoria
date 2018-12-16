@@ -148,6 +148,7 @@ app.post('/add_user', (req, res) => {
 });
 
 /* --- HANDLING GETS --- */
+
 // General SELECT * FROM query.
 app.get('/fetch_all', (req, res) => {
     const table = req.query.table;
@@ -174,7 +175,37 @@ app.get('/fetch_release', (req, res) => {
     );
 });
 
-/* --- HANDLING RELEASE UPDATES --- */
+/* ---- HANDLING POSTS ---- */
+
+// Add release
+app.post('/add_release', (req, res) => {
+    const newRelease = req.body;
+    // Adding the new release information to database.
+    connection.query(
+        `insert into releases(user_id,artist,title,cat_number,info_text,release_date,rating,password,activated) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.release_date}','${newRelease.rating}','${newRelease.password}','1')`, 
+        (error, results, fields) => { 
+            res.send(results);
+
+            // Adding artwork name to database.
+            connection.query(`insert into artwork(release_id,image_file) values('${results.insertId}','${newRelease.artwork_name}')`);
+
+            newRelease.tracks.map((track, index) => {
+                // Looping tracks array, adding track-name and index på database.
+                connection.query(`insert into tracks(release_id,track_file,track_index) values('${results.insertId}','${track}','${index + 1}')`);                
+            });
+        }
+    );
+});
+
+// Add feedback
+app.post('/add_feedback', (req, res) => {
+    const feedbackData = req.body;
+    // Adding feedback information to database.
+    connection.query(`insert into feedback(release_id,artist_name,feedback,rating) values('${feedbackData.release_id}','${feedbackData.artist}','${feedbackData.feedback}','${feedbackData.rating}')`);
+});
+
+/* ---- HANDLING UPDATES ---- */
+
 // Update release status.
 app.put('/update_release', (req, res) => {
     const releaseId = req.body.release_id;
@@ -198,17 +229,18 @@ app.put('/update_release', (req, res) => {
     );
 });
 
-/* --- HANDLING DELETING DATA / FILES --- */
+/* ---- HANDLING DELETE ---- */
+
 // Delete release and the files related to release.
 app.delete('/delete_release', (req, res) => {
     const releaseId = req.body.release_id;
 
     connection.query(
         `SELECT track_file FROM tracks WHERE release_id = '${releaseId}'`, 
-        function (error, results, fields) { 
+        (error, results, fields) => { 
             results.map(track => {
                 // After file-name been fetched, loop array of tracks to be deleted from server.
-                fs.unlink(`uploads/tracks/${track.track_file}`,(error)=>{ results ? (console.log('success')) : (console.log(error)) });
+                fs.unlink(`uploads/tracks/${track.track_file}`,(error)=>{ error ? (console.log(error)) : (console.log('success')) });
             })
         }
     );
@@ -216,7 +248,7 @@ app.delete('/delete_release', (req, res) => {
         `SELECT image_file FROM artwork WHERE release_id = '${releaseId}'`, 
         (error, results, fields) => { 
             // Deleting the artwork from server.
-            fs.unlink(`uploads/artwork/${results[0].image_file}`,(error)=>{ results ? (console.log('success')) : (console.log(error)) });
+            fs.unlink(`uploads/artwork/${results[0].image_file}`,(error)=>{ error ? (console.log(error)) : (console.log('success')) });
         }
     );
     // Deletes data from database.
@@ -224,51 +256,9 @@ app.delete('/delete_release', (req, res) => {
 });
 
 
-/* ABOVE IS CLEANED */
-
-// Add feedback
-app.post('/add_feedback', (req, res) => {
-    const feedbackData = req.body;
-    connection.query(
-        `insert into feedback(release_id,artist_name,feedback,rating) values('${feedbackData.release_id}','${feedbackData.artist}','${feedbackData.feedback}','${feedbackData.rating}')`, 
-        function (error, results, fields) { 
-            res.send('done');
-        }
-    );
-});
 
 /* --- CLEAN ADD RELEASE - START -- */
 
-// Add release
-app.post('/add_release', (req, res) => {
-    // New release data
-    const newRelease = req.body;
-    connection.query(
-        `insert into releases(user_id,artist,title,cat_number,info_text,release_date,rating,password,activated) values('${newRelease.user_id}','${newRelease.artist}','${newRelease.title}','${newRelease.cat_nr}','${newRelease.info_text}','${newRelease.release_date}','${newRelease.rating}','${newRelease.password}','1')`, 
-        function (error, results, fields) { 
-            console.log(results)
-            console.log(error)
-            res.send(results);
-
-            connection.query(
-                `insert into artwork(release_id,image_file) values('${results.insertId}','${newRelease.artwork_name}')`, 
-                function (error, results, fields) { 
-          
-                }
-            );
-
-            newRelease.tracks.map((track, index) => {
-                connection.query(
-                    `insert into tracks(release_id,track_file,track_index) values('${results.insertId}','${track}','${index + 1}')`, 
-                    function (error, results, fields) { 
-              
-                    }
-                );                
-            })
-
-        }
-    );
-});
 
 const artworkStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -288,9 +278,6 @@ app.post('/upload_artwork', artworkUpload.single('artwork'), (req, res) => {
         });       
     }
 });
-
-
-
 
 // Delete artwork
 /* Should able to use same function for both tracks and artwork */
