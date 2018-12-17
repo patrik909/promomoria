@@ -2,6 +2,7 @@ html {
   font-size: 10px;
 
   body {
+    min-height: 100vh;
     margin: 0;
     padding: 0 1.5rem;
     background: $main-color;
@@ -10,10 +11,10 @@ html {
   
     header {
       position: relative;
-      height: 15vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      height: 15vh;
       font-size: 3.4rem;
   
       div {
@@ -31,8 +32,8 @@ html {
         }
   
         h2 {
-          display: none;
           z-index: 20;
+          display: none;
         }
       }
   
@@ -111,9 +112,10 @@ html {
     }
 
     main.Feed {
+      min-height: 62vh;
       width: 100%;
       margin: auto;
-      padding-top: 2em;
+      padding-top: 8vh;
       font-size: 1.8rem;
 
       h3 {
@@ -199,9 +201,9 @@ html {
             }
 
             .LineSeperator {
-              border-bottom: 0.1em solid $main-color;
               margin: 0 0.7em;
-              width: 100%
+              width: 100%;
+              border-bottom: 0.1em solid $main-color;
             }  
           }
 
@@ -226,17 +228,17 @@ html {
 
     .ArtworkHolder {
       @include center-content;
-      height: 24em;
-      width: 100%;
       position: relative;
       overflow: hidden;
+      height: 24em;
+      width: 100%;
 
       img {
-        width: 100%;
         position: absolute;
         left: 50%;
-        margin-left: -50%;
         top: 50%;
+        width: 100%;
+        margin-left: -50%;
         margin-top: -50%;
       }
     }
@@ -247,9 +249,7 @@ html {
         display: flex;
         flex-direction: column;
         max-width: 68em;
-        margin: auto;
-        margin-top: 3.5em;
-        margin-bottom: 3em;
+        margin: 3.5em auto 3em auto;
         font-size: 1.4rem;
     }
 
@@ -262,7 +262,7 @@ html {
         min-height: 10em;
         width: 100%;
         margin-right: 1.3em;
-        background: #393939;
+        background: $dark-accent-color;
         color: $main-color-hover;
         font-weight: 700;
         text-align: center;
@@ -270,9 +270,9 @@ html {
 
       .AddReleaseFiles {
         width: 100%;
-        background: #393939;
         padding: 1em;
         box-sizing: border-box;
+        background: $dark-accent-color;
 
         .helper {
           margin-bottom: 0.5em;
@@ -282,30 +282,30 @@ html {
         }
 
         .ArtworkHolder {
-          margin-bottom: 1em;
           height: 20em;
+          margin-bottom: 1em;
           background:rgb(71, 71, 71);
           color: $main-color;
           text-transform: lowercase;
 
           .ArtworkFileInput {
             display: flex;
-            flex-direction: column;
             align-items: center;
+            flex-direction: column;
 
             .ArtworkPlaceholderIcon {
               @include center-content;
               height: 5.5em;
               width: 5.5em;
-              background: $main-color;
               border-radius: 50%;
+              background: $main-color;
               transition: $fast-transition;
 
               .CenterHole {
                 height: 0.5em;
                 width: 0.5em;
-                background:rgb(71, 71, 71);
                 border-radius: 50%;
+                background:rgb(71, 71, 71);
               }
             }   
 
@@ -342,17 +342,17 @@ html {
 
           .DeleteArtwork {
             @include center-content;
-            padding: 0.2em 0.5em;
-            background: $main-color;
-            z-index: 100;
             position: absolute;
-            height: 1.6em;
-            width: 1.6em;
             right: 0.5em;
             top: 0.5em;
+            z-index: 100;
+            height: 1.6em;
+            width: 1.6em;
+            padding: 0.2em 0.5em;
+            border-radius: 50%;  
+            background: $main-color;         
             font-weight: 700;
             font-size: 1em;
-            border-radius: 50%;
             transition: $fast-transition;
 
             &:hover {
@@ -380,14 +380,14 @@ html {
             transition: $fast-transition;
 
             p {
-              margin: 0;
               height: 3rem;
+              margin: 0;
             }
           }
 
           .TrackProcessBar {
-            padding: 1px;
             height: 1em;
+            padding: 1px;
             border: 1px solid $main-color;
 
             .FileProcessed {
@@ -406,8 +406,7 @@ html {
               color: $main-color;
 
               p {
-                margin: 0;
-                margin-bottom: 0.4em;
+                margin: 0 0 0.4em 0;
                 font-size: 0.9em;
                 font-weight: 700;
               }
@@ -418,12 +417,12 @@ html {
                 button {
                   @include uppercase;
                   @include center-content;
-                  margin-right: 0.6em;
                   flex-direction: row;
-                  text-decoration: underline;
+                  margin-right: 0.6em;
+                  padding: 0;
                   color: $main-color;
                   font-size: 0.7em;
-                  padding: 0;
+                  text-decoration: underline;              
                   transition: $fast-transition;
   
                   img {
@@ -446,9 +445,9 @@ html {
       }
 
       .AddReleaseInfo {
-        margin-top: 1.4em;
         width: 100%;
-        color: #393939;
+        margin-top: 1.4em;
+        color: $dark-accent-color;
 
         .helper {
           margin-bottom: 0.2em;
@@ -471,8 +470,7 @@ html {
           align-items: center;
     
           p {
-            margin: 0;
-            margin-left: 0.8em;
+            margin: 0 0 0 0.8em;
             text-transform: none;
           }
     
@@ -488,17 +486,17 @@ html {
 
         textarea {
           margin-bottom: -0.4em;
-          font-size: 0.8em;
           line-height: 1em;
+          font-size: 0.8em;
         }
 
         .UsedCharacters {
-          padding: 0.7em 0.8em; 
           margin: 0;
+          padding: 0.7em 0.8em; 
           background: white;
-          text-align: right;
           font-style: normal;
           font-weight: 700;
+          text-align: right;
         }
       }
 
@@ -508,8 +506,8 @@ html {
         button {
           @include uppercase;
           width: 10em;
-          font-size: 1.2em;
           padding: 0.5em;
+          font-size: 1.2em;
   
           &:nth-child(1) {
             color: $accent-color;
@@ -573,7 +571,7 @@ html {
           display: flex;
           flex-direction: column;
           align-items: center;
-          
+
           input, 
           button {
             max-width: 12em;
@@ -585,8 +583,8 @@ html {
           }
 
           button {
-            width: 100%;
             @include uppercase;
+            width: 100%;
             padding: 0.4em;
             background: $accent-color;
             color: $main-color;
@@ -615,7 +613,7 @@ html {
         .ReleaseFilesHolder { 
           padding: 0.8em;
           padding-bottom: 2em;
-          background:#393939;
+          background: $dark-accent-color;
         }
 
         .Audioplayer {
@@ -630,19 +628,19 @@ html {
               button {
                 @include center-content;
                 position: relative;
-                margin: 0.2em;
-                width: 3em;
                 height: 3em;
-                background: $main-color;
+                width: 3em;
+                margin: 0.2em;
                 border-radius: 50%;
+                background: $main-color;
                 transition: $fast-transition;
 
                 img {
+                  position: absolute;
+                  right: 0.6em;
+                  top: 0.6em;
                   height: 1.8em;
                   width: 1.8em;
-                  position: absolute;
-                  top: 0.6em;
-                  right: 0.6em;
                 }
 
                 &:hover {
@@ -653,10 +651,10 @@ html {
                   right: 0.4em;
                 }
                 .StopIcon {
-                  margin-left: 0.05em;
                   height: 1em;
                   width: 1em;
-                  background: #393939;
+                  margin-left: 0.05em;
+                  background: $dark-accent-color;
                 }
               }
             }
@@ -665,9 +663,9 @@ html {
               display: flex;
               flex-direction: column;
               justify-content: space-between;
+              width: 100%;
               margin-left: 0.7em;
               padding: 0.4em 0;
-              width: 100%;
 
               .Time {
                 color: $main-color;
@@ -676,9 +674,9 @@ html {
               }
 
               .ProcessBar {
+                height: 0.8em;
                 margin-bottom: 0.2em;
                 padding: 1px;
-                height: 0.8em;
                 border: 1px solid $main-color;
 
                 .Processed {
@@ -694,8 +692,8 @@ html {
 
             li {
               padding: 0.5em;
-              transition: $fast-transition;
               border-bottom: 1px solid $main-color;
+              transition: $fast-transition;
 
               button {
                 width: 100%;
@@ -704,7 +702,7 @@ html {
               }
 
               &:hover {
-                background: #5f5f5f;
+                background: rgb(95, 95, 95);
                 font-weight: 700;
 
                 button {
@@ -731,11 +729,12 @@ html {
       }
 
       .ReleaseInfoFeedback {
-        color: #393939;
+        color: $dark-accent-color;
         text-transform: lowercase;
 
         .ReleaseInfo {
           margin-top: 1em;
+
           .ReleaseArtist {
             display: flex;
             align-items: center;
@@ -748,10 +747,10 @@ html {
             }
   
             .LineSeperator {
+              width: 100%;
               margin-top: 1.2em;
               margin-left: 0.8em;
-              border-bottom: 2px solid #393939;
-              width: 100%
+              border-bottom: 2px solid $dark-accent-color;
             }
           }       
   
@@ -768,16 +767,16 @@ html {
             }         
             
             .LineSeperator {
+              width: 100%;
               margin-top: 0.2em;
               margin-right: 0.8em;
-              border-bottom: 2px solid #393939;
-              width: 100%
+              border-bottom: 2px solid $dark-accent-color;
             }
           }  
   
           p {
-            margin-bottom: 2em;
-            min-height: 12em;      
+            min-height: 12em;  
+            margin-bottom: 2em;    
             font-size: 0.9em;
             line-height: 1.4em;
           }
@@ -831,12 +830,12 @@ html {
               font-weight: 700;
 
               .RatingCircle {
-                margin-left: 0.5em;
                 height: 1rem;
                 width: 1rem;
+                margin-left: 0.5em;
                 border: 2px solid $accent-color;
-                background: $main-color;
                 border-radius: 50%;
+                background: $main-color;
                 
                 &:hover {
                   background: $accent-color;
@@ -850,31 +849,30 @@ html {
           }
 
           .ThankYou {
-            display: flex;
-            flex-direction: column;
             @include center-content;
+            position: absolute;
+            flex-direction: column;
             height: 98%;
             width: 100%;
             margin: 0.4em 0 0.8em 0;
-            position: absolute;
             background: rgba(0, 0, 0, 0.8);
 
             p {
               margin-bottom: 2em;
               color: white;
-              text-transform: lowercase;
               font-size: 1.2em;
               font-style: italic;
               font-weight: 700;
+              text-transform: lowercase;
             }
 
             button {
               @include uppercase;
               padding: 1em 1.5em;
+              border: 2px solid white;
               color: white;
               font-size: 1.2em;
               font-weight: 700;
-              border: 2px solid white;
               transition: $fast-transition;
             }
 
@@ -901,9 +899,9 @@ html {
   
       a {
         color: $accent-color;
-        text-decoration: none;
         font-style: normal;
         font-weight: 700;
+        text-decoration: none;
         transition: $fast-transition;
 
         &:hover {
@@ -914,20 +912,19 @@ html {
     }
   }
 
-  /* not cleaned */
-
   #modal {
 
     .Modal.close {
       display: none;
     }
+
     .Modal.open {
       @include center-content;
       position: fixed;
-      height: 100%;
-      width: 100%;
       top: 0;
       left: 0;
+      height: 100%;
+      width: 100%;
       background: rgba(0, 0, 0, 0.2);
 
       .ModalContainer {
@@ -954,12 +951,17 @@ html {
           display: flex;
 
           button {
+            width: 4em;
             margin: 0.8em 0.5em;
             padding: 0.6em 0;
-            width: 4em;
-            background: black;
+            background: $dark-accent-color;
             color: white;
             font-size: 1.3rem;
+            transition: $fast-transition;
+
+            &:hover {
+              background: black;
+            }
           }
         }
       }
@@ -970,9 +972,9 @@ html {
         font-style: normal;
 
         p {
-          font-size: 1.4rem;
           margin: 0;
           margin-bottom: 0.5em;
+          font-size: 1.4rem;
 
           span {
             font-weight: 300;
@@ -989,12 +991,11 @@ html {
 
         button {
           @include uppercase;
-          margin-top: 1.5em;
           width: 6.2em;
+          margin-top: 1.5em;
           font-size: 0.9em;
         }
-      }
-  
+      } 
     }
   }
 }
