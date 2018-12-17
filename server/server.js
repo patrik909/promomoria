@@ -5,7 +5,8 @@ const port = 3001;
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-
+const nodemailer = require('nodemailer');
+const mailCredentials = require('./mailCredentials.js');
 const fs = require('fs');
 const multer = require('multer');
 const cors = require('cors');
@@ -21,6 +22,14 @@ const connection = mysql.createConnection({
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('uploads'));
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: mailCredentials.USER,
+        pass: mailCredentials.PASS,
+    },
+});
 
 /* ---- HANDLING USER ---- */
 
@@ -119,6 +128,22 @@ app.post('/add_user', (req, res) => {
                     `insert into users(password,email,label_name) values('${hashedPassword}','${email}','${labelName}')`, 
                     (error, results) => { 
                         if (results) {
+                            const mailOptions = {
+                                from: email,
+                                to: 'patrik@arsenikrecords.se',
+                                subject: 'New user has been registered',
+                                html: `
+                                    <p>New registered has been registered.</p>
+                                    <p>Contact info:</p>
+                                    <p>${labelName}</p>
+                                    <p>${email}</p>
+                                `,
+                            };
+                            transporter.sendMail(mailOptions, (err, info) => {
+                                if (err) console.log(err);
+                                else console.log(info);
+                            });
+                            // Success, send to React front end.
                             res.send({
                                 success: true,
                                 message: ''
