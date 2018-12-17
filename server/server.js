@@ -23,6 +23,7 @@ app.use(cors());
 app.use(express.static('uploads'));
 
 /* ---- HANDLING USER ---- */
+
 // Change this to a env-variable in production.
 app.use(session({
     secret: 'ssshhhhh',
@@ -32,7 +33,7 @@ app.use(session({
 
 let sess;
 // Check for session.
-app.get('/',function(req,res){
+app.get('/', (req,res) => {
     sess = req.session;
 
     if(sess.user_id) {
@@ -264,11 +265,9 @@ app.delete('/cancel_upload', (req, res) => {
     })
 });
 
+/* ---- HANDLING FILES ---- */
 
-
-/* --- CLEAN ADD RELEASE - START -- */
-
-
+// Sets destination and new file name to file.
 const artworkStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/artwork/');
@@ -279,18 +278,15 @@ const artworkStorage = multer.diskStorage({
 });
 const artworkUpload = multer({storage: artworkStorage});
 
+// Receives the artwork-file.
 app.post('/upload_artwork', artworkUpload.single('artwork'), (req, res) => {
     if (req.file) {
-         res.json({
-            imageUrl: `artwork/${req.file.filename}`,
-            imageName: req.file.filename
-        });       
+        // Send the new artwork name back to React.
+         res.json({imageName: req.file.filename});       
     }
 });
 
-
-
-
+// Sets destination and new file name to file.
 const trackStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/tracks/')
@@ -301,14 +297,12 @@ const trackStorage = multer.diskStorage({
 });
 const trackUpload = multer({storage: trackStorage});
  
-/* Should able to use same function for both tracks and artwork */ 
+// Receives the track-file.
 app.post('/upload_tracks', trackUpload.single('track'), (req, res) => {
-    if (req.file)
-        res.json({
-            trackName: req.file.filename
-        });
-    else 
-        res.status("409").json("No Files to Upload.");
+    if (req.file) {
+        // Send the new track name back to React.
+        res.json({trackName: req.file.filename});
+    }
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
