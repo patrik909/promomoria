@@ -2,5 +2,3 @@ promo/node_modules/
 server/node_modules/
 server/uploads/artwork/
 server/uploads/tracks/
-server/mailCredentials.js
-
