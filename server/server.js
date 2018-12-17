@@ -70,21 +70,29 @@ app.post('/login', (req, res) => {
     const password = req.body.password;
 
     connection.query(
-        `SELECT id, label_name, password FROM users WHERE email = '${email}'`, 
+        `SELECT id, label_name, password, active FROM users WHERE email = '${email}'`, 
         (error, results, fields) => { 
             if (results) {
                 // Bcrypt is matching the password against the result-hashed-password.
                 bcrypt.compare(password, results[0].password, function (err, result) {
                     if (result === true) {
-                        // Sets the user id for session.
-                        sess = req.session;
-                        sess.user_id=results[0].id;
-                        // Success response sent to React app.
-                        res.send({
-                            success: true,
-                            user_id: results[0].id,
-                            label_name: results[0].label_name
-                        });
+                        if (results[0].active === 1) {
+                            // Sets the user id for session.
+                            sess = req.session;
+                            sess.user_id=results[0].id;
+                            // Success response sent to React app.
+                            res.send({
+                                success: true,
+                                user_id: results[0].id,
+                                label_name: results[0].label_name
+                            });                           
+                        } else {
+                            // If password is not correct.
+                            res.send({
+                                success: false,
+                                message: 'Your account is not activated yet'
+                            });
+                        }
                     } else {
                         // If password is not correct.
                         res.send({
@@ -125,7 +133,7 @@ app.post('/add_user', (req, res) => {
             if (!results.length) {
                 // If email doesnt exist, add user to database.
                 connection.query(
-                    `insert into users(password,email,label_name) values('${hashedPassword}','${email}','${labelName}')`, 
+                    `insert into users(password,email,label_name,active) values('${hashedPassword}','${email}','${labelName}','0')`, 
                     (error, results) => { 
                         if (results) {
                             const mailOptions = {
