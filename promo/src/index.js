@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './css/main.css';
 import Promomoria from './Promomoria';
 import * as serviceWorker from './serviceWorker';
 
