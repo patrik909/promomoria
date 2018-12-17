@@ -1,2 +1,4 @@
-server/node_modules/
-server/uploads/artwork/
+/node_modules
+.DS_Store
+package-lock.json
+mailCredentials.js
