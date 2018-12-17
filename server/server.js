@@ -158,9 +158,7 @@ app.get('/fetch_all', (req, res) => {
 
     connection.query(
         `SELECT * FROM ${table} WHERE ${column} = '${searchValue}' ORDER BY ${orderByValue} DESC`,    
-        (error, results, fields) => { 
-            res.send(results)
-        }
+        (error, results, fields) => { res.send(results); }
     );
 });
 
@@ -169,9 +167,7 @@ app.get('/fetch_release', (req, res) => {
     const releaseId = req.query.release_id;
         connection.query(
         `SELECT distinct u.id AS userId, u.label_name AS label_name, r.*, a.image_file, (select GROUP_CONCAT(track_file SEPARATOR '|') from tracks where release_id = r.id ORDER BY track_index) AS files FROM releases r LEFT JOIN users u ON u.id=r.user_id LEFT JOIN artwork a ON a.release_id LEFT JOIN tracks t ON t.release_id = r.id WHERE r.id=${releaseId}`,
-        (error, results, fields) => { 
-            res.send(results)
-        }
+        (error, results, fields) => { res.send(results); }
     );
 });
 
@@ -222,9 +218,7 @@ app.put('/update_release', (req, res) => {
     connection.query(
         `UPDATE releases SET ${query} WHERE releases . id = '${releaseId}'`,    
         (error, results, fields) => { 
-            if (results) {
-                res.send(true);
-            }
+            if (results) { res.send(true); }
         }
     );
 });
@@ -255,6 +249,21 @@ app.delete('/delete_release', (req, res) => {
     connection.query(`DELETE r.*, t.*, a.* FROM releases r LEFT JOIN tracks t ON t.release_id = r.id LEFT JOIN artwork a ON a.release_id WHERE r.id = ${releaseId}`);
 });
 
+// Delete files for release that is not submitted.
+app.delete('/cancel_upload', (req, res) => {
+    // Holds the folder where files to delete is located.
+    const uploadFolder = req.body.upload_folder;
+    // Holds the name of file to be deleted.
+    let fileName = req.body.file_name;
+    if (fileName !== []) {
+        // If not an array, create an array of value, which makes it possible to reuse the same unlink function in map below.
+        fileName = [fileName];
+    }
+    fileName.map(name => {
+        fs.unlink(`uploads/${uploadFolder}/${name}`,(error)=>{ error ? (console.log(error)) : (console.log('success')) });
+    })
+});
+
 
 
 /* --- CLEAN ADD RELEASE - START -- */
@@ -279,12 +288,8 @@ app.post('/upload_artwork', artworkUpload.single('artwork'), (req, res) => {
     }
 });
 
-// Delete artwork
-/* Should able to use same function for both tracks and artwork */
-app.post('/delete_artwork', (req, res) => {
-    const artworkName = req.body.imageName;
-    fs.unlink(`uploads/artwork/${artworkName}`);
-});
+
+
 
 const trackStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -304,19 +309,6 @@ app.post('/upload_tracks', trackUpload.single('track'), (req, res) => {
         });
     else 
         res.status("409").json("No Files to Upload.");
-});
-
-app.post('/delete_track', (req, res) => {
-    const trackName = req.body.trackName;
-    fs.unlink(`uploads/tracks/${trackName}`);
-});
-
-app.post('/delete_tracks', (req, res) => {
-    const trackNames = req.body.track_names;
-
-    trackNames.map(trackName => {
-        fs.unlink(`uploads/tracks/${trackName}`)
-    });
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

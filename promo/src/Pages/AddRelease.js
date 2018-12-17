@@ -106,15 +106,17 @@ class AddRelease extends Component {
         this.setState({ redirectTo: '/' });
 
         if (this.state.releaseTracks.length) {
-            axios.post('api/delete_tracks', {
-                track_names: this.state.releaseTracks
-            });          
+            axios.delete('api/cancel_upload', {data: {
+                file_name: this.state.releaseTracks,
+                upload_folder: 'tracks'
+            }});         
         }
 
         if (this.state.releaseArtwork) {
-            axios.post('api/delete_artwork', {
-                imageName: this.state.releaseArtwork
-            });
+            axios.delete('api/cancel_upload', {data: {
+                file_name: this.state.releaseArtwork,
+                upload_folder: 'artwork'
+            }}); 
         }
     }
 

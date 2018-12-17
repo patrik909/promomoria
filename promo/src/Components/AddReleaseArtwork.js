@@ -54,9 +54,10 @@ class AddReleaseArtwork extends Component {
     }
 
     removeArtwork = () => {
-        axios.post('api/delete_artwork', {
-            imageName: this.state.imageName
-        });
+        axios.delete('api/cancel_upload', {data: {
+            file_name: this.state.imageName,
+            upload_folder: 'artwork'
+        }}); 
         this.setState({
             imageName: '',
             loaded: 0

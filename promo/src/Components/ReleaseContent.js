@@ -5,7 +5,6 @@ import Button from './Parts/Button.js';
 import axios from 'axios';
 const saveAs = require('file-saver');
 
-
 class ReleaseContent extends Component {
 
     state = {
@@ -19,23 +18,23 @@ class ReleaseContent extends Component {
     componentDidMount(){
         const alreadyLeftFeedback = JSON.parse(localStorage.getItem(`FeedbackLeftOn:${parseInt(this.props.releaseData.id, 10)}`));     
         if (alreadyLeftFeedback === true) {
+            // Visitor already has left feedback, let's the visitor see the Download button without leaving feedback.
             this.setState({feedbackAdded: true});
         }
     }
 
-    handleTrack = event => {
-        console.log(event.target.value)
-    }
-
     handleRating = event => {
+        // Handling the visitors rating for release.
         this.setState({rating: event.target.value});
     }
 
     handleArtist = event => {
+        // Handling the visitors artist name.
         this.setState({artist: event.target.value});
     }
 
     handleFeedback = event => {
+        // Handling the visitors feedback for release.
         this.setState({feedback: event.target.value});
     }
 
@@ -52,6 +51,7 @@ class ReleaseContent extends Component {
             }).then(res => {
                 if (res.data === 'done') {
                     this.setState({ feedbackAdded: true });
+                    // Set localStorage to make the visitor skip this part next time visiting this page.
                     localStorage.setItem(`FeedbackLeftOn:${parseInt(this.props.releaseData.id, 10)}`, true);
                 }
             }); 
@@ -60,7 +60,7 @@ class ReleaseContent extends Component {
 
     downloadRelease = () => { 
         this.props.tracks.map(track => {
-            // Arranging the new title for track file.
+            // Arranging the title for track file.
             const trackFileInfo = `${this.props.releaseData.cat_number} ${track.track_index}.${track.track_file.substring(16)}`; 
             // Saving every track for release individually. 
             return saveAs(`http://localhost:3000/api/tracks/${track.track_file}`, 

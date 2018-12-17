@@ -35,9 +35,12 @@ class AddReleaseTracks extends Component {
     }
 
     removeTrack = event => {
-        axios.post('api/delete_track', {
-            trackName: event.target.value
-        });
+
+        axios.delete('api/cancel_upload', {data: {
+            file_name: event.target.value,
+            upload_folder: 'tracks'
+        }}); 
+
         const trackNames = [...this.state.trackNames];
         const filteredTrackNames = trackNames.filter(track => {
             return track !== event.target.value;

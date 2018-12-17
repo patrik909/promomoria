@@ -50,9 +50,9 @@ class Feed extends Component {
 
     formatTime(seconds) {
         // Converts seconds to 0:00  format.
-        const h = Math.floor(seconds / 3600)
-        const m = Math.floor((seconds % 3600) / 60)
-        const s = seconds % 60
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = seconds % 60;
         return [h, m > 9 ? m : h ? '0' + m : m || '0', s > 9 ? s : '0' + s]
             .filter(a => a)
             .join(':')
@@ -96,8 +96,8 @@ class Feed extends Component {
                     </div>
                 </div>
                 <audio className="hide" ref={audio => { this.audio = audio }} controls preload="auto" controlsList="nodownload" >           
-                        <source src={window.location.origin +  '/api/tracks/' + this.state.playTrack} type="audio/mpeg" />              
-                    </audio>
+                    <source src={window.location.origin +  '/api/tracks/' + this.state.playTrack} type="audio/mpeg" />              
+                </audio>
                 <ul className="Playlist">
                     {
                         this.props.tracks.map(track => {
