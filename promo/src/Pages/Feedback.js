@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FeedbackFeed from '../Components/FeedbackFeed.js';
 
 class Feedback extends Component {
@@ -42,7 +42,6 @@ class Feedback extends Component {
     }
 
     render() {
-
         return (
             <main className="Feedback Feed">
                 <div className="FeedbackInfo">

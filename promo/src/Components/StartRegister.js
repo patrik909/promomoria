@@ -53,7 +53,7 @@ class StartRegister extends Component {
             this.state.newPasswordRepeated === true    
         ) {
             // If no fields is empty create user:
-            axios.post('api/add_user', {
+            axios.post('http://www.arsenikrecords.se/express/add_user', {
                 email: this.state.newEmail,
                 password: this.state.newPassword,
                 label_name: this.state.newLabelName          

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router'
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import history from '../history';
 import Modal from '../Modal';
 import Button from './Parts/Button.js';
 import axios from 'axios';
@@ -9,7 +9,6 @@ class Feed extends Component {
 
     state = {
         releases: [],
-        redirectTo: false,
         releaseToDelete: {},
         modal: 'close'
     }
@@ -48,13 +47,11 @@ class Feed extends Component {
     }
 
     feedbackRelease = event => {
-        // Redirect user to feedback-page.
-        this.setState({redirectTo: '/Feedback/' + event.target.value});
+        history.push('/Feedback/' + event.target.value);
     }
 
     updateRelease = event => {
-        // Redirect user to feedback-page.
-        this.setState({redirectTo: '/Update/' + event.target.value});
+        history.push('/Update/' + event.target.value)
     }
 
     openModal = event => {
@@ -82,77 +79,73 @@ class Feed extends Component {
     }
 
     render() {
-        if (this.state.redirectTo) {
-            return <Redirect to={this.state.redirectTo} />;
-        } else {
-            return (
-                <main className="Start Feed">
-                    <h3><Link to="/Add" className="AddReleaseLink">+ Add release</Link></h3>
-                    <ul className="ReleasesFeed">           
-                        {
-                            this.state.releases ? ( 
-                                this.state.releases.map(release => {
-                                    return ( 
-                                        <li key={release.id}>
-                                            <div className="ReleaseFeedInfo">
-                                                {release.cat_number}: {release.artist} - {release.title}
-                                            </div>   
-                                            <div className="ReleaseFeedButton">
-                                                <Button 
-                                                    innerText={<Link to={'/Release/' + release.id} target="_blank">View</Link>}
-                                                />
-                                                <Button 
-                                                    innerText={'Feedback'}
-                                                    value={release.id}
-                                                    onClick={this.feedbackRelease}
-                                                />
-                                                <Button 
-                                                    innerText={release.activated === 1 ? ( 'Deactivate' ) : ( 'Activate' )}
-                                                    id={release.id}
-                                                    value={release.activated}
-                                                    onClick={this.statusRelease}
-                                                />
-                                                <Button 
-                                                    innerText={'Update'}
-                                                    value={release.id}
-                                                    onClick={this.updateRelease}
-                                                />
-                                                <Button 
-                                                    innerText={'Delete'}
-                                                    value={release.id}
-                                                    onClick={this.openModal}
-                                                />
-                                            </div>                                 
-                                        </li>
-                                    )
-                                })
-                            ) : (
-                                null
-                            )
-                        }
-                    </ul>
-                    <Modal element={document.getElementById('modal')}>
-                        <div className={"Modal Delete " + this.state.modal}>
-                            <div className="ModalContainer">
-                                <p>Are you sure that you want to delete</p>
-                                <p><span>{this.state.releaseToDelete.title} - {this.state.releaseToDelete.artist} {'(' + this.state.releaseToDelete.cat_number + ')'}</span></p>
-                                <div>
-                                    <Button 
-                                        innerText={'No'}
-                                        onClick={this.closeModal}
-                                    />
-                                    <Button 
-                                        innerText={'Yes'}
-                                        value={this.state.releaseToDelete.id}
-                                        onClick={this.removeRelease}
-                                    />                            
-                                </div>
+        return (
+            <main className="Start Feed">
+                <h3><Link to="/Add" className="AddReleaseLink">+ Add release</Link></h3>
+                <ul className="ReleasesFeed">           
+                    {
+                        this.state.releases ? ( 
+                            this.state.releases.map(release => {
+                                return ( 
+                                    <li key={release.id}>
+                                        <div className="ReleaseFeedInfo">
+                                            {release.cat_number}: {release.artist} - {release.title}
+                                        </div>   
+                                        <div className="ReleaseFeedButton">
+                                            <Button 
+                                                innerText={<Link to={'/Release/' + release.id} target="_blank">View</Link>}
+                                            />
+                                            <Button 
+                                                innerText={'Feedback'}
+                                                value={release.id}
+                                                onClick={this.feedbackRelease}
+                                            />
+                                            <Button 
+                                                innerText={release.activated === 1 ? ( 'Deactivate' ) : ( 'Activate' )}
+                                                id={release.id}
+                                                value={release.activated}
+                                                onClick={this.statusRelease}
+                                            />
+                                            <Button 
+                                                innerText={'Update'}
+                                                value={release.id}
+                                                onClick={this.updateRelease}
+                                            />
+                                            <Button 
+                                                innerText={'Delete'}
+                                                value={release.id}
+                                                onClick={this.openModal}
+                                            />
+                                        </div>                                 
+                                    </li>
+                                )
+                            })
+                        ) : (
+                            null
+                        )
+                    }
+                </ul>
+                <Modal element={document.getElementById('modal')}>
+                    <div className={"Modal Delete " + this.state.modal}>
+                        <div className="ModalContainer">
+                            <p>Are you sure that you want to delete</p>
+                            <p><span>{this.state.releaseToDelete.title} - {this.state.releaseToDelete.artist} {'(' + this.state.releaseToDelete.cat_number + ')'}</span></p>
+                            <div>
+                                <Button 
+                                    innerText={'No'}
+                                    onClick={this.closeModal}
+                                />
+                                <Button 
+                                    innerText={'Yes'}
+                                    value={this.state.releaseToDelete.id}
+                                    onClick={this.removeRelease}
+                                />                            
                             </div>
                         </div>
-                    </Modal>
-                </main>
-            );
-        }
+                    </div>
+                </Modal>
+            </main>
+        );
     }
 }
 
