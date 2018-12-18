@@ -26,8 +26,8 @@ button {
   box-sizing:border-box;
   border: none;
   outline: none;
-  font-size: 1em;
   font-family: $main-font;
+  font-size: 1em;
   resize: none;
 }
 
@@ -43,8 +43,8 @@ button {
 
 input,
 textarea {
-  padding: 0.7em 0.8em;
   margin: 0.4em 0;
+  padding: 0.7em 0.8em;
 }
 
 .hide {
@@ -65,12 +65,13 @@ label {
 }
 
 .hideInputFile {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  overflow: hidden;
+  height: 0.1px;
 	width: 0.1px;
-	height: 0.1px;
 	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
 }
 
 ul {

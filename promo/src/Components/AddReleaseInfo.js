@@ -16,7 +16,7 @@ function AddReleaseInfo(props) {
                 placeholder={'Title *'} 
                 onChange={props.handleTitle}
             />
-            <div className={'flex'}>
+            <div>
                 <Inputfield 
                     className={'half-width'}
                     placeholder={'Cat nr *'} 
@@ -28,7 +28,7 @@ function AddReleaseInfo(props) {
                     onChange={props.handlePassword}
                 />
             </div>
-            <div className={'flex'}>
+            <div>
                 <Inputfield 
                     className={'half-width'}
                     placeholder={'Release date'} 

@@ -29,6 +29,7 @@ class Promomoria extends Component {
         if (!releasePage && !updatePage && !feedbackPage) {
             // Run fetch/axios to see if user session is started.
             axios.get('api/').then((res) => {
+                console.log(res.data)
                 if (res.data.success === true) {
                     // If session is started, store necessary user info in object.
                     const userObject = {

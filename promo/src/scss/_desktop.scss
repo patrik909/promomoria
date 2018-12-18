@@ -24,7 +24,7 @@ html {
       button {
         top: 18vh;
       }
-    }
+    } /* header end tag */
 
     main {
       min-height: 68vh;
@@ -42,10 +42,6 @@ html {
       h3 {
         font-size: 0.8em;
       }
-    }
-
-    main.Release {
-      flex-direction: row;
     }
 
     main.AddRelease,
@@ -67,6 +63,7 @@ html {
     } /* main.AddRelease/UpdateRelease end tag */
   
     main.Release {
+      flex-direction: row;
 
       .ReleaseFiles {
         width: 50%;

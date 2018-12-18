@@ -451,13 +451,16 @@ html {
         .helper {
           margin-bottom: 0.2em;
         }
-
-        .half-width:nth-child(1) {
-          margin-right: 0.4rem;
-        }
-    
-        .half-width:nth-child(2) {
-          margin-left: 0.4rem;
+        div {
+          display: flex;
+          
+          .half-width:nth-child(1) {
+            margin-right: 0.4rem;
+          }
+      
+          .half-width:nth-child(2) {
+            margin-left: 0.4rem;
+          }
         }
 
         input,

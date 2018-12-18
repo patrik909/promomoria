@@ -22,7 +22,7 @@
   "homepage" : "http://promomoria.com",
   "proxy": {
     "/api": {
-      "target": "http://localhost:3001",
+      "target": "http://localhost:3001/",
       "pathRewrite": {
         "^/api": "/"
       }
