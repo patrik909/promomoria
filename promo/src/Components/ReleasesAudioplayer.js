@@ -102,7 +102,7 @@ class Feed extends Component {
                     {
                         this.props.tracks.map(track => {
                             return (
-                                <li key={track} className={ track === this.state.playTrack ? ( 'trackIsPlaying' ) : ( null ) }>
+                                <li key={track} className={ track === this.state.playTrack ? ( 'TrackIsPlaying' ) : ( null ) }>
                                     <button value={track} onClick={this.handleTrack}>{track.substring(14)}</button>
                                 </li>
                             );

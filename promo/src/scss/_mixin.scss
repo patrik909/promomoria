@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
 
+/* Mixin variables */
+
 $main-color: rgb(230, 230, 230);
 $main-color-hover: rgb(255, 255, 255);
 $accent-color: rgb(230, 32, 32);
@@ -9,6 +11,7 @@ $main-font: 'Inconsolata', monospace;
 $fast-transition: 200ms;
 
 /* General styling */
+
 .full-width {
   width: 100%;
 }
@@ -78,7 +81,8 @@ ul {
   }
 }
 
-/* includes */
+/* Includes */
+
 @mixin center-content {
   display: flex;
   justify-content: center;

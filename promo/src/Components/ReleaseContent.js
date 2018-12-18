@@ -59,11 +59,11 @@ class ReleaseContent extends Component {
     }
 
     downloadRelease = () => { 
-        this.props.tracks.map(track => {
+        this.props.tracks.map((track, index) => {
             // Arranging the title for track file.
-            const trackFileInfo = `${this.props.releaseData.cat_number} ${track.track_index}.${track.track_file.substring(16)}`; 
+            const trackFileInfo = `${this.props.releaseData.cat_number} ${index+1}.${track.substring(14)}`; 
             // Saving every track for release individually. 
-            return saveAs(`http://localhost:3000/api/tracks/${track.track_file}`, 
+            return saveAs(`http://localhost:3000/api/tracks/${track}`, 
             `${trackFileInfo}`);          
         });
         // Saving the artwork for release.

@@ -35,7 +35,7 @@ html {
           z-index: 20;
           display: none;
         }
-      }
+      } /* div end tag */
   
       .underline {
         margin: 0 0.15em 0 0.5em;
@@ -57,8 +57,8 @@ html {
           color: $accent-color-hover;
           text-decoration: underline;
         }
-      }
-    }
+      } /* button end tag */
+    } /* header end tag */
   
     main {
       min-height: 70vh;
@@ -88,7 +88,7 @@ html {
             &:hover {
               text-decoration: underline;
             }
-          }
+          } /* nth-child(1) end tag */
   
           &:nth-child(2) {
             background: $accent-color;
@@ -99,8 +99,8 @@ html {
               background: $accent-color-hover !important;
               color: $main-color-hover;
             }
-          }
-        }
+          } /* nth-child(2) end tag */
+        } /* button end tag */
 
         p {
           height: 1em;
@@ -108,8 +108,8 @@ html {
           font-size: 0.6em;
           text-align: center;
         }
-      }
-    }
+      } /* .LoginForm/RegisterForm end tag */
+    } /* main.Login/Register end tag */
 
     main.Feed {
       min-height: 62vh;
@@ -133,8 +133,8 @@ html {
           &:hover {
             color: $accent-color-hover;
           }
-        }
-      }  
+        } /* a end tag */
+      } /* h3 end tag */
       
       ul {
         margin-bottom: 2em;
@@ -144,9 +144,9 @@ html {
           padding: 0.9em 0.7em;
           background-color: $accent-color;
           color: $main-color;
-        }
-      }
-    }
+        } /* li end tag */
+      } /* ul end tag */
+    } /* main.Feed end tag */
 
     main.Start {
       ul {
@@ -168,9 +168,9 @@ html {
               color: $main-color-hover;
             }
           }
-        }
-      }
-    }
+        } /* li end tag */
+      } /* ul end tag */
+    } /* main.Start end tag */
 
     main.Feedback {
       p {
@@ -205,7 +205,7 @@ html {
               width: 100%;
               border-bottom: 0.1em solid $main-color;
             }  
-          }
+          } /* .FeedbackArtistDate end tag */
 
           .FeedbackContent {
             margin-bottom: 0.4em;
@@ -218,13 +218,13 @@ html {
             font-weight: 700;
             text-align: right;
           }
-        }
-      } 
+        } /* li end tag */
+      } /* ul end tag */ 
 
       h3 {
         text-align: center;
       }  
-    }
+    } /* main.Feedback end tag */
 
     .ArtworkHolder {
       @include center-content;
@@ -307,7 +307,7 @@ html {
                 border-radius: 50%;
                 background:rgb(71, 71, 71);
               }
-            }   
+            } /* .ArtworkPlaceholderIcon end tag */
 
             p {
               font-size: 0.9em;
@@ -319,7 +319,7 @@ html {
             &:hover p {
               color:$main-color-hover;
             } 
-          }
+          } /* .ArtworkFileInput end tag */
 
           .ArtworkProcessBar {
             height: 0.5em;
@@ -358,8 +358,8 @@ html {
             &:hover {
               background: $main-color-hover;
             }
-          }
-        }
+          } /* .DeleteArtwork end tag */
+        } /* .ArtworkHolder end tag */
 
         .AddReleaseTracks {
 
@@ -394,7 +394,7 @@ html {
               height: 100%;
               background: $main-color;
             }
-          }
+          } /* .TrackProcessBar end tag */
 
           .TrackList {
             min-height: 5em;
@@ -438,11 +438,10 @@ html {
                   }
                 }
               }
-            }
-          }
-
-        }
-      }
+            } /* li end tag */
+          } /* .TrackList end tag */
+        } /* .AddReleaseTracks end tag */
+      } /* .AddReleaseFiles end tag */
 
       .AddReleaseInfo {
         width: 100%;
@@ -482,7 +481,7 @@ html {
             border-radius: 50%;
             border: 2px solid $accent-color;
           }
-        }
+        } /* .EnableRating end tag */
 
         textarea {
           margin-bottom: -0.4em;
@@ -498,7 +497,7 @@ html {
           font-weight: 700;
           text-align: right;
         }
-      }
+      } /* .AddReleaseInfo end tag */
 
       .AddReleaseButtons {
         margin: auto;
@@ -527,9 +526,9 @@ html {
               color: $main-color-hover;
             }
           }
-        }   
-      }
-    }
+        } /* button end tag */
+      } /* .AddReleaseButtons end tag */
+    } /* main.AddRelease/UpdateRelease end tag */
     
     main.NotAvailable{
       @include uppercase;
@@ -540,7 +539,7 @@ html {
       h3 {
         font-weight: 300;
       }
-    }
+    } /* main.NotAvailable end tag */
 
     main.ReleaseLogin {
       @include center-content;
@@ -595,15 +594,15 @@ html {
               background: $accent-color-hover;
               color: $main-color-hover;
             }
-          }
-        }
+          } /* .button end tag */
+        } /* .ReleaseLoginInputs end tag */
         
         .ReleaseLoginBottomContent {
           margin-top: 1.4em;
           text-align: right;
         }
-      }
-    }
+      } /* .ReleaseLoginForm end tag */
+    } /* .ReleaseLogin end tag */
 
     main.Release {
 
@@ -656,8 +655,8 @@ html {
                   margin-left: 0.05em;
                   background: $dark-accent-color;
                 }
-              }
-            }
+              } /* button end tag */
+            } /* .PlayerButtons end tag */
 
             .PlayerTimeline {
               display: flex;
@@ -684,11 +683,11 @@ html {
                   background: $main-color-hover;
                 }
               }
-            }
-          }
+            } /* .PlayerTimeLine end tag */
+          } /* .Player end tag */
 
           ul.Playlist { 
-            margin: 1em 0.2em 0.4em 0.2em;
+            margin: 1em 0em 0.4em 0em;
 
             li {
               padding: 0.5em;
@@ -713,9 +712,9 @@ html {
               &:last-child {
                 border: none;
               }
-            }
+            } /* li end tag */
 
-            .trackIsPlaying {
+            .TrackIsPlaying {
               background: $main-color !important;
               
               button {
@@ -723,10 +722,10 @@ html {
                 font-style: italic;
                 font-weight: 700 !important;
               }
-            }
-          }
-        }
-      }
+            } /* .trackIsPlaying end tag */
+          } /* ul.Playlist end tag */
+        } /* .AudioPlayer end tag */
+      } /* .ReleaseFiles end tag */
 
       .ReleaseInfoFeedback {
         color: $dark-accent-color;
@@ -752,7 +751,7 @@ html {
               margin-left: 0.8em;
               border-bottom: 2px solid $dark-accent-color;
             }
-          }       
+          } /* .ReleaseArtist end tag */  
   
           .ReleaseTitle {
             display: flex;
@@ -772,7 +771,7 @@ html {
               margin-right: 0.8em;
               border-bottom: 2px solid $dark-accent-color;
             }
-          }  
+          } /* .ReleaseTitle end tag */
   
           p {
             min-height: 12em;  
@@ -788,7 +787,7 @@ html {
             font-size: 1.1em;
             font-weight: 700;
           }
-        }
+        } /* .ReleaseInfo end tag */
 
         .ReleaseFeedback {
           position: relative;
@@ -845,8 +844,8 @@ html {
               input[type="radio"]:checked+label { 
                 background: $accent-color; 
               }
-            }
-          }
+            } /* .Rating end tag */
+          } /* .ReleaseFeedback end tag */
 
           .ThankYou {
             @include center-content;
@@ -879,12 +878,11 @@ html {
             button:hover {
               background: white;
               color: black;
-            } 
-            
-          }
-        }
-      }
-    }
+            }   
+          } /* .ThankYou end tag */
+        } /* .ReleaseFeedback end tag */
+      } /* main.ReleaseInfoFeedback end tag */
+    } /* main.Release end tag */
   
     footer {
       height: 15vh;
@@ -909,7 +907,7 @@ html {
           text-decoration: underline;
         }
       }
-    }
+    } /* footer end tag */
   }
 
   #modal {
@@ -963,8 +961,8 @@ html {
               background: black;
             }
           }
-        }
-      }
+        } /* div end tag */
+      } /* .ModalContainer end tag */
 
       .ModalContainer.Add {
         width: 30em;
@@ -995,7 +993,7 @@ html {
           margin-top: 1.5em;
           font-size: 0.9em;
         }
-      } 
-    }
-  }
-}
+      } /* .ModalContainer.Add end tag */
+    } /* .Modal.open end tag */
+  } /* #modal end tag */
+} /* html end tag */
