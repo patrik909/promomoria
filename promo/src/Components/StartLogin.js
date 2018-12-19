@@ -24,7 +24,7 @@ class StartLogin extends Component {
     loginUser = () => {
         if (this.state.loginEmail !== '' && this.state.loginPassword !== '') {
             // If no fields are empty, call fetch/axios:
-            axios.post('http://www.arsenikrecords.se/express/login', {
+            axios.post('api/login', {
                 email: this.state.loginEmail,
                 password: this.state.loginPassword         
             }).then((res) => {

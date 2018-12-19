@@ -43,7 +43,7 @@ class ReleaseContent extends Component {
             this.state.artist !== '' &&
             this.state.feedback !== ''
         ) {
-            axios.post('http://www.arsenikrecords.se/express/add_feedback', {
+            axios.post(`${window.location.origin}/api/add_feedback`, {
                 release_id: this.props.releaseData.id,
                 artist: this.state.artist,
                 feedback: this.state.feedback,
@@ -59,15 +59,15 @@ class ReleaseContent extends Component {
     }
 
     downloadRelease = () => { 
-        // this.props.tracks.map((track, index) => {
-        //     // Arranging the title for track file.
-        //     const trackFileInfo = `${this.props.releaseData.cat_number} ${index+1}.${track.substring(14)}`; 
-        //     // Saving every track for release individually. 
-        //     return saveAs(`http://www.arsenikrecords.se/promomoria/server/uploads/tracks/${track}`, 
-        //     `${trackFileInfo}`);          
-        // });
+        this.props.tracks.map((track, index) => {
+            // Arranging the title for track file.
+            const trackFileInfo = `${this.props.releaseData.cat_number} ${index+1}.${track.substring(14)}`; 
+            // Saving every track for release individually. 
+            return saveAs(`http://localhost:3000/api/tracks/${track}`, 
+            `${trackFileInfo}`);          
+        });
         // Saving the artwork for release.
-        saveAs(`http://www.arsenikrecords.se/promomoria/server/uploads/artwork/${this.props.releaseData.image_file}`, 
+        saveAs(`http://localhost:3000/api/artwork/${this.props.releaseData.image_file}`, 
         `${this.props.releaseData.cat_number} LABEL`);
     }
 
@@ -77,7 +77,7 @@ class ReleaseContent extends Component {
                 <div className="ReleaseFiles">
                     <div className="ReleaseFilesHolder">
                         <div className="ArtworkHolder">
-                            <img src={'http://www.arsenikrecords.se/promomoria/server/uploads/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
+                            <img src={window.location.origin + '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
                         </div>
                         <Audioplayer tracks={this.props.tracks} />
                     </div>

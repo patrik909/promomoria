@@ -20,7 +20,7 @@ class UpdateRelease extends Component {
 
     componentDidMount() {
         let query = `?release_id=${parseInt(this.props.match.params.id, 10)}`
-        axios.get(`http://www.arsenikrecords.se/express/fetch_release${query}`)
+        axios.get(`${window.location.origin}/api/fetch_release${query}`)
         .then((release) => {
             this.setState({
                 releaseId: release.data[0].id,
@@ -36,7 +36,7 @@ class UpdateRelease extends Component {
     }
 
     updateRelease = () => {
-        axios.put('http://www.arsenikrecords.se/express/update_release', {
+        axios.put(window.location.origin + '/api/update_release', {
             release_id: parseInt(this.state.releaseId, 10),
             artist: this.state.releaseArtist,
             title: this.state.releaseTitle,
@@ -109,7 +109,6 @@ class UpdateRelease extends Component {
                             handleRating={this.handleRatingInput}
                             infoTextLength={this.state.releaseInfoText.length}
                             ratingEnabled={this.state.rating}
-
                             setArtist={this.state.releaseArtist}
                             setTitle={this.state.releaseTitle}
                             setCatNr={this.state.releaseCatNr}

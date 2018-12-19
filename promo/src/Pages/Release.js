@@ -15,7 +15,7 @@ class Release extends Component {
 
     componentDidMount(){
         const query = `?release_id=${parseInt(this.props.match.params.id, 10)}`
-        axios.get(`http://www.arsenikrecords.se/express/fetch_release${query}`)
+        axios.get(`${window.location.origin}/api/fetch_release${query}`)
         .then(release => {
             console.log(release)
             if (release.data[0]) {

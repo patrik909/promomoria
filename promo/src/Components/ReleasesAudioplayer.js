@@ -33,7 +33,7 @@ class Feed extends Component {
         // Loading the audio.
         this.audio.load();
         // Sets current time for playing track to state.
-        this.audio.addEventListener("timeupdate", () => {
+        this.audio.addEventListener('timeupdate', () => {
             this.setState({
                 formatedCurrentTime: this.formatTime(this.audio.currentTime.toFixed(0)),
                 currentTime: this.audio.currentTime
@@ -96,7 +96,7 @@ class Feed extends Component {
                     </div>
                 </div>
                 <audio className="hide" ref={audio => { this.audio = audio }} controls preload="auto" controlsList="nodownload" >           
-                    <source src={'http://www.arsenikrecords.se/promomoria/server/uploads/tracks/' + this.state.playTrack} type="audio/mpeg" />              
+                    <source src={window.location.origin +  '/api/tracks/' + this.state.playTrack} type="audio/mpeg" />              
                 </audio>
                 <ul className="Playlist">
                     {

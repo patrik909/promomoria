@@ -41,7 +41,7 @@ class AddRelease extends Component {
             this.state.releaseArtwork !== '' &&
             this.state.releaseTracks !== '' 
         ) {
-            axios.post('http://www.arsenikrecords.se/express/add_release', {
+            axios.post('api/add_release', {
                 user_id: this.state.userId,
                 artist: this.state.releaseArtist,
                 title: this.state.releaseTitle,
@@ -106,14 +106,14 @@ class AddRelease extends Component {
         this.setState({ redirectTo: '/' });
 
         if (this.state.releaseTracks.length) {
-            axios.delete('http://www.arsenikrecords.se/express/cancel_upload', {data: {
+            axios.delete('api/cancel_upload', {data: {
                 file_name: this.state.releaseTracks,
                 upload_folder: 'tracks'
             }});         
         }
 
         if (this.state.releaseArtwork) {
-            axios.delete('http://www.arsenikrecords.se/express/cancel_upload', {data: {
+            axios.delete('api/cancel_upload', {data: {
                 file_name: this.state.releaseArtwork,
                 upload_folder: 'artwork'
             }}); 

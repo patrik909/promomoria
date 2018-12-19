@@ -16,7 +16,6 @@ class Promomoria extends Component {
     state = {
         // Holds the users id when logged in to app.
         loggedInUser: false
-        // loggedInUser: {id: 1, label_name: "Arsenik"}
     }
 
     componentDidMount(){
@@ -27,7 +26,7 @@ class Promomoria extends Component {
 
         if (!releasePage && !updatePage && !feedbackPage) {
             // Run fetch/axios to see if user session is started.
-            axios.get('http://www.arsenikrecords.se/express/').then((res) => {
+            axios.get('api/').then((res) => {
                 console.log(res)
                 if (res.data.success === true) {
                     // If session is started, store necessary user info in object.

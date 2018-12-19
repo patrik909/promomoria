@@ -23,7 +23,7 @@
   "homepage": "http://promomoria.com",
   "proxy": {
     "/api": {
-      "target": "http://www.arsenikrecords.se/express/",
+      "target": "http://localhost:3001/",
       "pathRewrite": {
         "^/api": "/"
       }

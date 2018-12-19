@@ -17,7 +17,7 @@ class AddReleaseTracks extends Component {
         const data = new FormData();
         data.append('track', track, track.name);
             
-        axios.post('http://www.arsenikrecords.se/express/upload_tracks', data, {
+        axios.post('api/upload_tracks', data, {
             onUploadProgress: ProgressEvent => {
                 this.setState({
                     loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
@@ -36,7 +36,7 @@ class AddReleaseTracks extends Component {
 
     removeTrack = event => {
 
-        axios.delete('http://www.arsenikrecords.se/express/cancel_upload', {data: {
+        axios.delete('api/cancel_upload', {data: {
             file_name: event.target.value,
             upload_folder: 'tracks'
         }}); 

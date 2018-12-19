@@ -7,7 +7,7 @@ function Header(props) {
         <header>
             <div>
                 <h1>Promomoria</h1>
-                <h2>{ props.loggedInUser ? ( props.labelName.replace(/ .*/,'') ) : ( 'Welcome' )}</h2>
+                <h2>{props.loggedInUser ? ( props.labelName.replace(/ .*/,'') ) : ( 'Welcome' )}</h2>
             </div>
             <div className="underline"></div>
             {

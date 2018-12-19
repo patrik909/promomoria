@@ -53,7 +53,7 @@ class StartRegister extends Component {
             this.state.newPasswordRepeated === true    
         ) {
             // If no fields is empty create user:
-            axios.post('http://www.arsenikrecords.se/express/add_user', {
+            axios.post('api/add_user', {
                 email: this.state.newEmail,
                 password: this.state.newPassword,
                 label_name: this.state.newLabelName          
@@ -63,13 +63,12 @@ class StartRegister extends Component {
                     this.props.handleStartPage('login', 'Thank you for registering an account, you will get an e-mail from us in the next days.');
                 } else {
                     // Error message returned from express explaining the problem.
-                    console.log(res)
-                    // this.setState({ message: res.data.message});
+                    this.setState({message: res.data.message});
                 }
             });
         } else {
             // Error message if one or more fields is empty.
-            this.setState({ message: 'You have to fill in all the fields correct' });
+            this.setState({message: 'You have to fill in all the fields correct'});
         }
     }
 
