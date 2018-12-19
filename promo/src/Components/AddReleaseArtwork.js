@@ -39,7 +39,7 @@ class AddReleaseArtwork extends Component {
         const data = new FormData();
         data.append('artwork', image, image.name);
 
-        axios.post(window.location.origin + '/api/upload_artwork', data, {
+        axios.post('api/upload_artwork', data, {
             onUploadProgress: ProgressEvent => {
                 this.setState({
                     loaded: (ProgressEvent.loaded / ProgressEvent.total*100),

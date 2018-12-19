@@ -17,6 +17,7 @@ class Release extends Component {
         const query = `?release_id=${parseInt(this.props.match.params.id, 10)}`
         axios.get(`${window.location.origin}/api/fetch_release${query}`)
         .then(release => {
+            console.log(release)
             if (release.data[0]) {
                 // Response gives you a string of tracks, which is separated by '|'.
                 const tracks = release.data[0].files.split('|');

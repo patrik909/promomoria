@@ -12,7 +12,7 @@ function FeedbackFeed(props) {
                             <p>{feedback.date.replace(/-/g, '/').substring(0,9)}</p>
                         </div>
                         <p className="FeedbackContent">{feedback.feedback}</p>
-                        <p className="FeedbackRating">Rating: {feedback.rating}</p>
+                        {feedback.rating ? (<p className="FeedbackRating">Rating: {feedback.rating}</p>) : ( null )} 
                     </li>
                 )
             })}

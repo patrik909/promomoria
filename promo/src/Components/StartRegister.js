@@ -63,12 +63,12 @@ class StartRegister extends Component {
                     this.props.handleStartPage('login', 'Thank you for registering an account, you will get an e-mail from us in the next days.');
                 } else {
                     // Error message returned from express explaining the problem.
-                    this.setState({ message: res.data.message});
+                    this.setState({message: res.data.message});
                 }
             });
         } else {
             // Error message if one or more fields is empty.
-            this.setState({ message: 'You have to fill in all the fields correct' });
+            this.setState({message: 'You have to fill in all the fields correct'});
         }
     }
 

@@ -230,8 +230,14 @@ app.post('/add_release', (req, res) => {
 // Add feedback
 app.post('/add_feedback', (req, res) => {
     const feedbackData = req.body;
+
     // Adding feedback information to database.
-    connection.query(`insert into feedback(release_id,artist_name,feedback,rating) values('${feedbackData.release_id}','${feedbackData.artist}','${feedbackData.feedback}','${feedbackData.rating}')`);
+    connection.query(
+        `insert into feedback(release_id,artist_name,feedback,rating) values('${feedbackData.release_id}','${feedbackData.artist}','${feedbackData.feedback}','${feedbackData.rating}')`, 
+        (error, results, fields) => { 
+            res.send('done');
+        }
+    );
 });
 
 /* ---- HANDLING UPDATES ---- */

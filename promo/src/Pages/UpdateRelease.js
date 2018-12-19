@@ -109,7 +109,6 @@ class UpdateRelease extends Component {
                             handleRating={this.handleRatingInput}
                             infoTextLength={this.state.releaseInfoText.length}
                             ratingEnabled={this.state.rating}
-
                             setArtist={this.state.releaseArtist}
                             setTitle={this.state.releaseTitle}
                             setCatNr={this.state.releaseCatNr}

@@ -33,7 +33,7 @@ class Feed extends Component {
         // Loading the audio.
         this.audio.load();
         // Sets current time for playing track to state.
-        this.audio.addEventListener("timeupdate", () => {
+        this.audio.addEventListener('timeupdate', () => {
             this.setState({
                 formatedCurrentTime: this.formatTime(this.audio.currentTime.toFixed(0)),
                 currentTime: this.audio.currentTime

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import history from '../history';
 import StartFeed from '../Components/StartFeed.js';
 import StartLogin from '../Components/StartLogin.js';
 import StartRegister from '../Components/StartRegister.js';
@@ -8,6 +9,10 @@ class Start extends Component {
     state = {
         page: 'login', // Login-page is default.
         message: ''
+    }
+
+    componentDidMount() {
+        history.push('/');
     }
 
     handleLogin = user => {

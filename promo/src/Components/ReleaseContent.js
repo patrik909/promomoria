@@ -43,7 +43,7 @@ class ReleaseContent extends Component {
             this.state.artist !== '' &&
             this.state.feedback !== ''
         ) {
-            axios.post(window.location.origin + '/api/add_feedback', {
+            axios.post(`${window.location.origin}/api/add_feedback`, {
                 release_id: this.props.releaseData.id,
                 artist: this.state.artist,
                 feedback: this.state.feedback,
@@ -77,7 +77,7 @@ class ReleaseContent extends Component {
                 <div className="ReleaseFiles">
                     <div className="ReleaseFilesHolder">
                         <div className="ArtworkHolder">
-                            <img src={window.location.origin +  '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
+                            <img src={window.location.origin + '/api/artwork/' + this.props.releaseData.image_file} alt={'Artwork'}  />
                         </div>
                         <Audioplayer tracks={this.props.tracks} />
                     </div>
