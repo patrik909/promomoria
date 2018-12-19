@@ -20,14 +20,15 @@ class Feed extends Component {
 
     fetchAllReleases = () => {
         let query = `?table=releases&column=user_id&search_value=${this.props.userId}&order_by=id`;
-        axios.get(`api/fetch_all${query}`)
+        axios.get(`http://www.arsenikrecords.se/express/fetch_all${query}`)
         .then(releases => {
+            console.log(releases)
             this.setState({releases : releases.data});
         });     
     }
 
     removeRelease = () => { 
-        axios.delete('api/delete_release', {data: {release_id: this.state.releaseToDelete.id}})
+        axios.delete('http://www.arsenikrecords.se/express/delete_release', {data: {release_id: this.state.releaseToDelete.id}})
         .then(this.fetchAllReleases());
         // After removing release & fetched releases, clean state and close modal.
         this.closeModal();     
@@ -40,7 +41,7 @@ class Feed extends Component {
             // If status is 0, activate.
             status = 1
         }
-        axios.put('api/update_release', {
+        axios.put('http://www.arsenikrecords.se/express/update_release', {
             release_id: event.target.id,
             release_status: status
         }).then(this.fetchAllReleases());  
@@ -51,12 +52,12 @@ class Feed extends Component {
     }
 
     updateRelease = event => {
-        history.push('/Update/' + event.target.value)
+        history.push('/Update/' + event.target.value);
     }
 
     openModal = event => {
         let query = `?release_id=${event.target.value}`
-        axios.get(`api/fetch_release${query}`)
+        axios.get(`http://www.arsenikrecords.se/express/fetch_release${query}`)
         .then(release => {
             // Set useful data to object and open modal.
             this.setState({
@@ -87,7 +88,7 @@ class Feed extends Component {
                         this.state.releases ? ( 
                             this.state.releases.map(release => {
                                 return ( 
-                                    <li key={release.id}>
+                                    <li key={release.id} className={release.activated === 0 ? ( 'deactivated' ) : ( null )}>
                                         <div className="ReleaseFeedInfo">
                                             {release.cat_number}: {release.artist} - {release.title}
                                         </div>   

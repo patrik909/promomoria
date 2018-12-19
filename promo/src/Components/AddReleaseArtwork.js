@@ -39,7 +39,7 @@ class AddReleaseArtwork extends Component {
         const data = new FormData();
         data.append('artwork', image, image.name);
 
-        axios.post(window.location.origin + '/api/upload_artwork', data, {
+        axios.post('http://www.arsenikrecords.se/express/upload_artwork', data, {
             onUploadProgress: ProgressEvent => {
                 this.setState({
                     loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
@@ -54,7 +54,7 @@ class AddReleaseArtwork extends Component {
     }
 
     removeArtwork = () => {
-        axios.delete('api/cancel_upload', {data: {
+        axios.delete('http://www.arsenikrecords.se/express/cancel_upload', {data: {
             file_name: this.state.imageName,
             upload_folder: 'artwork'
         }}); 
@@ -94,7 +94,7 @@ class AddReleaseArtwork extends Component {
                         </div>
                     ) : (
                         <div className="ArtworkImage" style={{width: '100%', height: '100%', overflow:'hidden', position:'relative'}}>
-                            <img src={this.state.imageName ? window.location.origin + '/api/artwork/' + this.state.imageName : null} alt="Release Artwork" style={{width: '100%', position: ' absolute'}}/>
+                            <img src={this.state.imageName ? 'http://www.arsenikrecords.se/promomoria/server/uploads/artwork/' + this.state.imageName : null} alt="Release Artwork" style={{width: '100%', position: ' absolute'}}/>
                             <Button 
                                 className={'DeleteArtwork'}
                                 innerText={'X'}

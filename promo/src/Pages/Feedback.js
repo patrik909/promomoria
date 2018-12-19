@@ -16,7 +16,7 @@ class Feedback extends Component {
         let query = `?table=feedback&column=release_id&search_value=${releaseId}&order_by=date`;
 
         // Fetch all feedback for for release by url param.
-        axios.get(`${window.location.origin}/api/fetch_all${query}`)
+        axios.get(`http://www.arsenikrecords.se/express/fetch_all${query}`)
         .then((feedback) => {
             // Setting feedback data and amount of feedback to state.
             this.setState({ 

@@ -10,7 +10,7 @@ import axios from 'axios';
 class AddRelease extends Component {
 
     state = {
-         userId: '',
+        userId: '',
         releaseArtist: '',
         releaseTitle: '',
         releaseCatNr: '',
@@ -18,8 +18,8 @@ class AddRelease extends Component {
         releaseDate: '',
         releasePassword: '',
         releaseInfoText: '',
-        releaseArtwork: '',
-        releaseTracks: [],
+        releaseArtwork: 'lol',
+        releaseTracks: ['lol'],
         redirectTo: false,
         cancelUpload: false,
         modal: 'close',
@@ -30,7 +30,7 @@ class AddRelease extends Component {
         this.setState({ userId: this.props.user.id });
     }
 
-    addRelease = event => { 
+    addRelease = () => { 
         if(
             this.state.userId !== '' &&
             this.state.releaseArtist !== '' &&
@@ -41,7 +41,7 @@ class AddRelease extends Component {
             this.state.releaseArtwork !== '' &&
             this.state.releaseTracks !== '' 
         ) {
-            axios.post('api/add_release', {
+            axios.post('http://www.arsenikrecords.se/express/add_release', {
                 user_id: this.state.userId,
                 artist: this.state.releaseArtist,
                 title: this.state.releaseTitle,
@@ -63,34 +63,34 @@ class AddRelease extends Component {
     }
 
     handleArtistInput = event => {
-        this.setState({ releaseArtist: event.target.value });
+        this.setState({releaseArtist: event.target.value});
     }
 
     handleTitleInput = event => {
-        this.setState({ releaseTitle: event.target.value });
+        this.setState({releaseTitle: event.target.value});
     }
 
     handleCatNrInput = event => {
-        this.setState({ releaseCatNr: event.target.value });
+        this.setState({releaseCatNr: event.target.value});
     }
 
     handlePasswordInput = event => {
-        this.setState({ releasePassword: event.target.value });
+        this.setState({releasePassword: event.target.value});
     }
 
     handleInfoTextInput = event => {
-        this.setState({ releaseInfoText: event.target.value});
+        this.setState({releaseInfoText: event.target.value});
     }
 
     handleReleaseDateInput = event => {
-        this.setState({ releaseDate: event.target.value});
+        this.setState({releaseDate: event.target.value});
     }
 
     handleRatingInput = event => {
         if (this.state.rating === false) {
-            this.setState({ rating: event.target.value });
+            this.setState({rating: event.target.value});
         } else {
-            this.setState({ rating: false });
+            this.setState({rating: false});
         }
     }
 
@@ -106,14 +106,14 @@ class AddRelease extends Component {
         this.setState({ redirectTo: '/' });
 
         if (this.state.releaseTracks.length) {
-            axios.delete('api/cancel_upload', {data: {
+            axios.delete('http://www.arsenikrecords.se/express/cancel_upload', {data: {
                 file_name: this.state.releaseTracks,
                 upload_folder: 'tracks'
             }});         
         }
 
         if (this.state.releaseArtwork) {
-            axios.delete('api/cancel_upload', {data: {
+            axios.delete('http://www.arsenikrecords.se/express/cancel_upload', {data: {
                 file_name: this.state.releaseArtwork,
                 upload_folder: 'artwork'
             }}); 

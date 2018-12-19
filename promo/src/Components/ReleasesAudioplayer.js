@@ -96,7 +96,7 @@ class Feed extends Component {
                     </div>
                 </div>
                 <audio className="hide" ref={audio => { this.audio = audio }} controls preload="auto" controlsList="nodownload" >           
-                    <source src={window.location.origin +  '/api/tracks/' + this.state.playTrack} type="audio/mpeg" />              
+                    <source src={'http://www.arsenikrecords.se/promomoria/server/uploads/tracks/' + this.state.playTrack} type="audio/mpeg" />              
                 </audio>
                 <ul className="Playlist">
                     {

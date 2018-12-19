@@ -63,7 +63,8 @@ class StartRegister extends Component {
                     this.props.handleStartPage('login', 'Thank you for registering an account, you will get an e-mail from us in the next days.');
                 } else {
                     // Error message returned from express explaining the problem.
-                    this.setState({ message: res.data.message});
+                    console.log(res)
+                    // this.setState({ message: res.data.message});
                 }
             });
         } else {
