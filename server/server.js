@@ -72,7 +72,7 @@ app.post('/login', (req, res) => {
     connection.query(
         `SELECT id, label_name, password, active FROM users WHERE email = '${email}'`, 
         (error, results, fields) => { 
-            if (results) {
+            if (results.length !== 0) {
                 // Bcrypt is matching the password against the result-hashed-password.
                 bcrypt.compare(password, results[0].password, function (err, result) {
                     if (result === true) {
@@ -133,7 +133,7 @@ app.post('/add_user', (req, res) => {
             if (!results.length) {
                 // If email doesnt exist, add user to database.
                 connection.query(
-                    `insert into users(password,email,label_name,active) values('${hashedPassword}','${email}','${labelName}','0')`, 
+                    `insert into users(password,email,label_name,active) values('${hashedPassword}','${email}','${labelName}','1')`, 
                     (error, results) => { 
                         if (results) {
                             const mailOptions = {
@@ -200,7 +200,7 @@ app.get('/fetch_all', (req, res) => {
 app.get('/fetch_release', (req, res) => {
     const releaseId = req.query.release_id;
         connection.query(
-        `SELECT distinct u.id AS userId, u.label_name AS label_name, r.*, a.image_file, (select GROUP_CONCAT(track_file SEPARATOR '|') from tracks where release_id = r.id ORDER BY track_index) AS files FROM releases r LEFT JOIN users u ON u.id=r.user_id LEFT JOIN artwork a ON a.release_id LEFT JOIN tracks t ON t.release_id = r.id WHERE r.id=${releaseId}`,
+        `SELECT distinct u.id AS userId, u.label_name AS label_name, r.*, a.image_file, (select GROUP_CONCAT(track_file SEPARATOR '|') from tracks where release_id = r.id ORDER BY track_index) AS files FROM releases r LEFT JOIN users u ON u.id=r.user_id LEFT JOIN artwork a ON a.release_id = r.id WHERE r.id=${releaseId}`,
         (error, results, fields) => { res.send(results); }
     );
 });
@@ -286,7 +286,7 @@ app.delete('/delete_release', (req, res) => {
         }
     );
     // Deletes data from database.
-    connection.query(`DELETE r.*, t.*, a.* FROM releases r LEFT JOIN tracks t ON t.release_id = r.id LEFT JOIN artwork a ON a.release_id WHERE r.id = ${releaseId}`);
+    connection.query(`DELETE r.*, t.*, a.*, f.* FROM releases r LEFT JOIN tracks t ON t.release_id = r.id LEFT JOIN artwork a ON a.release_id = r.id LEFT JOIN feedback f ON f.release_id = r.id WHERE r.id = ${releaseId}`);
 });
 
 // Delete files for release that is not submitted.
