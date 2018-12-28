@@ -11,20 +11,21 @@ class AddReleaseArtwork extends Component {
     }
 
     checkArtwork = event => {
-        
+        // Image file.      
         let image = event.target.files[0];
 
-        if (event.target.files && event.target.files[0]) {
-    
-            var reader = new FileReader();
+        if (event.target.files && event.target.files[0]) { 
+            let reader = new FileReader();
             reader.onload = (e) => {
-                var img = new Image();
+                let img = new Image();
                 img.onload = () => {
-                    if ( img.width > 1399 && img.height > 1399 && img.width === img.height ) {
-                    this.addArtwork(image);
-                    this.setState({ message: '' })
+                    // If statement to check that the image is square and 1400x1400px.
+                    if (img.width > 1399 && img.height > 1399 && img.width === img.height) {
+                        this.addArtwork(image);
+                        this.setState({message: ''});
                     } else {
-                    this.setState({ message: 'Invalid artwork!' })
+                        // Error message if image not matching the requirements.
+                        this.setState({message: 'Invalid artwork!'});
                     }
                 };
                 img.src = reader.result;
@@ -35,12 +36,13 @@ class AddReleaseArtwork extends Component {
     }
 
     addArtwork = image => {
-
         const data = new FormData();
         data.append('artwork', image, image.name);
 
+        // Send and upload artwork to server.
         axios.post('api/upload_artwork', data, {
             onUploadProgress: ProgressEvent => {
+                // Process bar.
                 this.setState({
                     loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
                 });
@@ -49,6 +51,7 @@ class AddReleaseArtwork extends Component {
             this.setState({
                 imageName: response.data.imageName
             });
+             // Sending data to parent.
             this.props.handleArtworkName(this.state.imageName)
         });
     }
@@ -58,10 +61,12 @@ class AddReleaseArtwork extends Component {
             file_name: this.state.imageName,
             upload_folder: 'artwork'
         }}); 
+        // Reset process bar and empty imageName state.
         this.setState({
             imageName: '',
             loaded: 0
         });
+        // Sending data to parent.
         this.props.handleArtworkName(this.state.imageName)
     }
 
@@ -76,11 +81,13 @@ class AddReleaseArtwork extends Component {
                             <label htmlFor="uploadArtworkInput" className="ArtworkFileInput">
                                 <div className="ArtworkPlaceholderIcon"><div className="CenterHole"></div></div>
                                 <p>Choose artwork file</p>
-                                {this.state.message ? (
-                                    <p className="InvalidArtwork">{this.state.message}</p>
-                                ) : ( 
-                                    null 
-                                )}
+                                {
+                                    this.state.message ? (
+                                        <p className="InvalidArtwork">{this.state.message}</p>
+                                    ) : ( 
+                                        null 
+                                    )
+                                }
                             </label>
                             <input 
                                 type="file" 
@@ -89,7 +96,7 @@ class AddReleaseArtwork extends Component {
                                 onChange={this.checkArtwork} 
                             />
                             <div className="ArtworkProcessBar">
-                                <div className="FileProcessed" style={{ width : Math.round(this.state.loaded, 2) + '%' }}></div> 
+                                <div className="FileProcessed" style={{width : Math.round(this.state.loaded, 2) + '%'}}></div> 
                             </div>
                         </div>
                     ) : (

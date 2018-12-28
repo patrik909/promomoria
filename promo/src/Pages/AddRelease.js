@@ -18,8 +18,8 @@ class AddRelease extends Component {
         releaseDate: '',
         releasePassword: '',
         releaseInfoText: '',
-        releaseArtwork: 'lol',
-        releaseTracks: ['lol'],
+        releaseArtwork: '',
+        releaseTracks: [],
         redirectTo: false,
         cancelUpload: false,
         modal: 'close',
@@ -27,7 +27,8 @@ class AddRelease extends Component {
     }
 
     componentDidMount() {
-        this.setState({ userId: this.props.user.id });
+        // Is used to connect uploaded releaes to the users id.
+        this.setState({userId: this.props.user.id});
     }
 
     addRelease = () => { 
@@ -41,6 +42,7 @@ class AddRelease extends Component {
             this.state.releaseArtwork !== '' &&
             this.state.releaseTracks !== '' 
         ) {
+            // If not empty, add release.
             axios.post('api/add_release', {
                 user_id: this.state.userId,
                 artist: this.state.releaseArtist,
@@ -54,58 +56,72 @@ class AddRelease extends Component {
                 tracks: this.state.releaseTracks,
                     
             }).then((res) => {
+                // Open modal and use the new release id to make user able to view release-page.
                 this.setState({
                     modal: 'open',
                     addedReleaseId: res.data.insertId
-                })
+                });
             });
         }
     }
 
     handleArtistInput = event => {
+        // Handling artist input event.
         this.setState({releaseArtist: event.target.value});
     }
 
     handleTitleInput = event => {
+        // Handling title input event.
         this.setState({releaseTitle: event.target.value});
     }
 
     handleCatNrInput = event => {
+        // Handling catalogue number input event.
         this.setState({releaseCatNr: event.target.value});
     }
 
     handlePasswordInput = event => {
+        // Handling release-password input event.
         this.setState({releasePassword: event.target.value});
     }
 
     handleInfoTextInput = event => {
+        // Handling info text input event.
         this.setState({releaseInfoText: event.target.value});
     }
 
     handleReleaseDateInput = event => {
+        // Handling release date input event.
         this.setState({releaseDate: event.target.value});
     }
 
     handleRatingInput = event => {
+        // Handling artist input event.
         if (this.state.rating === false) {
+            // Enable rating
             this.setState({rating: event.target.value});
         } else {
+            // If enabled, disable.
             this.setState({rating: false});
         }
     }
 
     handleArtworkName = artworkName => {
-        this.setState({releaseArtwork: artworkName})
+        // Handling artwork name.
+        this.setState({releaseArtwork: artworkName});
     }
 
     handleTrackNames = trackNames => {
-        this.setState({releaseTracks: trackNames})
+        // Handling track names.
+        this.setState({releaseTracks: trackNames});
     }
 
     back = () => {
+        // Redirect user to startpage.
         this.setState({ redirectTo: '/' });
 
         if (this.state.releaseTracks.length) {
+            // If tracks have been uplaoded, delete.
             axios.delete('api/cancel_upload', {data: {
                 file_name: this.state.releaseTracks,
                 upload_folder: 'tracks'
@@ -113,6 +129,7 @@ class AddRelease extends Component {
         }
 
         if (this.state.releaseArtwork) {
+            // If artwork have been uplaoded, delete.
             axios.delete('api/cancel_upload', {data: {
                 file_name: this.state.releaseArtwork,
                 upload_folder: 'artwork'
@@ -121,15 +138,16 @@ class AddRelease extends Component {
     }
 
     redirect = () => {
+        // Redirect user to startpage.
         this.setState({redirectTo: '/'});
     }
 
     viewRelease = () => {
+        // Go to new release.
         this.setState({redirectTo: '/Release/' + this.state.addedReleaseId});
     }
 
     render() {
-
         if (this.state.redirectTo !== false ) {
             return <Redirect to={this.state.redirectTo}/>;
         } else {

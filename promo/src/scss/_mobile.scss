@@ -152,7 +152,7 @@ html {
       ul {
         li {
           .ReleaseFeedInfo {
-            margin-bottom: 0.2em;
+            margin-bottom: 0.3em;
           }
 
           button {
@@ -193,13 +193,13 @@ html {
           .FeedbackArtistDate {
             display: flex;
             align-items: center;
-            margin-bottom: 0.8em;
+            margin-bottom: 1em;
             font-size: 0.8em;
             white-space: nowrap;
 
             p {
               @include uppercase;
-              font-size: 1.1em;
+              font-size: 1em;
               font-weight: 700;
             }
 
@@ -211,12 +211,12 @@ html {
           } /* .FeedbackArtistDate end tag */
 
           .FeedbackContent {
-            margin-bottom: 0.4em;
             font-size: 0.7em;
             font-style: italic;
           }
 
           .FeedbackRating {
+            margin-top: 0.8em;
             font-size: 0.8em;
             font-weight: 700;
             text-align: right;

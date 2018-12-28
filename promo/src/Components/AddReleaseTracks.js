@@ -12,7 +12,7 @@ class AddReleaseTracks extends Component {
     }
 
     addTrack = event => {
-        this.setState({ loaded: 0 })
+        this.setState({loaded: 0})
         let track = event.target.files[0];
         const data = new FormData();
         data.append('track', track, track.name);
@@ -35,7 +35,6 @@ class AddReleaseTracks extends Component {
     }
 
     removeTrack = event => {
-
         axios.delete('api/cancel_upload', {data: {
             file_name: event.target.value,
             upload_folder: 'tracks'
@@ -45,7 +44,7 @@ class AddReleaseTracks extends Component {
         const filteredTrackNames = trackNames.filter(track => {
             return track !== event.target.value;
         });
-        this.setState({ trackNames: filteredTrackNames });
+        this.setState({trackNames: filteredTrackNames});
         this.props.handleTrackNames(this.state.trackNames)
     }
 
@@ -58,7 +57,7 @@ class AddReleaseTracks extends Component {
         trackNames.splice(currentIndex, 1);
         trackNames.splice(newIndex, 0, trackName)
 
-        this.setState({ trackNames });
+        this.setState({trackNames});
         this.props.handleTrackNames(trackNames)
     }
 
@@ -71,7 +70,7 @@ class AddReleaseTracks extends Component {
         trackNames.splice(currentIndex, 1);
         trackNames.splice(newIndex, 0, trackName);
         
-        this.setState({ trackNames });
+        this.setState({trackNames});
         this.props.handleTrackNames(trackNames)
     }
 
@@ -99,19 +98,21 @@ class AddReleaseTracks extends Component {
                     {
                         this.state.trackNames.length !== 0 ? (
                             <div>
-                                {this.state.trackNames.map((track, index) => {
-                                    // const trackName = track.substring(14);
-                                    return (
-                                        <li key={index}>
-                                            <p>{index + 1 + '. ' + track}</p>
-                                            <div>
-                                            <button onClick={this.moveDownTrack} value={track} id={index}> <img src={UpIcon} alt="Up Icon" /> </button>
-                                            <button onClick={this.moveUpTrack} value={track} id={index}> <img src={DownIcon} alt="Down Icon" /> </button>
-                                            <button onClick={this.removeTrack} value={track}>Delete</button>
-                                            </div>
-                                        </li>
-                                    )
-                                })}
+                                {
+                                    this.state.trackNames.map((track, index) => {
+                                        const trackName = track.substring(14);
+                                        return (
+                                            <li key={index}>
+                                                <p>{index + 1 + '. ' + trackName}</p>
+                                                <div>
+                                                <button onClick={this.moveDownTrack} value={track} id={index}> <img src={UpIcon} alt="Up Icon" /> </button>
+                                                <button onClick={this.moveUpTrack} value={track} id={index}> <img src={DownIcon} alt="Down Icon" /> </button>
+                                                <button onClick={this.removeTrack} value={track}>Delete</button>
+                                                </div>
+                                            </li>
+                                        )
+                                    })
+                                }
                             </div>
                         ) : (
                             null

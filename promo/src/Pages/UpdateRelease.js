@@ -19,7 +19,9 @@ class UpdateRelease extends Component {
     }
 
     componentDidMount() {
-        let query = `?release_id=${parseInt(this.props.match.params.id, 10)}`
+        let query = `?release_id=${parseInt(this.props.match.params.id, 10)}`;
+
+        // Get all information related to the release.
         axios.get(`${window.location.origin}/api/fetch_release${query}`)
         .then((release) => {
             this.setState({
@@ -47,49 +49,59 @@ class UpdateRelease extends Component {
             info_text: this.state.releaseInfoText
         }).then(success => {
             if (success.data === true) {
+                // If release successfully is updated, redirect.
                 this.redirect();
             }
         });
     }
 
     handleArtistInput = event => {
+        // Handling artist input event.
         this.setState({releaseArtist: event.target.value});
     }
 
     handleTitleInput = event => {
+        // Handling title input event.
         this.setState({releaseTitle: event.target.value});
     }
 
     handleCatNrInput = event => {
+        // Handling catalogue number input event.
         this.setState({releaseCatNr: event.target.value});
     }
 
     handlePasswordInput = event => {
+        // Handling release-password input event.
         this.setState({releasePassword: event.target.value});
     }
 
     handleInfoTextInput = event => {
+        // Handling info text input event.
         this.setState({releaseInfoText: event.target.value});
     }
 
     handleReleaseDateInput = event => {
+        // Handling release-date input event.
         this.setState({releaseDate: event.target.value});
     }
 
     handleRatingInput = event => {
+        // Handling artist input event.
         if (this.state.rating === false) {
+            // Enable rating
             this.setState({rating: event.target.value});
         } else {
+            // If enabled, disable.
             this.setState({rating: false});
         }
     }
 
     redirect = () => {
+        // Redirect user to startpage.
         this.setState({redirectTo: '/'});
     }
 
     render() {
-
         if (this.state.redirectTo !== false) {
             return <Redirect to={this.state.redirectTo}/>;
         } else if (this.state.releaseId !== '') {
