@@ -85,8 +85,7 @@ class AddReleaseTracks extends Component {
                             <label><p>Wait til track is uplaoded to add a new one</p></label> 
                         ) 
                     }
-                    <p className="helper">Name the tracks as you want to display them</p>
-                    <div className="TrackProcessBar"><div className="FileProcessed" style={{width : Math.round(this.state.loaded,2) + '%'}}></div> </div>
+                    <div className="TrackProcessBar"><div className="FileProcessed" style={{width : Math.round(this.state.loaded,2) + '%'}}>{Math.round(this.state.loaded,2) + '%'}</div> </div>
                     <input 
                         type="file" 
                         className="hideInputFile" 

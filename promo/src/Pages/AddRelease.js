@@ -144,7 +144,7 @@ class AddRelease extends Component {
 
     viewRelease = () => {
         // Go to new release.
-        this.setState({redirectTo: '/Release/' + this.state.addedReleaseId});
+        window.open(window.location.origin + '/Release/' + this.state.addedReleaseId, '_blank');
     }
 
     render() {

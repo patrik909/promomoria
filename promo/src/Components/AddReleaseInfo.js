@@ -35,7 +35,7 @@ function AddReleaseInfo(props) {
                     onChange={props.handleReleaseDate}
                 />
                 <div className="EnableRating half-width flex">
-                    <p>Enable rating:</p>
+                    <p>Enable rating</p>
                     <label htmlFor="enable-rating" style={{background : props.ratingEnabled ? ( 'rgb(213, 32, 32)' ) : ( null )}}></label>
                     <input type="checkbox" className="hide" id="enable-rating" value={1} onClick={props.handleRating} />
                 </div>

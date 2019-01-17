@@ -394,8 +394,11 @@ html {
             border: 1px solid $main-color;
 
             .FileProcessed {
+              display: flex;
+              align-items: center;
               height: 100%;
               background: $main-color;
+              font-size: 1rem;
             }
           } /* .TrackProcessBar end tag */
 
