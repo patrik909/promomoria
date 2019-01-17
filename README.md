@@ -1,4 +1,4 @@
-#PROMOMORIA
+# PROMOMORIA
 
 ## Get started with your local application
 
@@ -16,8 +16,8 @@ promomoria/server/uploads/tracks
 
 Add an js file to promomoria/server/ named mailCredentials.js and include this code: <br>
 module.exports = { <br>
-	USER: Your mail here, <br>
-	PASS: Your password here <br>
+  USER: Your mail here, <br>
+  PASS: Your password here <br>
 };
 
 If your not using gmail, change line 27 (server/server.js).<br>
