@@ -1,4 +1,4 @@
-# PROMOMORIA
+#PROMOMORIA
 
 ## Get started with your local application
 
@@ -11,8 +11,8 @@ cd promomoria
 Set up your local server and open myPhpAdmin. create an database named promomoria.
 You can find db.sql in promomoria/server/, the file includes all the tables and columns for the database.
 
-Create subfolders in promomoria/server/:
-promomoria/server/uploads/artwork
+Create subfolders in promomoria/server/: <br>
+promomoria/server/uploads/artwork <br>
 promomoria/server/uploads/tracks
 
 Add an js file to promomoria/server/ named mailCredentials.js and include this code:
