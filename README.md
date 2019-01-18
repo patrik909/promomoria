@@ -5,7 +5,7 @@
 ### Server side
 
 ```
-git clone https://github.com/patrik909/promomoria.git <br>
+git clone https://github.com/patrik909/promomoria.git
 cd promomoria
 ```
 
